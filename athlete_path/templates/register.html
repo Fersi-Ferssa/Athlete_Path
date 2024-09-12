@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+</head>
+<body>
+    <h2>Register</h2>
+    <form method="POST">
+        {% csrf_token %}
+
+        <!-- Username -->
+        <div>
+            <label for="{{ form.username.id_for_label }}">Username:</label>
+            {{ form.username }}
+            <small>Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</small>
+        </div>
+
+        <!-- Email -->
+        <div>
+            <label for="{{ form.email.id_for_label }}">Email:</label>
+            {{ form.email }}
+        </div>
+
+        <!-- Name -->
+        <div>
+            <label for="{{ form.name.id_for_label }}">Name:</label>
+            {{ form.name }}
+        </div>
+
+        <!-- First Last Name -->
+        <div>
+            <label for="{{ form.first_last_name.id_for_label }}">First Last Name:</label>
+            {{ form.first_last_name }}
+        </div>
+
+        <!-- Date of Birth -->
+        <div>
+            <label for="{{ form.date_of_birth.id_for_label }}">Date of Birth:</label>
+            {{ form.date_of_birth }}
+        </div>
+
+        <!-- Country -->
+        <div>
+            <label for="{{ form.country.id_for_label }}">Country:</label>
+            {{ form.country }}
+        </div>
+
+        <!-- Sex -->
+        <div>
+            <label for="{{ form.sex.id_for_label }}">Sex:</label>
+            {{ form.sex }}
+        </div>
+
+        <!-- Role -->
+        <div>
+            <label for="{{ form.role.id_for_label }}">Role:</label>
+            {{ form.role }}
+        </div>
+
+        <!-- Password -->
+        <div>
+            <label for="{{ form.password1.id_for_label }}">Password:</label>
+            {{ form.password1 }}
+            <ul>
+                <li>Your password can’t be too similar to your other personal information.</li>
+                <li>Your password must contain at least 8 characters.</li>
+                <li>Your password can’t be a commonly used password.</li>
+                <li>Your password can’t be entirely numeric.</li>
+            </ul>
+        </div>
+
+        <!-- Password Confirmation -->
+        <div>
+            <label for="{{ form.password2.id_for_label }}">Password confirmation:</label>
+            {{ form.password2 }}
+            <small>Enter the same password as before, for verification.</small>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit">Register</button>
+    </form>
+</body>
+</html>
