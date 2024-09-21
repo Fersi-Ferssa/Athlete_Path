@@ -17,8 +17,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+# Lista de patrones URL que asignan rutas a vistas y otros archivos URL
 urlpatterns = [
+    # URL para la administración de Django
     path('admin/', admin.site.urls),
+    
+    # Incluir URLs relacionadas con autenticación (login, logout, etc.) que Django maneja por defecto
     path('accounts/', include('django.contrib.auth.urls')),
+    
+    # Incluir las URLs definidas en la aplicación 'users' (por ejemplo, para registro, login, home, etc.)
     path('users/', include('users.urls')),
 ]

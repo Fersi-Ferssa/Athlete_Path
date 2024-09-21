@@ -1,12 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <!-- Configuración del documento HTML -->
+    <meta charset="UTF-8"> <!-- Define el conjunto de caracteres del documento como UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Ajusta el ancho del viewport para pantallas móviles -->
+    <title>Inicio</title> <!-- Título que aparecerá en la pestaña del navegador -->
 </head>
 <body>
-    <h1>Welcome to Athletes Path</h1>
-    <p>You are logged in as {{ username }}</p>
+    <!-- Encabezado principal de la página -->
+    <h1>Bienvenido a la Plataforma de Atletas</h1>
+    
+    <!-- Muestra el nombre de usuario del usuario que ha iniciado sesión -->
+    <!-- La variable {{ username }} es proporcionada por la vista en Django -->
+    <p>Has iniciado sesión como {{ username }}</p>
 </body>
 </html>
