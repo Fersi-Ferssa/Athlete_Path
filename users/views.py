@@ -2,14 +2,13 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import UserRegisterForm, ProfileForm, AthleteRecordForm
+from .forms import UserRegisterForm, ProfileForm, AthleteRecordForm, TeamNameForm
 from .models import Profile, AthleteRecord
-
 
 @login_required
 def home(request):
     profile = request.user.profile
-    # Redirigir según el tipo de perfil (Atleta o Coach)
+    # Redirigir según el tipo de perfil
     if profile.is_coach():
         return redirect('coach_dashboard')
     elif profile.is_athlete():
@@ -52,10 +51,31 @@ def user_login(request):
 @login_required
 def coach_dashboard(request):
     profile = request.user.profile
+
     # Verificar si es coach y obtener los atletas del mismo equipo
     if profile.is_coach():
-        athletes = Profile.objects.filter(olympic_country=profile.olympic_country, discipline=profile.discipline, branch=profile.branch)
-        return render(request, 'coach_dashboard.html', {'profile': profile, 'athletes': athletes})
+        athletes = Profile.objects.filter(
+            olympic_country=profile.olympic_country, 
+            discipline=profile.discipline, 
+            branch=profile.branch
+        ).exclude(user=request.user)  # Excluimos al coach de la lista de atletas
+
+        # Procesar el formulario para editar el nombre del equipo
+        if request.method == 'POST':
+            team_form = TeamNameForm(request.POST, instance=profile)
+            if team_form.is_valid():
+                team_form.save()
+                messages.success(request, 'El nombre del equipo ha sido actualizado.')
+                return redirect('coach_dashboard')
+        else:
+            team_form = TeamNameForm(instance=profile)
+
+        return render(request, 'coach_dashboard.html', {
+            'profile': profile,
+            'athletes': athletes,
+            'team_form': team_form  # Pasar el formulario al template
+        })
+
     return redirect('home')
 
 @login_required

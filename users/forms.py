@@ -38,11 +38,19 @@ class ProfileForm(forms.ModelForm):
         model = Profile
         fields = ['olympic_country', 'discipline', 'branch', 'team_name']
 
-# Formulario para la evaluación de los atletas por los entrenadores
+# Formulario para que el coach pueda editar el nombre del equipo
+class TeamNameForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['team_name']
+        labels = {
+            'team_name': 'Nombre del Equipo',
+        }
+
 class AthleteRecordForm(forms.ModelForm):
     class Meta:
         model = AthleteRecord
-        fields = ['athlete', 'difficulty', 'execution', 'notes']
+        fields = ['difficulty', 'execution', 'notes']
         labels = {
             'difficulty': 'Dificultad',
             'execution': 'Ejecución',

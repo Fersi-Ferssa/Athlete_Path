@@ -2,8 +2,12 @@ from django.db import models
 from django.contrib.auth.models import User
 from .countries import COUNTRY_CHOICES  # La lista de países ya existente
 
-# Modelo de perfil que extiende al usuario de Django
 class Profile(models.Model):
+    ROLE_CHOICES = [
+        ('Athlete', 'Atleta'),
+        ('Coach', 'Coach'),
+    ]
+
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     olympic_country = models.CharField(max_length=2, choices=COUNTRY_CHOICES)
     discipline = models.CharField(max_length=100, choices=[('Gymnastics', 'Gimnasia Artística')])
@@ -12,18 +16,17 @@ class Profile(models.Model):
         ('Balance Beam', 'Barra de Equilibrio'),
         ('Floor', 'Piso')
     ])
-    team_name = models.CharField(max_length=100, blank=True, null=True)  # Solo para coaches
-    role = models.CharField(max_length=50, choices=[('Athlete', 'Atleta'), ('Coach', 'Entrenador')])  # El rol debe ser guardado
+    team_name = models.CharField(max_length=100, blank=True, null=True)  # Editable solo por coaches
+    role = models.CharField(max_length=50, choices=ROLE_CHOICES, default='Athlete')
 
     def __str__(self):
-        return f'{self.user.username} - {self.role}'
-
-    # Métodos para verificar si el perfil es de un atleta o coach
-    def is_athlete(self):
-        return self.role == 'Athlete'
+        return f'{self.user.username} - {self.discipline} ({self.branch})'
 
     def is_coach(self):
         return self.role == 'Coach'
+
+    def is_athlete(self):
+        return self.role == 'Athlete'
 
 # Modelo para los récords confidenciales de los atletas
 class AthleteRecord(models.Model):
@@ -36,3 +39,4 @@ class AthleteRecord(models.Model):
 
     def __str__(self):
         return f"Record for {self.athlete.user.username} by {self.coach.user.username}"
+

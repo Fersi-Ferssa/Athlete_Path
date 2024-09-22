@@ -8,6 +8,14 @@
 <body>
     <h1>Bienvenido, {{ profile.user.username }} (Coach)</h1>
     <h2>Equipo: {{ profile.team_name }}</h2>
+
+    <!-- Formulario para editar el nombre del equipo -->
+    <form method="POST">
+        {% csrf_token %}
+        {{ team_form.as_p }}
+        <button type="submit">Actualizar Nombre del Equipo</button>
+    </form>
+
     <h3>Atletas en tu equipo:</h3>
     <ul>
         {% for athlete in athletes %}
