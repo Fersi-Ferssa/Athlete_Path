@@ -5,30 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Usuario</title>
     <script>
-        // Esta función se ejecuta cuando el usuario cambia su selección de rol
+        // Función que oculta o muestra los campos según el rol seleccionado
         function toggleFieldsBasedOnRole() {
             var role = document.getElementById("id_role").value;
             var teamField = document.getElementById("team_name_field");
             var profileFields = document.getElementById("profile_fields");
 
-            // Si el rol es 'Coach', mostramos el campo para "Nombre del equipo"
+            // Si el rol es 'Coach', mostrar nombre del equipo
             if (role === 'Coach') {
                 profileFields.style.display = "block";
                 teamField.style.display = "block";
-            } 
-            // Si el rol es 'Athlete', ocultamos el campo de "Nombre del equipo"
+            }
+            // Si es 'Atleta', ocultar nombre del equipo pero mostrar los demás campos
             else if (role === 'Athlete') {
                 profileFields.style.display = "block";
                 teamField.style.display = "none";
-            } 
-            // En caso de que no haya seleccionado rol, ocultamos los campos
+            }
+            // Si no hay rol seleccionado, ocultar todos los campos
             else {
                 profileFields.style.display = "none";
                 teamField.style.display = "none";
             }
         }
 
-        // Ejecutar la función al cargar la página para verificar la selección inicial
+        // Ejecutar la función al cargar la página
         window.onload = function() {
             toggleFieldsBasedOnRole();
         };
@@ -37,15 +37,15 @@
 <body>
     <h2>Registro</h2>
     <form method="POST">
-        {% csrf_token %}
-        
+        {% csrf_token %}  <!-- Asegúrate de incluir el token CSRF -->
+
         <!-- Información básica del usuario -->
         <fieldset>
             <legend>Datos de Usuario</legend>
             {{ user_form.as_p }}
         </fieldset>
-        
-        <!-- Información adicional del perfil, oculto por defecto hasta que se seleccione el rol -->
+
+        <!-- Información adicional del perfil, inicialmente oculta -->
         <fieldset id="profile_fields" style="display: none;">
             <legend>Datos del Perfil</legend>
             <div>
@@ -65,7 +65,7 @@
         <button type="submit">Registrarse</button>
     </form>
 
-    <!-- Script que escucha el cambio de selección en el campo de rol -->
+    <!-- Ejecutar la función cuando el usuario cambia el rol -->
     <script>
         document.getElementById("id_role").addEventListener("change", toggleFieldsBasedOnRole);
     </script>
