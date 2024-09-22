@@ -1,89 +1,73 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <!-- Encabezado HTML con metadatos esenciales -->
-    <meta charset="UTF-8"> <!-- Codificación de caracteres UTF-8 -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Configura el viewport para ser responsive -->
-    <title>Registro de Usuario</title> <!-- Título de la página -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Usuario</title>
+    <script>
+        // Esta función se ejecuta cuando el usuario cambia su selección de rol
+        function toggleFieldsBasedOnRole() {
+            var role = document.getElementById("id_role").value;
+            var teamField = document.getElementById("team_name_field");
+            var profileFields = document.getElementById("profile_fields");
+
+            // Si el rol es 'Coach', mostramos el campo para "Nombre del equipo"
+            if (role === 'Coach') {
+                profileFields.style.display = "block";
+                teamField.style.display = "block";
+            } 
+            // Si el rol es 'Athlete', ocultamos el campo de "Nombre del equipo"
+            else if (role === 'Athlete') {
+                profileFields.style.display = "block";
+                teamField.style.display = "none";
+            } 
+            // En caso de que no haya seleccionado rol, ocultamos los campos
+            else {
+                profileFields.style.display = "none";
+                teamField.style.display = "none";
+            }
+        }
+
+        // Ejecutar la función al cargar la página para verificar la selección inicial
+        window.onload = function() {
+            toggleFieldsBasedOnRole();
+        };
+    </script>
 </head>
 <body>
     <h2>Registro</h2>
-
-    <!-- Formulario de registro que envía los datos por método POST -->
     <form method="POST">
-        {% csrf_token %} <!-- Token de seguridad CSRF para evitar ataques cross-site request forgery -->
+        {% csrf_token %}
+        
+        <!-- Información básica del usuario -->
+        <fieldset>
+            <legend>Datos de Usuario</legend>
+            {{ user_form.as_p }}
+        </fieldset>
+        
+        <!-- Información adicional del perfil, oculto por defecto hasta que se seleccione el rol -->
+        <fieldset id="profile_fields" style="display: none;">
+            <legend>Datos del Perfil</legend>
+            <div>
+                {{ profile_form.olympic_country.label_tag }} {{ profile_form.olympic_country }}
+            </div>
+            <div>
+                {{ profile_form.discipline.label_tag }} {{ profile_form.discipline }}
+            </div>
+            <div>
+                {{ profile_form.branch.label_tag }} {{ profile_form.branch }}
+            </div>
+            <div id="team_name_field" style="display: none;">
+                {{ profile_form.team_name.label_tag }} {{ profile_form.team_name }}
+            </div>
+        </fieldset>
 
-        <!-- Campo para el nombre de usuario -->
-        <div>
-            <label for="{{ user_form.username.id_for_label }}">Nombre de usuario:</label>
-            {{ user_form.username }} <!-- Input generado por Django para el nombre de usuario -->
-            <small>Requerido. Máximo 150 caracteres. Solo letras, dígitos y @/./+/-/_.</small>
-        </div>
-
-        <!-- Campo para el correo electrónico -->
-        <div>
-            <label for="{{ user_form.email.id_for_label }}">Correo electrónico:</label>
-            {{ user_form.email }} <!-- Input generado por Django para el correo electrónico -->
-        </div>
-
-        <!-- Campo para el nombre personal -->
-        <div>
-            <label for="{{ user_form.name.id_for_label }}">Nombre:</label>
-            {{ user_form.name }} <!-- Input generado por Django para el nombre del usuario -->
-        </div>
-
-        <!-- Campo para el primer apellido -->
-        <div>
-            <label for="{{ profile_form.first_last_name.id_for_label }}">Primer apellido:</label>
-            {{ profile_form.first_last_name }} <!-- Input generado por Django para el apellido del usuario -->
-        </div>
-
-        <!-- Campo para la fecha de nacimiento -->
-        <div>
-            <label for="{{ profile_form.date_of_birth.id_for_label }}">Fecha de nacimiento:</label>
-            {{ profile_form.date_of_birth }} <!-- Input generado por Django para la fecha de nacimiento -->
-        </div>
-
-        <!-- Campo para seleccionar el país (con una lista desplegable) -->
-        <div>
-            <label for="{{ user_form.country.id_for_label }}">País:</label>
-            {{ user_form.country }} <!-- Lista desplegable generada por Django para seleccionar un país -->
-        </div>
-
-        <!-- Campo para seleccionar el sexo -->
-        <div>
-            <label for="{{ profile_form.sex.id_for_label }}">Sexo:</label>
-            {{ profile_form.sex }} <!-- Selector generado por Django para elegir el sexo (masculino o femenino) -->
-        </div>
-
-        <!-- Campo para seleccionar el rol (atleta o entrenador) -->
-        <div>
-            <label for="{{ profile_form.role.id_for_label }}">Rol:</label>
-            {{ profile_form.role }} <!-- Selector generado por Django para elegir el rol (Atleta o Coach) -->
-        </div>
-
-        <!-- Campo para la contraseña -->
-        <div>
-            <label for="{{ user_form.password1.id_for_label }}">Contraseña:</label>
-            {{ user_form.password1 }} <!-- Input generado por Django para ingresar la contraseña -->
-            <ul>
-                <!-- Lista de requisitos de la contraseña -->
-                <li>La contraseña no puede ser similar a tu información personal.</li>
-                <li>Debe tener al menos 8 caracteres.</li>
-                <li>No puede ser una contraseña comúnmente usada.</li>
-                <li>No puede ser completamente numérica.</li>
-            </ul>
-        </div>
-
-        <!-- Campo para la confirmación de la contraseña -->
-        <div>
-            <label for="{{ user_form.password2.id_for_label }}">Confirmación de contraseña:</label>
-            {{ user_form.password2 }} <!-- Input generado por Django para confirmar la contraseña -->
-            <small>Introduce la misma contraseña que antes, para verificar.</small>
-        </div>
-
-        <!-- Botón para enviar el formulario de registro -->
         <button type="submit">Registrarse</button>
     </form>
+
+    <!-- Script que escucha el cambio de selección en el campo de rol -->
+    <script>
+        document.getElementById("id_role").addEventListener("change", toggleFieldsBasedOnRole);
+    </script>
 </body>
 </html>

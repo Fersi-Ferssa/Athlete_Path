@@ -1,22 +1,51 @@
-from django.db import models  # Importa el módulo de modelos de Django
-from django.contrib.auth.models import User  # Importa el modelo de usuario predeterminado de Django
-from .countries import COUNTRY_CHOICES  # Importa la lista de opciones de países desde el archivo countries.py
+from django.db import models
+from django.contrib.auth.models import User
+from .countries import COUNTRY_CHOICES  # La lista de países ya existente
 
-# Define un modelo llamado Profile, que extiende la información del usuario.
+# Modelo de perfil que extiende al usuario de Django
+''''
 class Profile(models.Model):
-    # Relación uno a uno con el modelo User de Django, lo que significa que cada usuario tendrá un único perfil asociado.
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    # Campo para almacenar el primer apellido del usuario, limitado a un máximo de 150 caracteres.
-    first_last_name = models.CharField(max_length=150)
-    # Campo para almacenar la fecha de nacimiento del usuario.
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
     date_of_birth = models.DateField()
-    # Campo para almacenar el país, utilizando un código de país de 2 caracteres y las opciones definidas en COUNTRY_CHOICES.
     country = models.CharField(max_length=2, choices=COUNTRY_CHOICES)
-    # Campo para almacenar el sexo del usuario, con opciones limitadas a 'Male' o 'Female'.
-    sex = models.CharField(max_length=10, choices=[('Male', 'Male'), ('Female', 'Female')])
-    # Campo para definir el rol del usuario, ya sea 'Athlete' o 'Coach'.
-    role = models.CharField(max_length=50, choices=[('Athlete', 'Athlete'), ('Coach', 'Coach')])
+    sex = models.CharField(max_length=10, choices=[('Male', 'Masculino'), ('Female', 'Femenino')])
+    role = models.CharField(max_length=50, choices=[('Athlete', 'Atleta'), ('Coach', 'Entrenador')])
+    olympic_country = models.CharField(max_length=2, choices=COUNTRY_CHOICES)
+    discipline = models.CharField(max_length=50, choices=[('Gymnastics', 'Gimnasia Artística')])
+    branch = models.CharField(max_length=50, choices=[
+        ('Uneven Bars', 'Barras Asimétricas'),
+        ('Balance Beam', 'Barra de Equilibrio'),
+        ('Floor', 'Piso')
+    ])
+    team_name = models.CharField(max_length=100, blank=True, null=True)  # Solo se usa si el usuario es 'Coach'
 
-    # Método para representar el objeto Profile como una cadena, que devolverá el nombre de usuario relacionado con el perfil.
     def __str__(self):
         return f'{self.user.username} Profile'
+'''
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    olympic_country = models.CharField(max_length=2, choices=COUNTRY_CHOICES)
+    discipline = models.CharField(max_length=100, choices=[('Gymnastics', 'Gimnasia Artística')])
+    branch = models.CharField(max_length=100, choices=[
+        ('Uneven Bars', 'Barras Asimétricas'),
+        ('Balance Beam', 'Barra de Equilibrio'),
+        ('Floor', 'Piso')
+    ])
+    team_name = models.CharField(max_length=100, blank=True, null=True)  # Solo para coaches
+
+    def __str__(self):
+        return f'{self.user.username} - {self.discipline} ({self.branch})'
+
+# Modelo para los récords confidenciales de los atletas
+class AthleteRecord(models.Model):
+    athlete = models.ForeignKey(Profile, on_delete=models.CASCADE, limit_choices_to={'role': 'Atleta'}, related_name='athlete_records')
+    coach = models.ForeignKey(Profile, on_delete=models.CASCADE, limit_choices_to={'role': 'Entrenador'}, related_name='coach_records')
+    difficulty = models.IntegerField(choices=[(i, i) for i in range(1, 8)])  # Dificultad del 1 al 7
+    execution = models.IntegerField(choices=[(i, i) for i in range(1, 11)])  # Ejecución del 1 al 10
+    notes = models.TextField(max_length=250, blank=True, null=True)  # Notas del entrenador (opcional)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Record for {self.athlete.first_name} {self.athlete.last_name} by {self.coach.first_name} {self.coach.last_name}"

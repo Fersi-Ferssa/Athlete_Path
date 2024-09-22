@@ -1,0 +1,6 @@
+<h2>Añadir Récord de Atleta</h2>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Añadir Récord</button>
+</form>
