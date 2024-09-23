@@ -40,8 +40,9 @@ INSTALLED_APPS = [
     'users' #Registrar la aplicación users. 
 ]
 
-LOGIN_REDIRECT_URL = 'home'  # Redirigir a la página de inicio después de loguearse
-LOGOUT_REDIRECT_URL = 'login'  # Redirigir a la página de login después de cerrar sesión
+LOGIN_URL = 'login'
+LOGOUT_REDIRECT_URL = 'login'
+LOGIN_REDIRECT_URL = 'home' 
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

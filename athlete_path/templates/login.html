@@ -104,7 +104,8 @@
 
         <!-- Formulario de inicio de sesión -->
         <form method="POST" action="{% url 'login' %}">
-            {% csrf_token %} <!-- Token de seguridad para evitar ataques CSRF -->
+            {% csrf_token %}
+            {{ form.as_p }} <!-- Token de seguridad para evitar ataques CSRF -->
             <div>
                 <label for="username">Nombre de usuario:</label>
                 <input type="text" name="username" required> <!-- Campo para el nombre de usuario -->
@@ -127,6 +128,7 @@
         <div class="create-account">
             <p>¿No tienes una cuenta? <a href="{% url 'register' %}">Regístrate aquí</a></p>
         </div>
+        <p>¿Olvidaste tu contraseña? <a href="{% url 'password_reset' %}">Haz clic aquí para restablecerla</a></p>
     </div>
 </body>
 </html>

@@ -1,3 +1,4 @@
+<!-- athlete_profile.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -10,5 +11,42 @@
     <h2>País Olímpico: {{ profile.olympic_country }}</h2>
     <h3>Disciplina: {{ profile.discipline }}</h3>
     <h3>Rama: {{ profile.branch }}</h3>
+    <h3>Equipo Actual: {{ team_name }}</h3>
+
+    <h2>Historial de Evaluaciones</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Fecha de Evaluación</th>
+                <th>Coach</th>
+                <th>Dificultad</th>
+                <th>Ejecución</th>
+                <th>Puntuación Total</th>
+                <th>Notas del Coach</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in records %}
+            <tr>
+                <td>{{ record.evaluation_date }}</td>
+                <td>{{ record.coach.user.username }}</td>
+                <td>{{ record.difficulty }}</td>
+                <td>{{ record.execution }}</td>
+                <td>{{ record.total_score }}</td>
+                <td>{{ record.notes|default:"N/A" }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6">No hay evaluaciones registradas.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <form method="POST" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit">Cerrar sesión</button>
+    </form>
+    <a href="{% url 'password_change' %}">Cambiar Contraseña</a>
 </body>
 </html>

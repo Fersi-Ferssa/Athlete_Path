@@ -22,5 +22,11 @@
         <li>{{ athlete.user.username }} - {{ athlete.branch }} - <a href="{% url 'evaluate_athlete' athlete.id %}">Evaluar</a></li>
         {% endfor %}
     </ul>
+
+    <form method="POST" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit">Cerrar sesión</button>
+    </form>
+    <a href="{% url 'password_change' %}">Cambiar Contraseña</a>
 </body>
 </html>

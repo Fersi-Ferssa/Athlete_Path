@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth import update_session_auth_hash  # Corrección de la importación
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.contrib import messages
-from .forms import UserRegisterForm, ProfileForm, AthleteRecordForm, TeamNameForm
+from .forms import UserRegisterForm, ProfileForm, AthleteRecordForm, TeamNameForm, ResetPasswordForm
 from .models import Profile, AthleteRecord
 
 @login_required
@@ -26,6 +28,7 @@ def register(request):
             profile = profile_form.save(commit=False)
             profile.user = user
             profile.role = user_form.cleaned_data['role']  # Asignar el rol seleccionado en el formulario
+            profile.security_answer = user_form.cleaned_data['security_answer']  # Guardar la respuesta de seguridad
             profile.save()
             return redirect('login')
         else:
@@ -81,10 +84,23 @@ def coach_dashboard(request):
 @login_required
 def athlete_profile(request):
     profile = request.user.profile
-    # Mostrar el perfil del atleta y sus registros
+    
+    # Verificamos que el usuario es un atleta
     if profile.is_athlete():
-        records = AthleteRecord.objects.filter(athlete=profile)
-        return render(request, 'athlete_profile.html', {'profile': profile, 'records': records})
+        # Obtenemos todas las evaluaciones del atleta ordenadas por la fecha de evaluación
+        records = AthleteRecord.objects.filter(athlete=profile).select_related('coach').order_by('-evaluation_date')
+        
+        # Tomamos el equipo actual desde el perfil del coach más reciente
+        if records.exists():
+            team_name = records.first().coach.team_name  # Obtenemos el último equipo asignado por el coach
+        else:
+            team_name = "Sin equipo asignado"
+
+        return render(request, 'athlete_profile.html', {
+            'profile': profile,
+            'records': records,
+            'team_name': team_name,
+        })
     return redirect('home')
 
 @login_required
@@ -103,6 +119,7 @@ def add_record(request):
 @login_required
 def evaluate_athlete(request, athlete_id):
     athlete = get_object_or_404(Profile, id=athlete_id, role='Athlete')
+
     # Solo permitir evaluación por coaches del mismo equipo
     if request.user.profile.is_coach() and athlete.olympic_country == request.user.profile.olympic_country:
         if request.method == 'POST':
@@ -111,6 +128,7 @@ def evaluate_athlete(request, athlete_id):
                 record = form.save(commit=False)
                 record.athlete = athlete
                 record.coach = request.user.profile
+                record.evaluation_date = form.cleaned_data['evaluation_date']  # Guardar la fecha de evaluación
                 record.save()
                 messages.success(request, 'Evaluación guardada con éxito.')
                 return redirect('coach_dashboard')
@@ -126,3 +144,41 @@ def view_athlete_records(request, athlete_id):
     athlete = get_object_or_404(Profile, id=athlete_id, role='Athlete')
     records = AthleteRecord.objects.filter(athlete=athlete)
     return render(request, 'view_records.html', {'athlete': athlete, 'records': records})
+
+def password_reset_view(request):
+    if request.method == 'POST':
+        form = ResetPasswordForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            security_answer = form.cleaned_data['security_answer']
+            new_password = form.cleaned_data['new_password']
+
+            try:
+                # Verificar si el usuario existe
+                user = User.objects.get(username=username)
+                
+                # Verificar si el perfil existe
+                profile = getattr(user, 'profile', None)
+
+                if profile is None:
+                    messages.error(request, 'No se encontró un perfil asociado a este usuario.')
+                    return render(request, 'reset_password.html', {'form': form})
+
+                # Verificar la respuesta de seguridad
+                if profile.security_answer and profile.security_answer.lower() == security_answer.lower():
+                    user.set_password(new_password)
+                    user.save()
+
+                    # Mantener la sesión activa con la nueva contraseña
+                    update_session_auth_hash(request, user)
+
+                    messages.success(request, 'La contraseña ha sido cambiada exitosamente.')
+                    return redirect('login')  # Redirigir al login después del cambio de contraseña
+                else:
+                    messages.error(request, 'La respuesta de seguridad es incorrecta.')
+            except User.DoesNotExist:
+                messages.error(request, 'El nombre de usuario no existe.')
+    else:
+        form = ResetPasswordForm()
+
+    return render(request, 'reset_password.html', {'form': form})

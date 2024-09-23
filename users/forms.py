@@ -13,10 +13,11 @@ class UserRegisterForm(UserCreationForm):
     country = forms.ChoiceField(choices=COUNTRY_CHOICES, label="País de nacimiento")
     sex = forms.ChoiceField(choices=[('Male', 'Masculino'), ('Female', 'Femenino')], label="Sexo")
     role = forms.ChoiceField(choices=[('Athlete', 'Atleta'), ('Coach', 'Entrenador')], label="Rol")
+    security_answer = forms.CharField(max_length=255, label="¿Cuál es el nombre de tu primera mascota?")
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'first_name', 'last_name', 'date_of_birth', 'country', 'sex', 'role', 'password1', 'password2']
+        fields = ['username', 'email', 'first_name', 'last_name', 'date_of_birth', 'country', 'sex', 'role', 'password1', 'password2', 'security_answer']
         labels = {
             'username': "Nombre de usuario",
             'password1': "Contraseña",
@@ -48,11 +49,23 @@ class TeamNameForm(forms.ModelForm):
         }
 
 class AthleteRecordForm(forms.ModelForm):
+    evaluation_date = forms.DateField(
+        widget=forms.SelectDateWidget(years=range(2000, 2025)),  # Rango de años para seleccionar
+        label="Fecha de Evaluación",
+        required=True
+    )
+
     class Meta:
         model = AthleteRecord
-        fields = ['difficulty', 'execution', 'notes']
+        fields = ['difficulty', 'execution', 'notes', 'evaluation_date']  # Añadimos el nuevo campo
         labels = {
             'difficulty': 'Dificultad',
             'execution': 'Ejecución',
             'notes': 'Notas',
+            'evaluation_date': 'Fecha de Evaluación',
         }
+
+class ResetPasswordForm(forms.Form):
+    username = forms.CharField(max_length=150, label="Nombre de usuario")
+    security_answer = forms.CharField(max_length=100, label="Nombre de tu primera mascota")
+    new_password = forms.CharField(widget=forms.PasswordInput, label="Nueva contraseña")

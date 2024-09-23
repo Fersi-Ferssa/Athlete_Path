@@ -18,6 +18,7 @@ class Profile(models.Model):
     ])
     team_name = models.CharField(max_length=100, blank=True, null=True)  # Editable solo por coaches
     role = models.CharField(max_length=50, choices=ROLE_CHOICES, default='Athlete')
+    security_answer = models.CharField(max_length=255, blank=False, default='No contestada')
 
     def __str__(self):
         return f'{self.user.username} - {self.discipline} ({self.branch})'
@@ -36,7 +37,10 @@ class AthleteRecord(models.Model):
     execution = models.IntegerField(choices=[(i, i) for i in range(1, 11)])  # Ejecución del 1 al 10
     notes = models.TextField(max_length=250, blank=True, null=True)  # Notas del entrenador (opcional)
     created_at = models.DateTimeField(auto_now_add=True)
+    evaluation_date = models.DateField(null=True, blank=True)  # Nuevo campo para la fecha de evaluación
 
     def __str__(self):
         return f"Record for {self.athlete.user.username} by {self.coach.user.username}"
-
+    
+    def total_score(self):
+        return self.difficulty + self.execution  # Suma de dificultad y ejecución
