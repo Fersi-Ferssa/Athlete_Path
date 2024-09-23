@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparación de Atletas</title>
+</head>
+<body>
+    <h1>Comparación de Atletas</h1>
+
+    <h2>Tu Perfil</h2>
+    <p>Nombre: {{ athlete.user.first_name }} {{ athlete.user.last_name }}</p>
+    <p>Disciplina: {{ athlete.discipline }}</p>
+    <p>Rama: {{ athlete.branch }}</p>
+    <p>Dificultad: {{ athlete_record.difficulty }}</p>
+    <p>Ejecución: {{ athlete_record.execution }}</p>
+    <p>Puntuación: {{ athlete_record.total_score }}</p>
+    <p>Fecha de Evaluación: {{ athlete_record.evaluation_date }}</p>
+
+    <h2>Comparación con: {{ compare_athlete.user.first_name }} {{ compare_athlete.user.last_name }}</h2>
+    <p>Nombre: {{ compare_athlete.user.first_name }} {{ compare_athlete.user.last_name }}</p>
+    <p>Disciplina: {{ compare_athlete.discipline }}</p>
+    <p>Rama: {{ compare_athlete.branch }}</p>
+    <p>Dificultad: {{ compare_record.difficulty }}</p>
+    <p>Ejecución: {{ compare_record.execution }}</p>
+    <p>Puntuación: {{ compare_record.total_score }}</p>
+    <p>Fecha de Evaluación: {{ compare_record.evaluation_date }}</p>
+</body>
+</html>

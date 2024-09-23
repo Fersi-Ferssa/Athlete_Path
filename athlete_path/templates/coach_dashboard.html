@@ -6,7 +6,7 @@
     <title>Dashboard del Coach</title>
 </head>
 <body>
-    <h1>Bienvenido, {{ profile.user.username }} (Coach)</h1>
+    <h1>Bienvenido, {{ profile.user.first_name }} {{ profile.user.last_name }} (Coach)</h1>
     <h2>Equipo: {{ profile.team_name }}</h2>
 
     <!-- Formulario para editar el nombre del equipo -->
@@ -19,7 +19,7 @@
     <h3>Atletas en tu equipo:</h3>
     <ul>
         {% for athlete in athletes %}
-        <li>{{ athlete.user.username }} - {{ athlete.branch }} - <a href="{% url 'evaluate_athlete' athlete.id %}">Evaluar</a></li>
+        <li>{{ athlete.user.first_name }} {{ athlete.user.last_name }} - {{ athlete.branch }} - <a href="{% url 'evaluate_athlete' athlete.id %}">Evaluar</a></li>
         {% endfor %}
     </ul>
 

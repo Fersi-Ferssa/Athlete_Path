@@ -14,4 +14,7 @@ urlpatterns = [
     path('profile/athlete/', views.athlete_profile, name='athlete_profile'),
     path('add_record/', views.add_record, name='add_record'),
     path('evaluate/athlete/<int:athlete_id>/', views.evaluate_athlete, name='evaluate_athlete'),
+    path('comparison_options/', views.comparison_options, name='comparison_options'),
+    path('compare_personal_records/', views.compare_personal_records, name='compare_personal_records'),
+    path('compare_with_athletes/', views.compare_with_athletes, name='compare_with_athletes'),
 ]

@@ -12,6 +12,6 @@
     
     <!-- Muestra el nombre de usuario del usuario que ha iniciado sesión -->
     <!-- La variable {{ username }} es proporcionada por la vista en Django -->
-    <p>Has iniciado sesión como {{ username }}</p>
+    <p>Has iniciado sesión como {{ user.first_name }} {{ user.last_name }}</p>
 </body>
 </html>

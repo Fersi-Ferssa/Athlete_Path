@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparar Atletas</title>
+</head>
+<body>
+    <h1>Comparación con {{ compare_athlete.user.first_name }} {{ compare_athlete.user.last_name }}</h1>
+
+    <h2>Tu Récord:</h2>
+    <p>Fecha: {{ athlete_record.evaluation_date }}</p>
+    <p>Dificultad: {{ athlete_record.difficulty }}</p>
+    <p>Ejecución: {{ athlete_record.execution }}</p>
+    <p>Puntuación Total: {{ athlete_record.total_score }}</p>
+
+    <h2>Récord de {{ compare_athlete.user.first_name }} {{ compare_athlete.user.last_name }}:</h2>
+    <p>Fecha: {{ compare_record.evaluation_date }}</p>
+    <p>Dificultad: {{ compare_record.difficulty }}</p>
+    <p>Ejecución: {{ compare_record.execution }}</p>
+    <p>Puntuación Total: {{ compare_record.total_score }}</p>
+
+    <br></br>
+    <!-- Mostrar la diferencia de puntos -->
+    <h3>Diferencia de Puntuación: </h3>
+    <!-- Mostrar mensaje si es empate -->
+    {% if score_difference == 0 %}
+        <p>¡Es un empate!</p>
+    {% elif score_difference > 0 %}
+        <p>Tienes una ventaja de {{ score_difference }} puntos sobre {{ compare_athlete.user.first_name }}.</p>
+    {% else %}
+        <p>{{ compare_athlete.user.first_name }} tiene una ventaja de {{ abs_difference }} puntos sobre ti.</p>
+    {% endif %}
+</body>
+</html>

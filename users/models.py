@@ -40,7 +40,7 @@ class AthleteRecord(models.Model):
     evaluation_date = models.DateField(null=True, blank=True)  # Nuevo campo para la fecha de evaluación
 
     def __str__(self):
-        return f"Record for {self.athlete.user.username} by {self.coach.user.username}"
+        return f"Evaluación de {self.athlete.user.username} por {self.coach.user.username}"
     
     def total_score(self):
         return self.difficulty + self.execution  # Suma de dificultad y ejecución

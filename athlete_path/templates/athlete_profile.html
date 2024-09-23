@@ -1,4 +1,3 @@
-<!-- athlete_profile.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -7,46 +6,53 @@
     <title>Perfil del Atleta</title>
 </head>
 <body>
-    <h1>Bienvenido, {{ profile.user.username }} (Atleta)</h1>
-    <h2>País Olímpico: {{ profile.olympic_country }}</h2>
-    <h3>Disciplina: {{ profile.discipline }}</h3>
-    <h3>Rama: {{ profile.branch }}</h3>
-    <h3>Equipo Actual: {{ team_name }}</h3>
+    <h1>Bienvenido, {{ profile.user.first_name }} {{ profile.user.last_name }} (Atleta)</h1>
+    <h2>Disciplina: {{ profile.discipline }}</h2>
+    <h2>Rama: {{ profile.branch }}</h2>
+    <h2>Nombre del Equipo: {{ team_name }}</h2>
 
-    <h2>Historial de Evaluaciones</h2>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Fecha de Evaluación</th>
-                <th>Coach</th>
-                <th>Dificultad</th>
-                <th>Ejecución</th>
-                <th>Puntuación Total</th>
-                <th>Notas del Coach</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for record in records %}
-            <tr>
-                <td>{{ record.evaluation_date }}</td>
-                <td>{{ record.coach.user.username }}</td>
-                <td>{{ record.difficulty }}</td>
-                <td>{{ record.execution }}</td>
-                <td>{{ record.total_score }}</td>
-                <td>{{ record.notes|default:"N/A" }}</td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="6">No hay evaluaciones registradas.</td>
-            </tr>
+    <!-- Última evaluación del atleta -->
+    <h3>Última Evaluación</h3>
+    {% if latest_record %}
+        <p>Dificultad: {{ latest_record.difficulty }}</p>
+        <p>Ejecución: {{ latest_record.execution }}</p>
+        <p>Puntuación: {{ latest_record.total_score }}</p>
+        <p>Fecha de Evaluación: {{ latest_record.evaluation_date }}</p>
+    {% else %}
+        <p>No tienes evaluaciones disponibles aún.</p>
+    {% endif %}
+
+    <!-- Mostrar el mejor atleta de las Olimpiadas 2024 -->
+    {% if champion %}
+        <h3>Ganadora Olimpiadas París 2024: {{ champion.name }}</h3>
+        <p>País: {{ champion.country }}</p>
+        <p>Dificultad: {{ champion.difficulty }}</p>
+        <p>Ejecución: {{ champion.execution }}</p>
+        <p>Puntuación: {{ champion.score }}</p>
+    {% endif %}
+
+    <!-- Lista de mejores atletas para compararse -->
+    <h3>Mejores Atletas</h3>
+    <ul>
+        {% if best_athletes %}
+            {% for athlete in best_athletes %}
+            <li>
+                <strong>{{ athlete.user.first_name }} {{ athlete.user.last_name }}</strong> - {{ athlete.olympic_country }} - Puntuación: {{ athlete.max_score }}
+            </li>            
             {% endfor %}
-        </tbody>
-    </table>
+        {% else %}
+            <li>No hay más atletas para mostrar.</li>
+        {% endif %}
+    </ul>    
 
+    <h3>Opciones de Comparación</h3>
+    <a href="{% url 'comparison_options' %}">Ir a la Comparación</a>
+    <br></br>
     <form method="POST" action="{% url 'logout' %}">
         {% csrf_token %}
         <button type="submit">Cerrar sesión</button>
     </form>
+    <br> </br>
     <a href="{% url 'password_change' %}">Cambiar Contraseña</a>
 </body>
 </html>

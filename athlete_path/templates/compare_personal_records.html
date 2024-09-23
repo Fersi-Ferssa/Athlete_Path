@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <h2>Comparación de Récords Personales</h2>
+</head>
+<body>
+    <h2>Selecciona dos récords diferentes para comparar</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="record_1">Primer Récord:</label>
+        <select name="record_1" required>
+            <option value="">Seleccionar</option>
+            {% for record in records %}
+            <option value="{{ record.id }}">{{ record.evaluation_date }} - Dificultad: {{ record.difficulty }}, Ejecución: {{ record.execution }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <label for="record_2">Segundo Récord:</label>
+        <select name="record_2" required>
+            <option value="">Seleccionar</option>
+            {% for record in records %}
+            <option value="{{ record.id }}">{{ record.evaluation_date }} - Dificultad: {{ record.difficulty }}, Ejecución: {{ record.execution }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <button type="submit">Comparar</button>
+    </form>
+</body>
+</html>

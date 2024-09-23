@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparar Atletas</title>
+</head>
+<body>
+    <h1>Selecciona un atleta para comparar</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        <label for="selected_athlete">Atleta:</label>
+        <select name="selected_athlete" required>
+            <option value="">Seleccionar</option>
+            {% for athlete in athletes %}
+            <option value="{{ athlete.id }}">{{ athlete.user.first_name }} {{ athlete.user.last_name }} - {{ athlete.olympic_country }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <button type="submit">Comparar</button>
+    </form>
+</body>
+</html>

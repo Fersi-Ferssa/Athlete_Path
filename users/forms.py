@@ -50,10 +50,11 @@ class TeamNameForm(forms.ModelForm):
 
 class AthleteRecordForm(forms.ModelForm):
     evaluation_date = forms.DateField(
-        widget=forms.SelectDateWidget(years=range(2000, 2025)),  # Rango de años para seleccionar
-        label="Fecha de Evaluación",
-        required=True
-    )
+    widget=forms.SelectDateWidget(years=range(2000, 2025)),
+    label="Fecha de Evaluación",
+    required=True
+)
+
 
     class Meta:
         model = AthleteRecord
