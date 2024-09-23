@@ -4,23 +4,101 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Opciones de Comparación</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .comparison-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #4066d5;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 16px;
+            color: #333;
+            display: block;
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        button[type="submit"] {
+            background-color: #4066d5;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #3053b0;
+        }
+
+        button {
+            margin-top: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .comparison-container {
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            label {
+                font-size: 14px;
+            }
+
+            button[type="submit"] {
+                font-size: 14px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h2>¿Cómo te gustaría comparar tus registros?</h2>
-    <form method="POST">
-        {% csrf_token %}
-        <label>
-            <input type="radio" name="comparison_type" value="personal_records" required>
-            Comparar mis propios récords
-        </label>
+    <div class="comparison-container">
+        <h2>¿Cómo te gustaría comparar tus registros?</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <label>
+                <input type="radio" name="comparison_type" value="personal_records" required>
+                Comparar mis propios récords
+            </label>
+            <label>
+                <input type="radio" name="comparison_type" value="other_athletes" required>
+                Comparar con otros atletas
+            </label>
+            <button type="submit">Continuar</button>
+        </form>
         <br>
-        <label>
-            <input type="radio" name="comparison_type" value="other_athletes" required>
-            Comparar con otros atletas
-        </label>
-        <br>
-        <button type="submit">Continuar</button>
-    </form>
-
+        <button onclick="window.history.back();">Regresar</button>
+    </div>
 </body>
 </html>

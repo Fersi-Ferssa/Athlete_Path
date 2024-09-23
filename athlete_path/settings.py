@@ -54,6 +54,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'  # Usar almacenamiento en sesión para mensajes
+
 ROOT_URLCONF = 'athlete_path.urls'
 
 import os

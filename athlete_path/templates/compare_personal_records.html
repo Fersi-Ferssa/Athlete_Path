@@ -3,29 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <h2>Comparación de Récords Personales</h2>
+    <title>Comparación de Récords Personales</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .comparison-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #4066d5;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 16px;
+            color: #333;
+            display: block;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+
+        select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        button[type="submit"] {
+            background-color: #4066d5;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #3053b0;
+        }
+
+        /* Estilos para los mensajes de error */
+        .alert {
+            color: #721c24;
+            background-color: #f8d7da;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 600px) {
+            .comparison-container {
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            label {
+                font-size: 14px;
+            }
+
+            button[type="submit"] {
+                font-size: 14px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h2>Selecciona dos récords diferentes para comparar</h2>
-    <form method="POST">
-        {% csrf_token %}
-        <label for="record_1">Primer Récord:</label>
-        <select name="record_1" required>
-            <option value="">Seleccionar</option>
-            {% for record in records %}
-            <option value="{{ record.id }}">{{ record.evaluation_date }} - Dificultad: {{ record.difficulty }}, Ejecución: {{ record.execution }}</option>
+    <div class="comparison-container">
+        <h2>Comparación de Récords Personales</h2>
+        
+        <!-- Mostrar mensajes de error dentro del contenedor blanco -->
+        {% if messages %}
+        <div>
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
             {% endfor %}
-        </select>
+        </div>
+        {% endif %}
+
+        <p>Selecciona dos récords diferentes para comparar</p>
+        <form method="POST">
+            {% csrf_token %}
+            <label for="record_1">Primer Récord:</label>
+            <select name="record_1" required>
+                <option value="">Seleccionar</option>
+                {% for record in records %}
+                <option value="{{ record.id }}">{{ record.evaluation_date }} - Dificultad: {{ record.difficulty }}, Ejecución: {{ record.execution }}</option>
+                {% endfor %}
+            </select>
+            
+            <label for="record_2">Segundo Récord:</label>
+            <select name="record_2" required>
+                <option value="">Seleccionar</option>
+                {% for record in records %}
+                <option value="{{ record.id }}">{{ record.evaluation_date }} - Dificultad: {{ record.difficulty }}, Ejecución: {{ record.execution }}</option>
+                {% endfor %}
+            </select>
+            
+            <button type="submit">Comparar</button>
+        </form>
         <br>
-        <label for="record_2">Segundo Récord:</label>
-        <select name="record_2" required>
-            <option value="">Seleccionar</option>
-            {% for record in records %}
-            <option value="{{ record.id }}">{{ record.evaluation_date }} - Dificultad: {{ record.difficulty }}, Ejecución: {{ record.execution }}</option>
-            {% endfor %}
-        </select>
-        <br>
-        <button type="submit">Comparar</button>
-    </form>
+        <button onclick="window.history.back();">Regresar</button>
+    </div>
 </body>
 </html>

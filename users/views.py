@@ -4,10 +4,11 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.db.models import Max, ExpressionWrapper, F, IntegerField, Count
+from django.db.models import Max, F
 from django.contrib import messages
 from .forms import UserRegisterForm, ProfileForm, AthleteRecordForm, TeamNameForm, ResetPasswordForm
 from .models import Profile, AthleteRecord
+
 
 @login_required
 def home(request):
@@ -19,6 +20,7 @@ def home(request):
     elif profile.is_athlete():
         return redirect('athlete_profile')
     return render(request, 'home.html', {'full_name': full_name})
+
 
 def register(request):
     if request.method == 'POST':
@@ -42,7 +44,12 @@ def register(request):
 
     return render(request, 'register.html', {'user_form': user_form, 'profile_form': profile_form})
 
+
 def user_login(request):
+    # Limpiar cualquier mensaje anterior cuando se accede a la página de login
+    storage = messages.get_messages(request)
+    storage.used = True  # Marcar mensajes como usados para que no se arrastren
+
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -51,14 +58,26 @@ def user_login(request):
             login(request, user)
             return redirect('home')
         else:
+            # Si el usuario no se autentica, mostrar el error solo en esta vista
+            messages.set_level(request, messages.ERROR)
             messages.error(request, 'Nombre de usuario o contraseña incorrectos.')
+            return render(request, 'login.html')
+
     return render(request, 'login.html')
+
+def clean_messages(request):
+    """
+    Elimina los mensajes almacenados en la sesión de la solicitud actual.
+    """
+    storage = messages.get_messages(request)
+    for message in storage:
+        pass  # Marca todos los mensajes como "usados"
 
 @login_required
 def athlete_profile(request):
     profile = request.user.profile
     full_name = f"{profile.user.first_name} {profile.user.last_name}"
-    
+
     if profile.is_athlete():
         # Obtener la última evaluación del atleta actual
         latest_record = AthleteRecord.objects.filter(athlete=profile).order_by('-evaluation_date').first()
@@ -72,7 +91,7 @@ def athlete_profile(request):
 
         team_name = coach.team_name if coach else 'No asignado'
 
-        # Obtener los mejores atletas en la misma disciplina y rama (sin usar distinct)
+        # Obtener los mejores atletas en la misma disciplina y rama
         best_athletes = Profile.objects.filter(
             discipline=profile.discipline,
             branch=profile.branch,
@@ -111,16 +130,16 @@ def athlete_profile(request):
         })
     return redirect('home')
 
+
 @login_required
 def coach_dashboard(request):
     profile = request.user.profile
     full_name = f"{profile.user.first_name} {profile.user.last_name}"
 
-    # Verificar si es coach y obtener los atletas del mismo equipo
     if profile.is_coach():
         athletes = Profile.objects.filter(
-            olympic_country=profile.olympic_country, 
-            discipline=profile.discipline, 
+            olympic_country=profile.olympic_country,
+            discipline=profile.discipline,
             branch=profile.branch
         ).exclude(user=request.user)
 
@@ -143,6 +162,7 @@ def coach_dashboard(request):
 
     return redirect('home')
 
+
 @login_required
 def add_record(request):
     if request.method == 'POST':
@@ -155,6 +175,7 @@ def add_record(request):
     else:
         record_form = AthleteRecordForm()
     return render(request, 'add_record.html', {'form': record_form})
+
 
 @login_required
 def evaluate_athlete(request, athlete_id):
@@ -169,7 +190,6 @@ def evaluate_athlete(request, athlete_id):
                 record = form.save(commit=False)
                 record.athlete = athlete
                 record.coach = request.user.profile
-                record.evaluation_date = form.cleaned_data['evaluation_date']
                 record.save()
                 messages.success(request, 'Evaluación guardada con éxito.')
                 return redirect('coach_dashboard')
@@ -180,12 +200,14 @@ def evaluate_athlete(request, athlete_id):
         messages.error(request, 'No tienes permiso para evaluar a este atleta.')
         return redirect('home')
 
+
 @login_required
 def view_athlete_records(request, athlete_id):
     athlete = get_object_or_404(Profile, id=athlete_id, role='Athlete')
     full_name = f"{athlete.user.first_name} {athlete.user.last_name}"
     records = AthleteRecord.objects.filter(athlete=athlete)
     return render(request, 'view_records.html', {'athlete': athlete, 'full_name': full_name, 'records': records})
+
 
 def password_reset_view(request):
     if request.method == 'POST':
@@ -206,9 +228,7 @@ def password_reset_view(request):
                 if profile.security_answer and profile.security_answer.lower() == security_answer.lower():
                     user.set_password(new_password)
                     user.save()
-
                     update_session_auth_hash(request, user)
-
                     messages.success(request, 'La contraseña ha sido cambiada exitosamente.')
                     return redirect('login')
                 else:
@@ -220,6 +240,7 @@ def password_reset_view(request):
 
     return render(request, 'reset_password.html', {'form': form})
 
+
 @login_required
 def comparison_options(request):
     profile = request.user.profile
@@ -227,7 +248,6 @@ def comparison_options(request):
     if profile.is_athlete():
         if request.method == 'POST':
             comparison_type = request.POST.get('comparison_type')
-            
             if comparison_type == 'personal_records':
                 return redirect('compare_personal_records')
             elif comparison_type == 'other_athletes':
@@ -236,31 +256,45 @@ def comparison_options(request):
         return render(request, 'comparison_options.html')
     return redirect('home')
 
+
 @login_required
 def compare_personal_records(request):
     profile = request.user.profile
-    
+
+    # Limpiar mensajes pendientes para evitar que se arrastren
+    storage = messages.get_messages(request)
+    for _ in storage:
+        pass  # Elimina los mensajes pendientes
+
     if profile.is_athlete():
         personal_records = AthleteRecord.objects.filter(athlete=profile).order_by('-evaluation_date')
-        
+
         if request.method == 'POST':
             record_1_id = request.POST.get('record_1')
             record_2_id = request.POST.get('record_2')
-            
+
             if not record_1_id or not record_2_id:
+                messages.set_level(request, messages.ERROR)
                 messages.error(request, 'Por favor selecciona dos récords diferentes para comparar.')
                 return render(request, 'compare_personal_records.html', {'records': personal_records})
-            
+
             if record_1_id == record_2_id:
+                messages.set_level(request, messages.ERROR)
                 messages.error(request, 'No puedes comparar el mismo récord.')
                 return render(request, 'compare_personal_records.html', {'records': personal_records})
 
             record_1 = get_object_or_404(AthleteRecord, id=record_1_id)
             record_2 = get_object_or_404(AthleteRecord, id=record_2_id)
 
+            # Calcular la diferencia de puntuación
+            score_difference = record_1.total_score() - record_2.total_score()
+            abs_difference = abs(score_difference)
+
             return render(request, 'compare_personal_records_result.html', {
                 'record_1': record_1,
                 'record_2': record_2,
+                'score_difference': score_difference,
+                'abs_difference': abs_difference,  # Añadimos la diferencia para usar en el template
             })
 
         return render(request, 'compare_personal_records.html', {'records': personal_records})
@@ -269,7 +303,7 @@ def compare_personal_records(request):
 @login_required
 def compare_with_athletes(request):
     profile = request.user.profile
-    
+
     if profile.is_athlete():
         # Obtener todos los atletas de la misma disciplina y rama
         other_athletes = Profile.objects.filter(
@@ -280,13 +314,13 @@ def compare_with_athletes(request):
 
         if request.method == 'POST':
             selected_athlete_id = request.POST.get('selected_athlete')
-            
+
             if not selected_athlete_id:
                 messages.error(request, 'Por favor selecciona un atleta para comparar.')
                 return render(request, 'compare_with_athletes.html', {'athletes': other_athletes})
-            
+
             selected_athlete = get_object_or_404(Profile, id=selected_athlete_id)
-            
+
             # Obtener el último registro del atleta actual y el seleccionado
             current_athlete_record = AthleteRecord.objects.filter(athlete=profile).order_by('-evaluation_date').first()
             selected_athlete_record = AthleteRecord.objects.filter(athlete=selected_athlete).order_by('-evaluation_date').first()
@@ -304,7 +338,7 @@ def compare_with_athletes(request):
             current_score = current_athlete_record.total_score()
             selected_score = selected_athlete_record.total_score()
             score_difference = current_score - selected_score
-            abs_difference = abs(score_difference)  # Calcular el valor absoluto
+            abs_difference = abs(score_difference)
 
             return render(request, 'compare_with_athletes_result.html', {
                 'athlete': profile,
@@ -312,7 +346,7 @@ def compare_with_athletes(request):
                 'compare_athlete': selected_athlete,
                 'compare_record': selected_athlete_record,
                 'score_difference': score_difference,
-                'abs_difference': abs_difference  # Enviar el valor absoluto a la plantilla
+                'abs_difference': abs_difference
             })
 
         return render(request, 'compare_with_athletes.html', {'athletes': other_athletes})
