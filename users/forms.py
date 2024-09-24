@@ -24,6 +24,12 @@ class UserRegisterForm(UserCreationForm):
             'password2': "Confirmación de contraseña",
         }
 
+    def __init__(self, *args, **kwargs):
+        super(UserRegisterForm, self).__init__(*args, **kwargs)
+        # Elimina el campo 'usable_password' o cualquier campo relacionado con la autenticación basada en contraseñas si existe
+        if 'usable_password' in self.fields:
+            del self.fields['usable_password']
+
 # Formulario para el perfil del usuario (atleta o coach)
 class ProfileForm(forms.ModelForm):
     olympic_country = forms.ChoiceField(choices=COUNTRY_CHOICES, label="País olímpico")
