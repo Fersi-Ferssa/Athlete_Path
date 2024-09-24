@@ -5,13 +5,60 @@
     <meta charset="UTF-8"> <!-- Define el conjunto de caracteres del documento como UTF-8 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Ajusta el ancho del viewport para pantallas móviles -->
     <title>Inicio</title> <!-- Título que aparecerá en la pestaña del navegador -->
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .welcome-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #4066d5;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 18px;
+            color: #333;
+        }
+
+        @media (max-width: 600px) {
+            .welcome-container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            p {
+                font-size: 16px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Encabezado principal de la página -->
-    <h1>Bienvenido a la Plataforma de Atletas</h1>
-    
-    <!-- Muestra el nombre de usuario del usuario que ha iniciado sesión -->
-    <!-- La variable {{ username }} es proporcionada por la vista en Django -->
-    <p>Has iniciado sesión como {{ user.first_name }} {{ user.last_name }}</p>
+    <div class="welcome-container">
+        <!-- Encabezado principal de la página -->
+        <h1>Bienvenido a la Plataforma de Atletas</h1>
+        
+        <!-- Muestra el nombre de usuario del usuario que ha iniciado sesión -->
+        <p>Has iniciado sesión como <strong>{{ user.first_name }} {{ user.last_name }}</strong></p>
+    </div>
 </body>
 </html>

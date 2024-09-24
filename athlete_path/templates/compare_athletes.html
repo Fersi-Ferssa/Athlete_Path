@@ -4,26 +4,121 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Comparación de Atletas</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 20px;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .comparison-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+        }
+
+        h1, h2 {
+            color: #4066d5;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 28px;
+        }
+
+        h2 {
+            font-size: 22px;
+        }
+
+        p {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .athlete-block {
+            background-color: #f9f9f9;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+
+        .athlete-block h2 {
+            color: #3053b0;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        button {
+            background-color: #4066d5;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #3053b0;
+        }
+
+        @media (max-width: 600px) {
+            .comparison-container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            p {
+                font-size: 14px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Comparación de Atletas</h1>
+    <div class="comparison-container">
+        <h1>Comparación de Atletas</h1>
 
-    <h2>Tu Perfil</h2>
-    <p>Nombre: {{ athlete.user.first_name }} {{ athlete.user.last_name }}</p>
-    <p>Disciplina: {{ athlete.discipline }}</p>
-    <p>Rama: {{ athlete.branch }}</p>
-    <p>Dificultad: {{ athlete_record.difficulty }}</p>
-    <p>Ejecución: {{ athlete_record.execution }}</p>
-    <p>Puntuación: {{ athlete_record.total_score }}</p>
-    <p>Fecha de Evaluación: {{ athlete_record.evaluation_date }}</p>
+        <div class="athlete-block">
+            <h2>Tu Perfil</h2>
+            <p><strong>Nombre:</strong> {{ athlete.user.first_name }} {{ athlete.user.last_name }}</p>
+            <p><strong>Disciplina:</strong> {{ athlete.discipline }}</p>
+            <p><strong>Rama:</strong> {{ athlete.branch }}</p>
+            <p><strong>Dificultad:</strong> {{ athlete_record.difficulty }}</p>
+            <p><strong>Ejecución:</strong> {{ athlete_record.execution }}</p>
+            <p><strong>Puntuación:</strong> {{ athlete_record.total_score }}</p>
+            <p><strong>Fecha de Evaluación:</strong> {{ athlete_record.evaluation_date }}</p>
+        </div>
 
-    <h2>Comparación con: {{ compare_athlete.user.first_name }} {{ compare_athlete.user.last_name }}</h2>
-    <p>Nombre: {{ compare_athlete.user.first_name }} {{ compare_athlete.user.last_name }}</p>
-    <p>Disciplina: {{ compare_athlete.discipline }}</p>
-    <p>Rama: {{ compare_athlete.branch }}</p>
-    <p>Dificultad: {{ compare_record.difficulty }}</p>
-    <p>Ejecución: {{ compare_record.execution }}</p>
-    <p>Puntuación: {{ compare_record.total_score }}</p>
-    <p>Fecha de Evaluación: {{ compare_record.evaluation_date }}</p>
+        <div class="athlete-block">
+            <h2>Comparación con: {{ compare_athlete.user.first_name }} {{ compare_athlete.user.last_name }}</h2>
+            <p><strong>Nombre:</strong> {{ compare_athlete.user.first_name }} {{ compare_athlete.user.last_name }}</p>
+            <p><strong>Disciplina:</strong> {{ compare_athlete.discipline }}</p>
+            <p><strong>Rama:</strong> {{ compare_athlete.branch }}</p>
+            <p><strong>Dificultad:</strong> {{ compare_record.difficulty }}</p>
+            <p><strong>Ejecución:</strong> {{ compare_record.execution }}</p>
+            <p><strong>Puntuación:</strong> {{ compare_record.total_score }}</p>
+            <p><strong>Fecha de Evaluación:</strong> {{ compare_record.evaluation_date }}</p>
+        </div>
+        <br>
+        <button class="button" onclick="window.history.back();">Regresar</button>
+    </div>
 </body>
 </html>

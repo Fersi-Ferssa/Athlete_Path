@@ -3,7 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Usuario</title>
+    <title>Registro de Usuario | Athlete Path</title>
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            margin: 0;
+            overflow-y: auto;
+        }
+
+        .register-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeIn 0.5s forwards;
+            height: auto;
+            overflow: visible;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .register-container h2 {
+            font-size: 26px;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .register-container label {
+            display: block;
+            text-align: left;
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        .register-container input[type="text"],
+        .register-container input[type="password"],
+        .register-container select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .register-container input[type="text"]:focus,
+        .register-container input[type="password"]:focus,
+        .register-container select:focus {
+            border-color: #4066d5;
+            outline: none;
+            box-shadow: 0 0 8px rgba(64, 102, 213, 0.2);
+        }
+
+        .register-container button[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background-color: #4066d5;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .register-container button[type="submit"]:hover {
+            background-color: #3053b0;
+        }
+
+        .register-container button[type="submit"]:active {
+            transform: scale(0.98);
+            background-color: #274a90;
+        }
+
+        fieldset {
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+        }
+
+        legend {
+            font-size: 16px;
+            color: #4066d5;
+            font-weight: bold;
+            padding: 0 10px;
+        }
+
+        @media (max-width: 600px) {
+            .register-container {
+                width: 90%;
+                padding: 20px;
+            }
+
+            .register-container h2 {
+                font-size: 22px;
+            }
+        }
+        input[type="email"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            box-sizing: border-box;
+        }  
+    </style>
+
     <script>
         // Función que oculta o muestra los campos según el rol seleccionado
         function toggleFieldsBasedOnRole() {
@@ -35,38 +161,42 @@
     </script>
 </head>
 <body>
-    <h2>Registro</h2>
-    <form method="POST">
-        {% csrf_token %}  <!-- Asegúrate de incluir el token CSRF -->
+    <div class="register-container">
+        <h2>Registro</h2>
+        <form method="POST">
+            {% csrf_token %}
 
-        <!-- Información básica del usuario -->
-        <fieldset>
-            <legend>Datos de Usuario</legend>
-            {{ user_form.as_p }}
-        </fieldset>
+            <!-- Información básica del usuario -->
+            <fieldset>
+                <legend>Datos de Usuario</legend>
+                {{ user_form.as_p }}
+            </fieldset>
 
-        <!-- Información adicional del perfil, inicialmente oculta -->
-        <fieldset id="profile_fields" style="display: none;">
-            <legend>Datos del Perfil</legend>
-            <div>
-                {{ profile_form.olympic_country.label_tag }} {{ profile_form.olympic_country }}
-            </div>
-            <div>
-                {{ profile_form.discipline.label_tag }} {{ profile_form.discipline }}
-            </div>
-            <div>
-                {{ profile_form.branch.label_tag }} {{ profile_form.branch }}
-            </div>
-            <div id="team_name_field" style="display: none;">
-                {{ profile_form.team_name.label_tag }} {{ profile_form.team_name }}
-            </div>
-        </fieldset>
+            <!-- Información adicional del perfil, inicialmente oculta -->
+            <fieldset id="profile_fields" style="display: none;">
+                <legend>Datos del Perfil</legend>
+                <div>
+                    {{ profile_form.olympic_country.label_tag }} {{ profile_form.olympic_country }}
+                </div>
+                <div>
+                    {{ profile_form.discipline.label_tag }} {{ profile_form.discipline }}
+                </div>
+                <div>
+                    {{ profile_form.branch.label_tag }} {{ profile_form.branch }}
+                </div>
+                <div id="team_name_field" style="display: none;">
+                    {{ profile_form.team_name.label_tag }} {{ profile_form.team_name }}
+                </div>
+            </fieldset>
 
-        <button type="submit">Registrarse</button>
-    </form>
+            <button type="submit">Registrarse</button>
+        </form>
+        <br>
+        <button onclick="window.history.back();">Regresar</button>
+    </div>
 
-    <!-- Ejecutar la función cuando el usuario cambia el rol -->
     <script>
+        // Ejecutar la función cuando el usuario cambia el rol
         document.getElementById("id_role").addEventListener("change", toggleFieldsBasedOnRole);
     </script>
 </body>
