@@ -1,0 +1,50 @@
+# Archivos del entorno virtual (virtualenv)
+venv/
+.venv/
+
+# Archivos de base de datos locales
+*.sqlite3
+
+# Archivos compilados de Python
+*.pyc
+__pycache__/
+
+# Archivos de migraciones de Django
+migrations/
+
+# Archivos de configuraciones sensibles
+*.env
+.env
+
+# Archivos y carpetas de caché
+*.log
+*.pot
+*.py[cod]
+*.so
+*.pyd
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+
+# Archivos estáticos generados
+staticfiles/
+media/
+
+# Configuración de IDEs
+.idea/
+.vscode/
+
+# Archivos de Git
+.git/
+
+# Otros archivos temporales
+.DS_Storegit add .gitignore
