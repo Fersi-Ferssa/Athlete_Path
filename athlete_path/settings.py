@@ -40,8 +40,9 @@ INSTALLED_APPS = [
     'users' #Registrar la aplicación users. 
 ]
 
-LOGIN_REDIRECT_URL = 'home'  # Redirigir a la página de inicio después de loguearse
-LOGOUT_REDIRECT_URL = 'login'  # Redirigir a la página de login después de cerrar sesión
+LOGIN_URL = 'login'
+LOGOUT_REDIRECT_URL = 'login'
+LOGIN_REDIRECT_URL = 'home' 
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -52,6 +53,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'  # Usar almacenamiento en sesión para mensajes
 
 ROOT_URLCONF = 'athlete_path.urls'
 
@@ -109,7 +112,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-es'
 
 TIME_ZONE = 'UTC'
 
@@ -127,3 +130,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Directorio donde se guardarán los archivos estáticos compilados
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') 
