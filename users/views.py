@@ -8,7 +8,8 @@ from django.db.models import Max, F
 from django.contrib import messages
 from .forms import UserRegisterForm, ProfileForm, AthleteRecordForm, TeamNameForm, ResetPasswordForm
 from .models import Profile, AthleteRecord
-
+from django.http import JsonResponse
+from .branches import BRANCH_CHOICES
 
 @login_required
 def home(request):
@@ -33,7 +34,9 @@ def register(request):
             profile = profile_form.save(commit=False)
             profile.user = user
             profile.role = user_form.cleaned_data['role']
-            profile.security_answer = user_form.cleaned_data['security_answer']
+            profile.security_answer1 = user_form.cleaned_data['security_answer1']
+            profile.security_answer2 = user_form.cleaned_data['security_answer2']
+            profile.security_answer3 = user_form.cleaned_data['security_answer3']
             profile.save()
             return redirect('login')
         else:
@@ -44,6 +47,17 @@ def register(request):
 
     return render(request, 'register.html', {'user_form': user_form, 'profile_form': profile_form})
 
+def get_branches(request):
+    if request.method == 'POST':
+        try:
+            import json
+            data = json.loads(request.body)  # Capturamos el JSON del cuerpo de la solicitud
+            discipline = data.get('discipline')  # Obtenemos la disciplina seleccionada
+            branches = BRANCH_CHOICES.get(discipline, [])  # Obtenemos las ramas para esa disciplina
+            return JsonResponse({'branches': branches})
+        except json.JSONDecodeError:
+            return JsonResponse({'error': 'Invalid JSON data'}, status=400)
+    return JsonResponse({'error': 'Invalid request method'}, status=400)
 
 def user_login(request):
     # Limpiar cualquier mensaje anterior cuando se accede a la página de login

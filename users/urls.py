@@ -17,4 +17,5 @@ urlpatterns = [
     path('comparison_options/', views.comparison_options, name='comparison_options'),
     path('compare_personal_records/', views.compare_personal_records, name='compare_personal_records'),
     path('compare_with_athletes/', views.compare_with_athletes, name='compare_with_athletes'),
+    path('get_branches/', views.get_branches, name='get_branches'),
 ]

@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
-from .countries import COUNTRY_CHOICES  # La lista de países ya existente
+# Importa la lista de países, disciplinas y atletas.
+from .countries import COUNTRY_CHOICES
+from .disciplines import DISCIPLINE_CHOICES
+from .branches import BRANCH_CHOICES
 
 class Profile(models.Model):
     ROLE_CHOICES = [
@@ -10,15 +13,14 @@ class Profile(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     olympic_country = models.CharField(max_length=2, choices=COUNTRY_CHOICES)
-    discipline = models.CharField(max_length=100, choices=[('Gymnastics', 'Gimnasia Artística')])
-    branch = models.CharField(max_length=100, choices=[
-        ('Uneven Bars', 'Barras Asimétricas'),
-        ('Balance Beam', 'Barra de Equilibrio'),
-        ('Floor', 'Piso')
-    ])
+    discipline = models.CharField(max_length=100, choices=DISCIPLINE_CHOICES)
+    branch = models.CharField(max_length=100, blank=True, null=True)
     team_name = models.CharField(max_length=100, blank=True, null=True)  # Editable solo por coaches
     role = models.CharField(max_length=50, choices=ROLE_CHOICES, default='Athlete')
-    security_answer = models.CharField(max_length=255, blank=False, default='No contestada')
+    security_answer1 = models.CharField(max_length=255, blank=False, default='No contestada')
+    security_answer2 = models.CharField(max_length=255, blank=False, default='No contestada')
+    security_answer3 = models.CharField(max_length=255, blank=False, default='No contestada')
+
 
     def __str__(self):
         return f'{self.user.username} - {self.discipline} ({self.branch})'

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil del Atleta</title>
+    <!--
     <style>
         body {
             font-family: 'Roboto', sans-serif;
@@ -127,6 +128,7 @@
             }
         }
     </style>
+    -->
 </head>
 <body>
     {% if messages %}
@@ -138,10 +140,11 @@
     {% endif %}
     
     <div class="profile-container">
-        <h1>Bienvenido, <span class="highlight">{{ profile.user.first_name }} {{ profile.user.last_name }}</span> (Atleta)</h1>
+        <h1>Bienvenid@ Atleta: <span class="highlight">{{ profile.user.first_name }} {{ profile.user.last_name }}</span></h1>
         
         <div class="info-block">
             <h2>Información del Atleta</h2>
+            <p><strong>País Olímpico:</strong> <span class="highlight">{{ profile.get_olympic_country_display }} - {{ profile.olympic_country }}</span></p>
             <p><strong>Disciplina:</strong> <span class="highlight">{{ profile.discipline }}</span></p>
             <p><strong>Rama:</strong> <span class="highlight">{{ profile.branch }}</span></p>
             <p><strong>Nombre del Equipo:</strong> <span class="highlight">{{ team_name }}</span></p>
@@ -178,7 +181,7 @@
                 {% if best_athletes %}
                     {% for athlete in best_athletes %}
                     <li>
-                        <strong class="highlight">{{ athlete.user.first_name }} {{ athlete.user.last_name }}</strong> - {{ athlete.olympic_country }} - Puntuación: <span class="highlight">{{ athlete.max_score }}</span>
+                        <strong class="highlight">{{ athlete.user.first_name }} {{ athlete.user.last_name }}</strong> - {{ athlete.get_olympic_country_display }}, {{ athlete.olympic_country }} - Puntuación: <span class="highlight">{{ athlete.max_score }}</span>
                     </li>
                     {% endfor %}
                 {% else %}
