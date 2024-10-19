@@ -7,29 +7,26 @@
 </head>
 <body>
     <h1>Perfil del Atleta: {{ full_name }}</h1>
-
+    <p>Fecha de Nacimiento: {{ profile.date_of_birth }}</p>
+    <p>País de Nacimiento: {{ profile.get_country_display }}</p>
     <p>Equipo Olímpico: {{ team_name }}</p>
     <p>Disciplina: {{ profile.discipline }}</p>
     <p>Rama: {{ profile.branch }}</p>
-    <p>País Olímpico: {{ country }}</p>
+    <p>País Olímpico: {{ profile.get_olympic_country_display }}</p>
 
     <h3>Evaluaciones del Atleta</h3>
     <ul>
         {% for record in athlete_records %}
-        <li>
-            Evaluado por: {{ record.coach.user.first_name }} {{ record.coach.user.last_name }} <br>
-            Fecha: {{ record.evaluation_date }} <br>
-            Dificultad: {{ record.difficulty }} <br>
-            Ejecución: {{ record.execution }} <br>
-            Notas: {{ record.notes }} <br>
-            {% if can_edit_records %}
-            <a href="{% url 'edit_record' record.id %}">Editar Evaluación</a>
-            <a href="{% url 'delete_record' record.id %}">Eliminar Evaluación</a>
-            {% endif %}
-        </li>
+            <li>
+                <a href="{% url 'view_evaluation_detail' record.id %}">
+                    Evaluación realizada el: {{ record.evaluation_date }} por {{ record.coach.user.first_name }}
+                </a>
+            </li>
+        {% empty %}
+            <p>No hay evaluaciones registradas para este atleta.</p>
         {% endfor %}
     </ul>
-
+    
     <!-- Agregar el botón de "Evaluar Atleta" solo si puede evaluar -->
     {% if can_evaluate %}
     <a href="{% url 'evaluate_athlete' profile.id %}">

@@ -1,6 +1,7 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
 from . import views
+from .views import (view_evaluation_detail, edit_evaluation, delete_evaluation)
 
 urlpatterns = [
     path('home/', views.home, name='home'),
@@ -24,4 +25,7 @@ urlpatterns = [
     path('join_subteam/<int:subteam_id>/', views.join_subteam, name='join_subteam'),
     path('profile/', views.coach_profile, name='profile'),
     path('coach/view_athlete_profile/<int:athlete_id>/', views.coach_view_athlete_profile, name='coach_view_athlete_profile'),
+    path('evaluation/<int:record_id>/', view_evaluation_detail, name='view_evaluation_detail'),
+    path('evaluation/edit/<int:record_id>/', edit_evaluation, name='edit_evaluation'),
+    path('evaluation/delete/<int:record_id>/', delete_evaluation, name='delete_evaluation'),
 ]

@@ -7,12 +7,13 @@ from django.contrib.auth.models import User
 from django.db.models import Max, F
 from django.contrib import messages
 from .forms import UserRegisterForm, ProfileForm, AthleteRecordForm, ResetPasswordForm, SubTeamForm
-from .models import Profile, AthleteRecord, OlympicTeam, SubTeam
+from .models import Profile, AthleteRecord, OlympicTeam, SubTeam, EvaluationCriterion
 from django.http import JsonResponse
 from .branches import BRANCH_CHOICES
 import json
 from django.conf import settings
 from django.http import JsonResponse
+from django.contrib import messages
 
 ####################################################################################################
 #                                       MAIN HOME PAGE                                             #
@@ -348,80 +349,131 @@ def coach_view_athlete_profile(request, athlete_id):
         'country': country
     })
 
-# EVALUATION ON ATHLETES
+# ADD RECORD/EVALUATION
+@login_required
+def add_record(request):
+    if request.method == 'POST':
+        form = AthleteRecordForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('coach_dashboard')  # O cualquier página que prefieras
+    else:
+        form = AthleteRecordForm()
+
+    return render(request, 'add_record.html', {'form': form})
+
+# EVALUATE ATHLETE
 @login_required
 def evaluate_athlete(request, athlete_id):
-    # Obtener el perfil del atleta
     athlete = get_object_or_404(Profile, id=athlete_id, role='Athlete')
+    coach = request.user.profile
     full_name = f"{athlete.user.first_name} {athlete.user.last_name}"
 
-    # Verificar si el coach está en el mismo equipo olímpico que el atleta
-    if request.user.profile.is_coach() and athlete.olympic_team == request.user.profile.olympic_team:
-        # Obtener las evaluaciones anteriores del atleta
-        records = AthleteRecord.objects.filter(athlete=athlete).order_by('-evaluation_date')
+    # Verificar si el coach está en el mismo equipo que el atleta
+    if coach.is_coach() and athlete.olympic_team == coach.olympic_team:
         
-        # El coach solo puede editar las evaluaciones que haya creado
-        can_edit_records = AthleteRecord.objects.filter(athlete=athlete, coach=request.user.profile).exists()
-
         # Cargar los criterios de evaluación desde el archivo JSON
         criteria_file = settings.BASE_DIR / 'evaluation_criteria.json'
         with open(criteria_file, 'r', encoding='utf-8') as f:
             criteria_data = json.load(f)
 
-        # Obtener los criterios basados en la disciplina y rama del atleta
+        # Obtener los criterios para la disciplina y rama del atleta
         discipline = athlete.discipline
         branch = athlete.branch
         evaluation_criteria = criteria_data.get(discipline, {}).get(branch, [])
-        # Rango de evaluación (1-10)
-        evaluation_range = range(1, 11)
+        evaluation_range = range(1, 11)  # Rango de puntuación
 
-        # Si se envía el formulario de evaluación
+        # Siempre definimos el formulario, ya sea para GET o POST
+        form = AthleteRecordForm(request.POST or None)
+
         if request.method == 'POST':
-            form = AthleteRecordForm(request.POST)
             if form.is_valid():
+                # Guardamos el registro de evaluación general
                 record = form.save(commit=False)
                 record.athlete = athlete
-                record.coach = request.user.profile
+                record.coach = coach
+                record.save()
 
-                # Guardar las notas y calificaciones de cada criterio
+                # Guardar cada criterio evaluado
                 for criterion in evaluation_criteria:
                     score = request.POST.get(f'criterion_{criterion}')
                     note = request.POST.get(f'note_{criterion}')
-                    # Guardar la información del criterio en algún modelo o registro personalizado
-                    # Aquí se podrían guardar las calificaciones y notas de los criterios, dependiendo de cómo estructures el modelo.
-                    
-                record.save()
+
+                    # Verificamos que haya una puntuación válida
+                    if score:
+                        EvaluationCriterion.objects.create(
+                            athlete_record=record,
+                            criterion_name=criterion,
+                            score=int(score),
+                            notes=note or ''
+                        )
+
                 messages.success(request, 'Evaluación guardada con éxito.')
                 return redirect('coach_dashboard')
-        else:
-            form = AthleteRecordForm()
+            else:
+                # Si el formulario de evaluación no es válido
+                print("Errores del formulario:", form.errors)
+                messages.error(request, 'Error al guardar la evaluación. Revisa los campos obligatorios.')
 
         return render(request, 'evaluate_athlete.html', {
             'form': form,
             'athlete': athlete,
-            'records': records,  # Mostrar evaluaciones previas
+            'evaluation_criteria': evaluation_criteria,
+            'evaluation_range': evaluation_range,
             'full_name': full_name,
-            'evaluation_criteria': evaluation_criteria,  # Pasar criterios al template
-            'can_edit_records': can_edit_records,  # Determinar si el coach puede editar
-            'evaluation_range': evaluation_range,  # Pasar el rango al template
         })
     else:
         messages.error(request, 'No tienes permiso para evaluar a este atleta.')
         return redirect('home')
-    
-# ADD RECORD/EVALUATION
+
+# VIEW EVALUATION    
 @login_required
-def add_record(request):
+def view_evaluation_detail(request, record_id):
+    # Obtener el registro de la evaluación
+    record = get_object_or_404(AthleteRecord, id=record_id)
+    # Obtener los criterios asociados a esta evaluación
+    evaluation_criteria = EvaluationCriterion.objects.filter(athlete_record=record)
+
+    # Verificar si el usuario actual es el coach que hizo la evaluación
+    can_edit = request.user.profile == record.coach
+
+    return render(request, 'evaluation_detail.html', {
+        'record': record,
+        'evaluation_criteria': evaluation_criteria,
+        'can_edit': can_edit
+    })
+
+# EDIT EVALUATION
+@login_required
+def edit_evaluation(request, record_id):
+    record = get_object_or_404(AthleteRecord, id=record_id)
+    if record.coach != request.user.profile:
+        return redirect('home')  # Solo el coach autor puede editar
+
     if request.method == 'POST':
-        record_form = AthleteRecordForm(request.POST)
-        if record_form.is_valid():
-            record = record_form.save(commit=False)
-            record.coach = request.user.profile
-            record.save()
-            return redirect('coach_dashboard')
+        form = AthleteRecordForm(request.POST, instance=record)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Evaluación actualizada con éxito.")
+            return redirect('view_evaluation_detail', record_id=record.id)
     else:
-        record_form = AthleteRecordForm()
-    return render(request, 'add_record.html', {'form': record_form})
+        form = AthleteRecordForm(instance=record)
+
+    return render(request, 'edit_evaluation.html', {'form': form, 'record': record})
+
+# DELETE EVALUATION
+@login_required
+def delete_evaluation(request, record_id):
+    record = get_object_or_404(AthleteRecord, id=record_id)
+    if record.coach != request.user.profile:
+        return redirect('home')  # Solo el coach autor puede eliminar
+
+    if request.method == 'POST':
+        record.delete()
+        messages.success(request, "Evaluación eliminada con éxito.")
+        return redirect('coach_dashboard')
+
+    return render(request, 'delete_evaluation.html', {'record': record})
 
 ####################################################################################################
 #                                       ATHLETE                                                    #

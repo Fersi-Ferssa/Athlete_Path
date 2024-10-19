@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles de la Evaluación de {{ record.athlete.user.first_name }} {{ record.athlete.user.last_name }}</title>
+</head>
+<body>
+    <h2>Detalles de la Evaluación de {{ record.athlete.user.first_name }} {{ record.athlete.user.last_name }}</h2>
+    
+    <p><strong>Fecha de Evaluación:</strong> {{ record.evaluation_date }}</p>
+    <p><strong>Evaluado por:</strong> {{ record.coach.user.first_name }} {{ record.coach.user.last_name }}</p>
+
+    <h3>Criterios de Evaluación:</h3>
+    <ul>
+        {% for criterion in evaluation_criteria %}
+            <li>
+                <strong>{{ criterion.criterion_name }}:</strong> {{ criterion.score }}<br>
+                <strong>Notas:</strong> {{ criterion.notes }}
+            </li>
+        {% empty %}
+            <li>No hay criterios de evaluación para mostrar.</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Suma de Calificaciones: {{ record.total_score }}</h3>
+
+    {% if can_edit %}
+        <a href="{% url 'edit_evaluation' record.id %}">
+            <button>Editar Evaluación</button>
+        </a>
+        <br></br>
+        <form action="{% url 'delete_evaluation' record.id %}" method="POST">
+            {% csrf_token %}
+            <button type="submit">Eliminar Evaluación</button>
+        </form>
+    {% endif %}
+    <br></br>
+    <button onclick="window.history.back();">Regresar</button>
+</body>
+</html>

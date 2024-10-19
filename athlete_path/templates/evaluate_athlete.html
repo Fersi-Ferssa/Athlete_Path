@@ -7,28 +7,40 @@
 </head>
 <body>
     <h2>Evaluar a {{ athlete.user.first_name }} {{ athlete.user.last_name }}</h2>
-        
+               
+        <!-- Campo de Fecha de Evaluación
+        <label for="evaluation_date">Fecha de Evaluación:</label>
+        {{ form.evaluation_date }}
+        -->
+    
         <!-- Criterios dinámicos de evaluación -->
-        <h3>Criterios de Evaluación:</h3>
-        <ul>
-        {% for criterion in evaluation_criteria %}
-            <li>
-                <label for="criterion_{{ criterion }}">{{ criterion }}:</label>
-                <select name="criterion_{{ criterion }}" id="criterion_{{ criterion }}">
-                    <option value="">Selecciona una calificación</option>
-                    {% for i in evaluation_range %}
-                        <option value="{{ i }}">{{ i }}</option>
-                    {% endfor %}
-                </select>
-                <br>
-                <label for="note_{{ criterion }}">Notas para {{ criterion }}:</label>
-                <textarea name="note_{{ criterion }}" id="note_{{ criterion }}"></textarea>
-            </li>
-        {% endfor %}
-        </ul>
-
-        <button type="submit">Guardar Evaluación</button>
-    </form>
+        <form method="POST">
+            {% csrf_token %}
+            
+            <!-- Campo de Fecha de Evaluación -->
+            <label for="evaluation_date">Fecha de Evaluación:</label>
+            {{ form.evaluation_date }}
+        
+            <!-- Criterios dinámicos de evaluación -->
+            <h3>Criterios de Evaluación:</h3>
+            {% for criterion in evaluation_criteria %}
+                <div>
+                    <label for="criterion_{{ criterion }}">{{ criterion }}:</label>
+                    <select name="criterion_{{ criterion }}">
+                        {% for score in evaluation_range %}
+                            <option value="{{ score }}">{{ score }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+        
+                <div>
+                    <label for="note_{{ criterion }}">Notas para {{ criterion }}:</label>
+                    <textarea name="note_{{ criterion }}"></textarea>
+                </div>
+            {% endfor %}
+        
+            <button type="submit">Guardar Evaluación</button>
+        </form>        
 
     <button onclick="window.history.back();">Regresar</button>
 </body>

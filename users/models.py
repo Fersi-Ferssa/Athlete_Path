@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models import Sum
 # Importa la lista de países, disciplinas y atletas.
 from .countries import COUNTRY_CHOICES
 from .disciplines import DISCIPLINE_CHOICES
@@ -83,16 +84,25 @@ class SubTeam(models.Model):
 
 # Modelo para los récords confidenciales de los atletas
 class AthleteRecord(models.Model):
-    athlete = models.ForeignKey(Profile, on_delete=models.CASCADE, limit_choices_to={'role': 'Athlete'}, related_name='athlete_records')
-    coach = models.ForeignKey(Profile, on_delete=models.CASCADE, limit_choices_to={'role': 'Coach'}, related_name='coach_records')
-    difficulty = models.IntegerField(choices=[(i, i) for i in range(1, 8)])  # Dificultad del 1 al 7
-    execution = models.IntegerField(choices=[(i, i) for i in range(1, 11)])  # Ejecución del 1 al 10
-    notes = models.TextField(max_length=250, blank=True, null=True)  # Notas del entrenador (opcional)
+    athlete = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name='athlete_records')
+    coach = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name='coach_records')
+    evaluation_date = models.DateField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    evaluation_date = models.DateField(null=True, blank=True)  # Nuevo campo para la fecha de evaluación
+    
+    def __str__(self):
+        return f"Evaluación de {self.athlete.user.username} por {self.coach.user.username} el {self.evaluation_date}"
+
+    def total_score(self):
+        # Sumar todas las puntuaciones de los criterios asociados a este registro
+        total = self.criteria.aggregate(total=Sum('score'))['total']
+        return total if total else 0
+
+# Modelo para los criterios de evaluación de los atletas
+class EvaluationCriterion(models.Model):
+    athlete_record = models.ForeignKey(AthleteRecord, on_delete=models.CASCADE, related_name='criteria')
+    criterion_name = models.CharField(max_length=255)  # Nombre del criterio (Dificultad, Sincronización, etc.)
+    score = models.IntegerField(choices=[(i, i) for i in range(1, 11)])  # Puntuación del 1 al 10
+    notes = models.TextField(max_length=255, blank=True, null=True)  # Notas opcionales
 
     def __str__(self):
-        return f"Evaluación de {self.athlete.user.username} por {self.coach.user.username}"
-    
-    def total_score(self):
-        return self.difficulty + self.execution  # Suma de dificultad y ejecución
+        return f"{self.criterion_name}: {self.score} puntos"

@@ -66,22 +66,11 @@ class SubTeamForm(forms.ModelForm):
         return athletes
 
 class AthleteRecordForm(forms.ModelForm):
-    evaluation_date = forms.DateField(
-    widget=forms.SelectDateWidget(years=range(2000, 2025)),
-    label="Fecha de Evaluación",
-    required=True
-)
-
+    evaluation_date = forms.DateField(widget=forms.SelectDateWidget(years=range(2000, 2025)))
 
     class Meta:
         model = AthleteRecord
-        fields = ['difficulty', 'execution', 'notes', 'evaluation_date']  # Añadimos el nuevo campo
-        labels = {
-            'difficulty': 'Dificultad',
-            'execution': 'Ejecución',
-            'notes': 'Notas',
-            'evaluation_date': 'Fecha de Evaluación',
-        }
+        fields = ['evaluation_date']
 
 class ResetPasswordForm(forms.Form):
     username = forms.CharField(max_length=150, label="Nombre de usuario")
