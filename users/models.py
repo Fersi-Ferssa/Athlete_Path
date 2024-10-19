@@ -5,22 +5,35 @@ from .countries import COUNTRY_CHOICES
 from .disciplines import DISCIPLINE_CHOICES
 from .branches import BRANCH_CHOICES
 
+# Modelo para representar los equipos olímpicos
+class OlympicTeam(models.Model):
+    olympic_country = models.CharField(max_length=2, choices=COUNTRY_CHOICES)
+    discipline = models.CharField(max_length=100, choices=DISCIPLINE_CHOICES)
+    branch = models.CharField(max_length=100)
+    team_name = models.CharField(max_length=255)
+
+    class Meta:
+        unique_together = ('olympic_country', 'discipline', 'branch')
+
+    def __str__(self):
+        return f"{self.team_name} - {self.olympic_country}"
+
 class Profile(models.Model):
     ROLE_CHOICES = [
         ('Athlete', 'Atleta'),
         ('Coach', 'Coach'),
     ]
-
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    date_of_birth = models.DateField(null=True, blank=True)
+    country = models.CharField(max_length=2, choices=COUNTRY_CHOICES, blank=True)
     olympic_country = models.CharField(max_length=2, choices=COUNTRY_CHOICES)
     discipline = models.CharField(max_length=100, choices=DISCIPLINE_CHOICES)
     branch = models.CharField(max_length=100, blank=True, null=True)
-    team_name = models.CharField(max_length=100, blank=True, null=True)  # Editable solo por coaches
-    role = models.CharField(max_length=50, choices=ROLE_CHOICES, default='Athlete')
-    security_answer1 = models.CharField(max_length=255, blank=False, default='No contestada')
-    security_answer2 = models.CharField(max_length=255, blank=False, default='No contestada')
-    security_answer3 = models.CharField(max_length=255, blank=False, default='No contestada')
-
+    role = models.CharField(max_length=50, choices=[('Athlete', 'Atleta'), ('Coach', 'Coach')], default='Athlete')
+    olympic_team = models.ForeignKey(OlympicTeam, on_delete=models.SET_NULL, null=True, blank=True, related_name='team_members')
+    security_answer1 = models.CharField(max_length=255, blank=True, null=True)
+    security_answer2 = models.CharField(max_length=255, blank=True, null=True)
+    security_answer3 = models.CharField(max_length=255, blank=True, null=True)
 
     def __str__(self):
         return f'{self.user.username} - {self.discipline} ({self.branch})'
@@ -30,6 +43,43 @@ class Profile(models.Model):
 
     def is_athlete(self):
         return self.role == 'Athlete'
+
+    def assign_to_team(self):
+        # Asignación automática de equipo olímpico basado en país, disciplina y rama
+        team, created = OlympicTeam.objects.get_or_create(
+            olympic_country=self.olympic_country,
+            discipline=self.discipline,
+            branch=self.branch,
+            defaults={'team_name': f"Equipo {self.olympic_country} de {self.discipline} - {self.branch}"}
+        )
+        self.olympic_team = team
+        self.save()
+
+class SubTeam(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    team = models.ForeignKey(OlympicTeam, on_delete=models.CASCADE, related_name="subteams")
+    coaches = models.ManyToManyField(Profile, limit_choices_to={'role': 'Coach'}, related_name="subteams_coaches")
+    athletes = models.ManyToManyField(Profile, limit_choices_to={'role': 'Athlete'}, related_name="subteams_athletes")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.name} - {self.team}"
+
+    def can_add_coach(self):
+        """Verifica si puede agregar otro coach (máximo 3)"""
+        return self.coaches.count() < 3
+
+    def can_add_athlete(self):
+        """Verifica si puede agregar atletas (no hay límite para atletas)"""
+        return True
+
+    def can_remove_athlete(self, athlete):
+        """Verifica si se puede remover a un atleta del subequipo"""
+        return self.athletes.filter(id=athlete.id).exists()
+
+    def can_add_more_subteams(self, coach):
+        """Verifica si el coach puede tener más subequipos (máximo 4)"""
+        return coach.subteams_coaches.count() < 4
 
 # Modelo para los récords confidenciales de los atletas
 class AthleteRecord(models.Model):

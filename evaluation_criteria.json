@@ -1,0 +1,389 @@
+{
+    "Archery": {
+        "Individual Men": ["Precisión", "Concentración", "Ejecución"],
+        "Individual Women": ["Precisión", "Concentración", "Ejecución"],
+        "Team Men": ["Coordinación", "Precisión", "Sincronización"],
+        "Team Women": ["Coordinación", "Precisión", "Sincronización"],
+        "Mixed Team": ["Precisión", "Coordinación", "Trabajo en Equipo"]
+    },
+    "Artistic Swimming": {
+        "Duet": ["Sincronización", "Creatividad", "Dificultad"],
+        "Team": ["Sincronización", "Creatividad", "Dificultad Técnica"]
+    },
+    "Athletics": {
+        "100m": ["Velocidad", "Técnica", "Resistencia"],
+        "200m": ["Velocidad", "Resistencia", "Estrategia"],
+        "400m": ["Velocidad", "Resistencia", "Estrategia"],
+        "800m": ["Resistencia", "Ritmo", "Estrategia"],
+        "1500m": ["Resistencia", "Ritmo", "Estrategia"],
+        "5000m": ["Resistencia", "Ritmo", "Estrategia"],
+        "10,000m": ["Resistencia", "Ritmo", "Estrategia"],
+        "Marathon": ["Resistencia", "Estrategia", "Adaptabilidad"],
+        "110m Hurdles": ["Velocidad", "Técnica de Vallas", "Coordinación"],
+        "400m Hurdles": ["Velocidad", "Técnica", "Resistencia"],
+        "3000m Steeplechase": ["Resistencia", "Técnica en Obstáculos", "Ritmo"],
+        "4x100m Relay": ["Velocidad", "Coordinación", "Trabajo en Equipo"],
+        "4x400m Relay": ["Resistencia", "Coordinación", "Trabajo en Equipo"],
+        "20km Walk": ["Resistencia", "Técnica de Marcha", "Ritmo"],
+        "35km Walk": ["Resistencia", "Técnica de Marcha", "Ritmo"],
+        "High Jump": ["Altura", "Técnica", "Ejecución"],
+        "Pole Vault": ["Altura", "Técnica", "Control"],
+        "Long Jump": ["Distancia", "Técnica", "Aterrizaje"],
+        "Triple Jump": ["Distancia", "Técnica", "Coordinación"],
+        "Shot Put": ["Fuerza", "Técnica de Lanzamiento", "Equilibrio"],
+        "Discus Throw": ["Fuerza", "Técnica de Lanzamiento", "Precisión"],
+        "Hammer Throw": ["Fuerza", "Técnica de Lanzamiento", "Precisión"],
+        "Javelin Throw": ["Fuerza", "Precisión", "Técnica"],
+        "Decathlon": ["Resistencia", "Versatilidad", "Técnica"],
+        "Heptathlon": ["Resistencia", "Versatilidad", "Técnica"]
+    },
+    "Badminton": {
+        "Men Singles": ["Velocidad", "Precisión", "Táctica"],
+        "Women Singles": ["Velocidad", "Precisión", "Táctica"],
+        "Men Doubles": ["Coordinación", "Táctica", "Trabajo en Equipo"],
+        "Women Doubles": ["Coordinación", "Táctica", "Trabajo en Equipo"],
+        "Mixed Doubles": ["Coordinación", "Táctica", "Trabajo en Equipo"]
+    },
+    "Basketball": {
+        "Men 5x5": ["Trabajo en Equipo", "Defensa", "Precisión en Tiros"],
+        "Women 5x5": ["Trabajo en Equipo", "Defensa", "Precisión en Tiros"],
+        "Men 3x3": ["Trabajo en Equipo", "Precisión", "Estrategia"],
+        "Women 3x3": ["Trabajo en Equipo", "Precisión", "Estrategia"]
+    },
+    "Beach Volleyball": {
+        "Men": ["Trabajo en Equipo", "Bloqueo", "Ataque"],
+        "Women": ["Trabajo en Equipo", "Bloqueo", "Ataque"]
+    },
+    "Boxing": {
+        "Flyweight Men": ["Técnica", "Velocidad", "Defensa"],
+        "Featherweight Men": ["Técnica", "Velocidad", "Defensa"],
+        "Lightweight Men": ["Técnica", "Fuerza", "Resistencia"],
+        "Welterweight Men": ["Técnica", "Fuerza", "Resistencia"],
+        "Middleweight Men": ["Técnica", "Fuerza", "Resistencia"],
+        "Heavyweight Men": ["Fuerza", "Resistencia", "Estrategia"],
+        "Flyweight Women": ["Técnica", "Velocidad", "Defensa"],
+        "Featherweight Women": ["Técnica", "Velocidad", "Resistencia"],
+        "Lightweight Women": ["Técnica", "Fuerza", "Resistencia"],
+        "Welterweight Women": ["Técnica", "Fuerza", "Estrategia"],
+        "Middleweight Women": ["Técnica", "Fuerza", "Estrategia"]
+    },
+    "Breaking": {
+        "Men": ["Técnica", "Dificultad", "Creatividad"],
+        "Women": ["Técnica", "Dificultad", "Creatividad"]
+    },
+    "Canoe Slalom": {
+        "Kayak Men": ["Técnica", "Precisión", "Velocidad"],
+        "Kayak Women": ["Técnica", "Precisión", "Velocidad"],
+        "Canoe Men": ["Técnica", "Fuerza", "Precisión"],
+        "Canoe Women": ["Técnica", "Fuerza", "Precisión"]
+    },
+    "Canoe Sprint": {
+        "Kayak Single Men": ["Velocidad", "Técnica", "Resistencia"],
+        "Kayak Double Men": ["Coordinación", "Velocidad", "Resistencia"],
+        "Kayak Four Men": ["Coordinación", "Velocidad", "Resistencia"],
+        "Canoe Single Men": ["Fuerza", "Técnica", "Resistencia"],
+        "Canoe Double Men": ["Coordinación", "Fuerza", "Resistencia"],
+        "Kayak Single Women": ["Velocidad", "Técnica", "Resistencia"],
+        "Kayak Double Women": ["Coordinación", "Velocidad", "Resistencia"],
+        "Kayak Four Women": ["Coordinación", "Velocidad", "Resistencia"],
+        "Canoe Single Women": ["Fuerza", "Técnica", "Resistencia"],
+        "Canoe Double Women": ["Coordinación", "Fuerza", "Resistencia"]
+    },
+    "Cycling BMX Freestyle": {
+        "Park Men": ["Técnica", "Creatividad", "Dificultad"],
+        "Park Women": ["Técnica", "Creatividad", "Dificultad"]
+    },
+    "Cycling BMX Racing": {
+        "Men": ["Velocidad", "Técnica", "Precisión"],
+        "Women": ["Velocidad", "Técnica", "Precisión"]
+    },
+    "Cycling Mountain Bike": {
+        "Cross-Country Men": ["Resistencia", "Técnica", "Precisión"],
+        "Cross-Country Women": ["Resistencia", "Técnica", "Precisión"]
+    },
+    "Cycling Road": {
+        "Road Race Men": ["Resistencia", "Técnica", "Estrategia"],
+        "Road Race Women": ["Resistencia", "Técnica", "Estrategia"],
+        "Time Trial Men": ["Velocidad", "Técnica", "Resistencia"],
+        "Time Trial Women": ["Velocidad", "Técnica", "Resistencia"]
+    },
+    "Cycling Track": {
+        "Sprint Men": ["Velocidad", "Técnica", "Estrategia"],
+        "Sprint Women": ["Velocidad", "Técnica", "Estrategia"],
+        "Keirin Men": ["Velocidad", "Técnica", "Resistencia"],
+        "Keirin Women": ["Velocidad", "Técnica", "Resistencia"],
+        "Team Sprint Men": ["Coordinación", "Velocidad", "Fuerza"],
+        "Team Sprint Women": ["Coordinación", "Velocidad", "Fuerza"],
+        "Team Pursuit Men": ["Coordinación", "Resistencia", "Velocidad"],
+        "Team Pursuit Women": ["Coordinación", "Resistencia", "Velocidad"],
+        "Omnium Men": ["Velocidad", "Técnica", "Resistencia"],
+        "Omnium Women": ["Velocidad", "Técnica", "Resistencia"],
+        "Madison Men": ["Técnica", "Resistencia", "Estrategia"],
+        "Madison Women": ["Técnica", "Resistencia", "Estrategia"]
+    },
+    "Diving": {
+        "Springboard 3m Men": ["Técnica", "Dificultad", "Entrada al Agua"],
+        "Springboard 3m Women": ["Técnica", "Dificultad", "Entrada al Agua"],
+        "Platform 10m Men": ["Técnica", "Dificultad", "Entrada al Agua"],
+        "Platform 10m Women": ["Técnica", "Dificultad", "Entrada al Agua"],
+        "Synchronized 3m Men": ["Sincronización", "Técnica", "Dificultad"],
+        "Synchronized 3m Women": ["Sincronización", "Técnica", "Dificultad"],
+        "Synchronized 10m Men": ["Sincronización", "Técnica", "Dificultad"],
+        "Synchronized 10m Women": ["Sincronización", "Técnica", "Dificultad"]
+    },
+    "Equestrian": {
+        "Dressage Individual": ["Precisión", "Técnica", "Armonía con el Caballo"],
+        "Dressage Team": ["Sincronización", "Técnica", "Armonía con el Caballo"],
+        "Eventing Individual": ["Técnica", "Resistencia", "Armonía con el Caballo"],
+        "Eventing Team": ["Sincronización", "Resistencia", "Técnica"],
+        "Jumping Individual": ["Altura", "Técnica de Salto", "Control del Caballo"],
+        "Jumping Team": ["Sincronización", "Altura", "Control del Caballo"]
+    },
+    "Fencing": {
+        "Epee Men": ["Precisión", "Velocidad", "Táctica"],
+        "Epee Women": ["Precisión", "Velocidad", "Táctica"],
+        "Foil Men": ["Técnica", "Velocidad", "Defensa"],
+        "Foil Women": ["Técnica", "Velocidad", "Defensa"],
+        "Sabre Men": ["Velocidad", "Ataque", "Defensa"],
+        "Sabre Women": ["Velocidad", "Ataque", "Defensa"],
+        "Team Epee Men": ["Coordinación", "Precisión", "Trabajo en Equipo"],
+        "Team Epee Women": ["Coordinación", "Precisión", "Trabajo en Equipo"],
+        "Team Foil Men": ["Coordinación", "Táctica", "Trabajo en Equipo"],
+        "Team Foil Women": ["Coordinación", "Táctica", "Trabajo en Equipo"],
+        "Team Sabre Men": ["Coordinación", "Táctica", "Trabajo en Equipo"],
+        "Team Sabre Women": ["Coordinación", "Táctica", "Trabajo en Equipo"]
+    },
+    "Football": {
+        "Men": ["Trabajo en Equipo", "Velocidad", "Estrategia"],
+        "Women": ["Trabajo en Equipo", "Velocidad", "Estrategia"]
+    },
+    "Golf": {
+        "Individual Men": ["Precisión", "Técnica de Golpe", "Estrategia"],
+        "Individual Women": ["Precisión", "Técnica de Golpe", "Estrategia"]
+    },
+    "Gymnastics Artistic": {
+        "Team Men": ["Dificultad", "Ejecución", "Sincronización"],
+        "Team Women": ["Dificultad", "Ejecución", "Sincronización"],
+        "All-Around Men": ["Dificultad", "Ejecución", "Fluidez"],
+        "All-Around Women": ["Dificultad", "Ejecución", "Fluidez"],
+        "Floor Exercise Men": ["Dificultad", "Ejecución", "Creatividad"],
+        "Floor Exercise Women": ["Dificultad", "Ejecución", "Creatividad"],
+        "Pommel Horse Men": ["Control", "Técnica", "Fluidez"],
+        "Rings Men": ["Fuerza", "Control", "Ejecución"],
+        "Vault Men": ["Técnica", "Altura", "Dificultad"],
+        "Vault Women": ["Técnica", "Altura", "Dificultad"],
+        "Parallel Bars Men": ["Técnica", "Control", "Ejecución"],
+        "Horizontal Bar Men": ["Técnica", "Altura", "Control"],
+        "Uneven Bars Women": ["Técnica", "Altura", "Fluidez"],
+        "Balance Beam Women": ["Control", "Técnica", "Ejecución"]
+    },
+    "Gymnastics Rhythmic": {
+        "Individual All-Around Women": ["Dificultad", "Sincronización", "Fluidez"],
+        "Group All-Around Women": ["Sincronización", "Dificultad", "Creatividad"]
+    },
+    "Handball": {
+        "Men": ["Trabajo en Equipo", "Velocidad", "Precisión de Tiro"],
+        "Women": ["Trabajo en Equipo", "Velocidad", "Precisión de Tiro"]
+    },
+    "Hockey": {
+        "Men": ["Velocidad", "Trabajo en Equipo", "Precisión"],
+        "Women": ["Velocidad", "Trabajo en Equipo", "Precisión"]
+    },
+    "Judo": {
+        "Extra Lightweight Men": ["Técnica", "Fuerza", "Velocidad"],
+        "Half Lightweight Men": ["Técnica", "Fuerza", "Velocidad"],
+        "Lightweight Men": ["Técnica", "Fuerza", "Resistencia"],
+        "Half Middleweight Men": ["Técnica", "Fuerza", "Resistencia"],
+        "Middleweight Men": ["Técnica", "Fuerza", "Resistencia"],
+        "Half Heavyweight Men": ["Técnica", "Fuerza", "Resistencia"],
+        "Heavyweight Men": ["Técnica", "Fuerza", "Resistencia"],
+        "Extra Lightweight Women": ["Técnica", "Fuerza", "Velocidad"],
+        "Half Lightweight Women": ["Técnica", "Fuerza", "Velocidad"],
+        "Lightweight Women": ["Técnica", "Fuerza", "Resistencia"],
+        "Half Middleweight Women": ["Técnica", "Fuerza", "Resistencia"],
+        "Middleweight Women": ["Técnica", "Fuerza", "Resistencia"],
+        "Half Heavyweight Women": ["Técnica", "Fuerza", "Resistencia"],
+        "Heavyweight Women": ["Técnica", "Fuerza", "Resistencia"],
+        "Mixed Team": ["Trabajo en Equipo", "Técnica", "Estrategia"]
+    },
+    "Modern Pentathlon": {
+        "Individual Men": ["Resistencia", "Precisión", "Estrategia"],
+        "Individual Women": ["Resistencia", "Precisión", "Estrategia"]
+    },
+    "Rowing": {
+        "Single Sculls Men": ["Velocidad", "Resistencia", "Técnica"],
+        "Single Sculls Women": ["Velocidad", "Resistencia", "Técnica"],
+        "Double Sculls Men": ["Sincronización", "Resistencia", "Técnica"],
+        "Double Sculls Women": ["Sincronización", "Resistencia", "Técnica"],
+        "Quadruple Sculls Men": ["Sincronización", "Resistencia", "Técnica"],
+        "Quadruple Sculls Women": ["Sincronización", "Resistencia", "Técnica"],
+        "Lightweight Double Sculls Men": ["Sincronización", "Resistencia", "Técnica"],
+        "Lightweight Double Sculls Women": ["Sincronización", "Resistencia", "Técnica"],
+        "Coxless Pairs Men": ["Coordinación", "Resistencia", "Técnica"],
+        "Coxless Pairs Women": ["Coordinación", "Resistencia", "Técnica"],
+        "Coxless Fours Men": ["Coordinación", "Resistencia", "Técnica"],
+        "Coxless Fours Women": ["Coordinación", "Resistencia", "Técnica"],
+        "Eight with Coxswain Men": ["Trabajo en Equipo", "Sincronización", "Resistencia"],
+        "Eight with Coxswain Women": ["Trabajo en Equipo", "Sincronización", "Resistencia"]
+    },
+    "Rugby Sevens": {
+        "Men": ["Trabajo en Equipo", "Velocidad", "Fuerza"],
+        "Women": ["Trabajo en Equipo", "Velocidad", "Fuerza"]
+    },
+    "Sailing": {
+        "Men Dinghy One Person": ["Técnica", "Estrategia", "Resistencia"],
+        "Women Dinghy One Person": ["Técnica", "Estrategia", "Resistencia"],
+        "Skiff Men": ["Técnica", "Estrategia", "Resistencia"],
+        "Skiff Women": ["Técnica", "Estrategia", "Resistencia"],
+        "Mixed Multihull": ["Coordinación", "Técnica", "Resistencia"]
+    },
+    "Shooting": {
+        "10m Air Rifle Men": ["Precisión", "Concentración", "Control"],
+        "10m Air Rifle Women": ["Precisión", "Concentración", "Control"],
+        "50m Rifle 3 Positions Men": ["Precisión", "Control", "Técnica"],
+        "50m Rifle 3 Positions Women": ["Precisión", "Control", "Técnica"],
+        "10m Air Pistol Men": ["Precisión", "Concentración", "Control"],
+        "10m Air Pistol Women": ["Precisión", "Concentración", "Control"],
+        "25m Rapid Fire Pistol Men": ["Velocidad", "Precisión", "Técnica"],
+        "25m Pistol Women": ["Velocidad", "Precisión", "Técnica"],
+        "Trap Men": ["Precisión", "Técnica", "Concentración"],
+        "Trap Women": ["Precisión", "Técnica", "Concentración"],
+        "Skeet Men": ["Velocidad", "Precisión", "Técnica"],
+        "Skeet Women": ["Velocidad", "Precisión", "Técnica"]
+    },
+    "Skateboarding": {
+        "Street Men": ["Técnica", "Dificultad", "Creatividad"],
+        "Street Women": ["Técnica", "Dificultad", "Creatividad"],
+        "Park Men": ["Técnica", "Dificultad", "Creatividad"],
+        "Park Women": ["Técnica", "Dificultad", "Creatividad"]
+    },
+    "Sport Climbing": {
+        "Boulder Men": ["Técnica", "Fuerza", "Resistencia"],
+        "Boulder Women": ["Técnica", "Fuerza", "Resistencia"],
+        "Lead Men": ["Técnica", "Fuerza", "Resistencia"],
+        "Lead Women": ["Técnica", "Fuerza", "Resistencia"],
+        "Speed Men": ["Velocidad", "Técnica", "Coordinación"],
+        "Speed Women": ["Velocidad", "Técnica", "Coordinación"]
+    },
+    "Surfing": {
+        "Men": ["Técnica", "Dificultad", "Creatividad"],
+        "Women": ["Técnica", "Dificultad", "Creatividad"]
+    },
+    "Swimming": {
+        "50m Freestyle Men": ["Velocidad", "Técnica", "Resistencia"],
+        "50m Freestyle Women": ["Velocidad", "Técnica", "Resistencia"],
+        "100m Freestyle Men": ["Velocidad", "Técnica", "Resistencia"],
+        "100m Freestyle Women": ["Velocidad", "Técnica", "Resistencia"],
+        "200m Freestyle Men": ["Velocidad", "Técnica", "Resistencia"],
+        "200m Freestyle Women": ["Velocidad", "Técnica", "Resistencia"],
+        "400m Freestyle Men": ["Resistencia", "Técnica", "Velocidad"],
+        "400m Freestyle Women": ["Resistencia", "Técnica", "Velocidad"],
+        "800m Freestyle Men": ["Resistencia", "Técnica", "Ritmo"],
+        "800m Freestyle Women": ["Resistencia", "Técnica", "Ritmo"],
+        "1500m Freestyle Men": ["Resistencia", "Técnica", "Ritmo"],
+        "1500m Freestyle Women": ["Resistencia", "Técnica", "Ritmo"],
+        "100m Backstroke Men": ["Técnica", "Velocidad", "Resistencia"],
+        "100m Backstroke Women": ["Técnica", "Velocidad", "Resistencia"],
+        "200m Backstroke Men": ["Técnica", "Resistencia", "Velocidad"],
+        "200m Backstroke Women": ["Técnica", "Resistencia", "Velocidad"],
+        "100m Breaststroke Men": ["Técnica", "Velocidad", "Resistencia"],
+        "100m Breaststroke Women": ["Técnica", "Velocidad", "Resistencia"],
+        "200m Breaststroke Men": ["Técnica", "Resistencia", "Velocidad"],
+        "200m Breaststroke Women": ["Técnica", "Resistencia", "Velocidad"],
+        "100m Butterfly Men": ["Técnica", "Velocidad", "Resistencia"],
+        "100m Butterfly Women": ["Técnica", "Velocidad", "Resistencia"],
+        "200m Butterfly Men": ["Técnica", "Resistencia", "Velocidad"],
+        "200m Butterfly Women": ["Técnica", "Resistencia", "Velocidad"],
+        "200m Individual Medley Men": ["Técnica", "Resistencia", "Versatilidad"],
+        "200m Individual Medley Women": ["Técnica", "Resistencia", "Versatilidad"],
+        "400m Individual Medley Men": ["Técnica", "Resistencia", "Versatilidad"],
+        "400m Individual Medley Women": ["Técnica", "Resistencia", "Versatilidad"],
+        "4x100m Freestyle Relay Men": ["Trabajo en Equipo", "Velocidad", "Técnica"],
+        "4x100m Freestyle Relay Women": ["Trabajo en Equipo", "Velocidad", "Técnica"],
+        "4x200m Freestyle Relay Men": ["Trabajo en Equipo", "Resistencia", "Velocidad"],
+        "4x200m Freestyle Relay Women": ["Trabajo en Equipo", "Resistencia", "Velocidad"],
+        "4x100m Medley Relay Men": ["Trabajo en Equipo", "Técnica", "Versatilidad"],
+        "4x100m Medley Relay Women": ["Trabajo en Equipo", "Técnica", "Versatilidad"],
+        "4x100m Mixed Medley Relay": ["Trabajo en Equipo", "Técnica", "Versatilidad"],
+        "4x100m Freestyle Relay Mixed": ["Trabajo en Equipo", "Velocidad", "Resistencia"]
+    },
+    "Table Tennis": {
+        "Singles Men": ["Velocidad", "Técnica", "Precisión"],
+        "Singles Women": ["Velocidad", "Técnica", "Precisión"],
+        "Doubles Men": ["Coordinación", "Técnica", "Trabajo en Equipo"],
+        "Doubles Women": ["Coordinación", "Técnica", "Trabajo en Equipo"],
+        "Mixed Doubles": ["Coordinación", "Técnica", "Trabajo en Equipo"],
+        "Team Men": ["Coordinación", "Técnica", "Trabajo en Equipo"],
+        "Team Women": ["Coordinación", "Técnica", "Trabajo en Equipo"]
+    },
+    "Taekwondo": {
+        "Men -58kg": ["Velocidad", "Técnica", "Fuerza"],
+        "Men -68kg": ["Velocidad", "Técnica", "Fuerza"],
+        "Men -80kg": ["Velocidad", "Técnica", "Fuerza"],
+        "Men +80kg": ["Velocidad", "Técnica", "Fuerza"],
+        "Women -49kg": ["Velocidad", "Técnica", "Fuerza"],
+        "Women -57kg": ["Velocidad", "Técnica", "Fuerza"],
+        "Women -67kg": ["Velocidad", "Técnica", "Fuerza"],
+        "Women +67kg": ["Velocidad", "Técnica", "Fuerza"]
+    },
+    "Tennis": {
+        "Singles Men": ["Técnica", "Velocidad", "Estrategia"],
+        "Singles Women": ["Técnica", "Velocidad", "Estrategia"],
+        "Doubles Men": ["Trabajo en Equipo", "Técnica", "Estrategia"],
+        "Doubles Women": ["Trabajo en Equipo", "Técnica", "Estrategia"],
+        "Mixed Doubles": ["Trabajo en Equipo", "Técnica", "Estrategia"]
+    },
+    "Trampoline": {
+        "Men": ["Altura", "Dificultad", "Ejecución"],
+        "Women": ["Altura", "Dificultad", "Ejecución"]
+    },
+    "Triathlon": {
+        "Individual Men": ["Resistencia", "Técnica", "Estrategia"],
+        "Individual Women": ["Resistencia", "Técnica", "Estrategia"],
+        "Mixed Relay": ["Coordinación", "Resistencia", "Trabajo en Equipo"]
+    },
+    "Volleyball": {
+        "Indoor Men": ["Trabajo en Equipo", "Bloqueo", "Ataque"],
+        "Indoor Women": ["Trabajo en Equipo", "Bloqueo", "Ataque"],
+        "Beach Men": ["Trabajo en Equipo", "Ataque", "Bloqueo"],
+        "Beach Women": ["Trabajo en Equipo", "Ataque", "Bloqueo"]
+    },
+    "Water Polo": {
+        "Men": ["Trabajo en Equipo", "Defensa", "Ataque"],
+        "Women": ["Trabajo en Equipo", "Defensa", "Ataque"]
+    },
+    "Weightlifting": {
+        "Men 61kg": ["Fuerza", "Técnica", "Resistencia"],
+        "Men 73kg": ["Fuerza", "Técnica", "Resistencia"],
+        "Men 89kg": ["Fuerza", "Técnica", "Resistencia"],
+        "Men 102kg": ["Fuerza", "Técnica", "Resistencia"],
+        "Men +102kg": ["Fuerza", "Técnica", "Resistencia"],
+        "Women 49kg": ["Fuerza", "Técnica", "Resistencia"],
+        "Women 59kg": ["Fuerza", "Técnica", "Resistencia"],
+        "Women 71kg": ["Fuerza", "Técnica", "Resistencia"],
+        "Women 81kg": ["Fuerza", "Técnica", "Resistencia"],
+        "Women +81kg": ["Fuerza", "Técnica", "Resistencia"]
+    },
+    "Wrestling Freestyle": {
+        "Men 57kg": ["Fuerza", "Técnica", "Resistencia"],
+        "Men 65kg": ["Fuerza", "Técnica", "Resistencia"],
+        "Men 74kg": ["Fuerza", "Técnica", "Resistencia"],
+        "Men 86kg": ["Fuerza", "Técnica", "Resistencia"],
+        "Men 97kg": ["Fuerza", "Técnica", "Resistencia"],
+        "Men 125kg": ["Fuerza", "Técnica", "Resistencia"],
+        "Women 50kg": ["Fuerza", "Técnica", "Resistencia"],
+        "Women 53kg": ["Fuerza", "Técnica", "Resistencia"],
+        "Women 57kg": ["Fuerza", "Técnica", "Resistencia"],
+        "Women 62kg": ["Fuerza", "Técnica", "Resistencia"],
+        "Women 68kg": ["Fuerza", "Técnica", "Resistencia"],
+        "Women 76kg": ["Fuerza", "Técnica", "Resistencia"]
+    },
+    "Wrestling Greco-Roman": {
+        "Men 60kg": ["Fuerza", "Técnica", "Resistencia"],
+        "Men 67kg": ["Fuerza", "Técnica", "Resistencia"],
+        "Men 77kg": ["Fuerza", "Técnica", "Resistencia"],
+        "Men 87kg": ["Fuerza", "Técnica", "Resistencia"],
+        "Men 97kg": ["Fuerza", "Técnica", "Resistencia"],
+        "Men 130kg": ["Fuerza", "Técnica", "Resistencia"]
+    }
+}

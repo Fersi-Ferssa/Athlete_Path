@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil del Atleta: {{ full_name }}</title>
+</head>
+<body>
+    <h1>Perfil del Atleta: {{ full_name }}</h1>
+
+    <p>Equipo Olímpico: {{ team_name }}</p>
+    <p>Disciplina: {{ profile.discipline }}</p>
+    <p>Rama: {{ profile.branch }}</p>
+    <p>País Olímpico: {{ country }}</p>
+
+    <h3>Evaluaciones del Atleta</h3>
+    <ul>
+        {% for record in athlete_records %}
+        <li>
+            Evaluado por: {{ record.coach.user.first_name }} {{ record.coach.user.last_name }} <br>
+            Fecha: {{ record.evaluation_date }} <br>
+            Dificultad: {{ record.difficulty }} <br>
+            Ejecución: {{ record.execution }} <br>
+            Notas: {{ record.notes }} <br>
+            {% if can_edit_records %}
+            <a href="{% url 'edit_record' record.id %}">Editar Evaluación</a>
+            <a href="{% url 'delete_record' record.id %}">Eliminar Evaluación</a>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+
+    <!-- Agregar el botón de "Evaluar Atleta" solo si puede evaluar -->
+    {% if can_evaluate %}
+    <a href="{% url 'evaluate_athlete' profile.id %}">
+        <button>Evaluar Atleta</button>
+    </a>
+    {% endif %}
+    <br></br>
+    <button onclick="window.history.back();">Regresar</button>
+</body>
+</html>

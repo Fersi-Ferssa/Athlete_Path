@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Subequipo: {{ subteam.name }}</title>
+</head>
+<body>
+    <h1>{{ subteam.name }}</h1>
+
+    <!-- Sección para cambiar el nombre del subequipo -->
+    <form method="POST" action="{% url 'edit_subteam' subteam.id %}">
+        {% csrf_token %}
+        <label for="name">Nombre del Subequipo:</label>
+        <input type="text" name="name" value="{{ subteam.name }}">
+        <br></br>
+        <button type="submit" name="update_name">Actualizar Nombre</button>
+    </form>
+
+    <!-- ATLETAS EN EL SUBEQUIPO -->
+    <h3>Atletas en el subequipo:</h3>
+    <ul>
+        {% for athlete in subteam.athletes.all %}
+        <li>
+            <a href="{% url 'coach_view_athlete_profile' athlete.id %}">{{ athlete.user.first_name }} {{ athlete.user.last_name }}</a>
+            {% if is_creator %}
+            <form method="POST" action="{% url 'edit_subteam' subteam.id %}" onsubmit="return confirm('¿Estás seguro de que quieres eliminar a este atleta?');" style="display:inline;">
+                {% csrf_token %}
+                <input type="hidden" name="athlete_id" value="{{ athlete.id }}">
+                <button type="submit" name="remove_athlete">Eliminar</button>
+            </form>            
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+    
+
+    <!-- Sección para actualizar los atletas del subequipo -->
+    <form method="POST" action="{% url 'edit_subteam' subteam.id %}">
+        {% csrf_token %}
+        <label for="athletes">Seleccionar Atletas:</label>
+        <select name="athletes" multiple>
+            {% for athlete in available_athletes %}
+            <option value="{{ athlete.id }}">{{ athlete.user.first_name }} {{ athlete.user.last_name }} - {{ athlete.discipline }} ({{ athlete.branch }})</option>
+            {% endfor %}
+        </select>
+        <button type="submit" name="update_athletes">Actualizar Atletas</button>
+    </form>
+
+    <a href="{% url 'manage_subteams' %}">
+        <button class="button">Regresar a gestión de subequipos</button>
+    </a>
+</body>
+</html>

@@ -4,134 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard del Coach</title>
-    <!--
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            padding: 20px;
-            min-height: 100vh;
-            margin: 0;
-        }
-
-        .dashboard-container {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 800px;
-        }
-
-        h1, h2, h3 {
-            color: #4066d5;
-            margin-bottom: 20px;
-        }
-
-        h1 {
-            font-size: 28px;
-        }
-
-        h2, h3 {
-            font-size: 22px;
-        }
-
-        p {
-            font-size: 16px;
-            color: #333;
-        }
-
-        .team-form {
-            margin-bottom: 20px;
-            padding: 20px;
-            background-color: #f9f9f9;
-            border-radius: 8px;
-        }
-
-        button {
-            background-color: #4066d5;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin-top: 10px;
-        }
-
-        button:hover {
-            background-color: #3053b0;
-        }
-
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        li {
-            margin-bottom: 10px;
-            font-size: 16px;
-        }
-
-        a {
-            color: #4066d5;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        a:hover {
-            color: #3053b0;
-        }
-
-        .logout-btn {
-            background-color: #e74c3c;
-            margin-top: 20px;
-        }
-
-        .logout-btn:hover {
-            background-color: #c0392b;
-        }
-
-        .password-change-link {
-            display: inline-block;
-            margin-top: 15px;
-            color: #4066d5;
-            text-decoration: none;
-        }
-
-        .password-change-link:hover {
-            color: #3053b0;
-        }
-
-        @media (max-width: 600px) {
-            .dashboard-container {
-                padding: 20px;
-            }
-
-            h1 {
-                font-size: 24px;
-            }
-
-            h2, h3 {
-                font-size: 20px;
-            }
-
-            li {
-                font-size: 14px;
-            }
-
-            button {
-                font-size: 14px;
-            }
-        }
-    </style>
--->
 </head>
 <body>
+
+    <!-- Mostrar mensajes de alerta si los hay -->
     {% if messages %}
     <div>
         {% for message in messages %}
@@ -142,31 +18,21 @@
 
     <div class="dashboard-container">
         <h1>Bienvenid@ Coach: {{ profile.user.first_name }} {{ profile.user.last_name }}</h1>
-        <h2>Equipo: {{ profile.team_name }}</h2>
-        <p>Estás representando olímpicamente al equipo de: {{ profile.get_olympic_country_display }} - {{ profile.olympic_country }}</p>
-        <p>Tu disciplina es: {{ profile.discipline }}, y tu rama es: {{ profile.branch }}</p>
 
-        <!-- Formulario para editar el nombre del equipo -->
-        <div class="team-form">
-            <form method="POST">
-                {% csrf_token %}
-                {{ team_form.as_p }}
-                <button type="submit">Actualizar Nombre del Equipo</button>
-            </form>
+        <div class="options">
+            <h2>Opciones del Coach:</h2>
+            <ul>
+                <li><a href="{% url 'profile' %}">Ver Perfil</a></li>
+                <li><a href="{% url 'manage_subteams' %}">Gestionar Subequipos</a></li>
+                <li><a href="{% url 'create_subteam' %}">Crear Subequipo</a></li>
+            </ul>
         </div>
-
-        <h3>Atletas en tu equipo:</h3>
-        <ul>
-            {% for athlete in athletes %}
-            <li>{{ athlete.user.first_name }} {{ athlete.user.last_name }} - {{ athlete.branch }} - {{ athlete.get_olympic_country_display }}, {{ athlete.olympic_country }} - <a href="{% url 'evaluate_athlete' athlete.id %}">Evaluar</a></li>
-            {% endfor %}
-        </ul>
-
+        
+        <!-- Botón de cerrar sesión -->
         <form method="POST" action="{% url 'logout' %}">
             {% csrf_token %}
             <button type="submit" class="logout-btn">Cerrar sesión</button>
         </form>
-        <a href="{% url 'password_change' %}" class="password-change-link">Cambiar Contraseña</a>
         <br><br>
         <button class="button" onclick="window.history.back();">Regresar</button>
     </div>

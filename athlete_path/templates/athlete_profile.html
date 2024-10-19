@@ -4,131 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil del Atleta</title>
-    <!--
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            padding: 20px;
-            min-height: 100vh;
-            margin: 0;
-        }
-
-        .profile-container {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 900px;
-            text-align: left;
-        }
-
-        h1, h2, h3 {
-            color: #4066d5;
-            margin-bottom: 10px;
-        }
-
-        h1 {
-            font-size: 28px;
-        }
-
-        h2, h3 {
-            font-size: 22px;
-        }
-
-        p {
-            font-size: 16px;
-            color: #333;
-            margin-bottom: 10px;
-        }
-
-        .highlight {
-            font-weight: bold;
-            color: #4066d5;
-        }
-
-        .info-block {
-            margin-bottom: 30px;
-            padding: 20px;
-            background-color: #f9f9f9;
-            border-radius: 8px;
-        }
-
-        .info-title {
-            font-size: 18px;
-            margin-bottom: 5px;
-        }
-
-        ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        li {
-            margin-bottom: 10px;
-            font-size: 16px;
-            color: #333;
-        }
-
-        .button {
-            background-color: #4066d5;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            text-decoration: none;
-            font-size: 16px;
-            cursor: pointer;
-            display: inline-block;
-            margin-top: 10px;
-        }
-
-        .button:hover {
-            background-color: #3053b0;
-        }
-
-        .logout-btn {
-            background-color: #e74c3c;
-        }
-
-        .logout-btn:hover {
-            background-color: #c0392b;
-        }
-
-        .comparison-link {
-            margin-top: 20px;
-            font-size: 16px;
-            color: #4066d5;
-            text-decoration: none;
-        }
-
-        .comparison-link:hover {
-            color: #3053b0;
-        }
-
-        @media (max-width: 600px) {
-            .profile-container {
-                padding: 20px;
-            }
-
-            h1 {
-                font-size: 22px;
-            }
-
-            h2, h3 {
-                font-size: 18px;
-            }
-
-            p, li {
-                font-size: 14px;
-            }
-        }
-    </style>
-    -->
 </head>
 <body>
     {% if messages %}
@@ -140,13 +15,13 @@
     {% endif %}
     
     <div class="profile-container">
-        <h1>Bienvenid@ Atleta: <span class="highlight">{{ profile.user.first_name }} {{ profile.user.last_name }}</span></h1>
+        <h1>Bienvenido, <span class="highlight">{{ profile.user.first_name }} {{ profile.user.last_name }}</span> (Atleta)</h1>
         
         <div class="info-block">
             <h2>Información del Atleta</h2>
-            <p><strong>País Olímpico:</strong> <span class="highlight">{{ profile.get_olympic_country_display }} - {{ profile.olympic_country }}</span></p>
             <p><strong>Disciplina:</strong> <span class="highlight">{{ profile.discipline }}</span></p>
             <p><strong>Rama:</strong> <span class="highlight">{{ profile.branch }}</span></p>
+            <p><strong>Nacionalidad:</strong> <span class="highlight">{{ profile.olympic_country }}</span></p>
             <p><strong>Nombre del Equipo:</strong> <span class="highlight">{{ team_name }}</span></p>
         </div>
 
@@ -158,12 +33,13 @@
                 <p><strong>Ejecución:</strong> <span class="highlight">{{ latest_record.execution }}</span></p>
                 <p><strong>Puntuación:</strong> <span class="highlight">{{ latest_record.total_score }}</span></p>
                 <p><strong>Fecha de Evaluación:</strong> <span class="highlight">{{ latest_record.evaluation_date }}</span></p>
+                <p><strong>Notas:</strong> <span class="highlight">{{ latest_record.notes }}</span></p>
             {% else %}
                 <p>No tienes evaluaciones disponibles aún.</p>
             {% endif %}
         </div>
 
-        <!-- Mostrar el mejor atleta de las Olimpiadas 2024 -->
+        <!-- Mostrar el campeón de las Olimpiadas 2024 -->
         {% if champion %}
         <div class="info-block">
             <h3>Ganadora Olimpiadas París 2024: <span class="highlight">{{ champion.name }}</span></h3>
@@ -181,7 +57,10 @@
                 {% if best_athletes %}
                     {% for athlete in best_athletes %}
                     <li>
-                        <strong class="highlight">{{ athlete.user.first_name }} {{ athlete.user.last_name }}</strong> - {{ athlete.get_olympic_country_display }}, {{ athlete.olympic_country }} - Puntuación: <span class="highlight">{{ athlete.max_score }}</span>
+                        <a href="{% url 'athlete_profile' athlete.id %}">
+                            <strong class="highlight">{{ athlete.user.first_name }} {{ athlete.user.last_name }}</strong>
+                        </a>
+                        - {{ athlete.olympic_country }} - Puntuación: <span class="highlight">{{ athlete.max_score }}</span>
                     </li>
                     {% endfor %}
                 {% else %}
@@ -190,15 +69,39 @@
             </ul>
         </div>
 
+        <!-- Historial de evaluaciones del atleta -->
+        <div class="info-block">
+            <h3>Historial de Evaluaciones</h3>
+            <ul>
+                {% for record in athlete_records %}
+                <li>
+                    <strong>{{ record.evaluation_date }}:</strong> Dificultad: {{ record.difficulty }}, Ejecución: {{ record.execution }}, Puntuación: {{ record.total_score }}, Notas: {{ record.notes }}
+                    
+                    <!-- Solo mostrar opciones si el coach actual es quien creó el registro -->
+                    {% if can_edit_records %}
+                        <a href="{% url 'edit_record' record.id %}">Editar</a> |
+                        <a href="{% url 'delete_record' record.id %}" onclick="return confirm('¿Estás seguro de que quieres eliminar este registro?');">Eliminar</a>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
         <h3>Opciones de Comparación</h3>
         <a href="{% url 'comparison_options' %}" class="comparison-link">Ir a la Comparación</a>
 
+        <!-- Formulario para cerrar sesión -->
         <form method="POST" action="{% url 'logout' %}">
             {% csrf_token %}
             <button type="submit" class="button logout-btn">Cerrar sesión</button>
         </form>
+
+        <!-- Formulario de cambio de contraseña, solo si el usuario es el dueño del perfil -->
+        {% if form %}
         <br><br>
         <a href="{% url 'password_change' %}" class="button">Cambiar Contraseña</a>
+        {% endif %}
+        
         <br><br>
         <button class="button" onclick="window.history.back();">Regresar</button>
     </div>

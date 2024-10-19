@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Profile, AthleteRecord
+from .models import Profile, AthleteRecord, SubTeam
 # Importa la lista de países, disciplinas y atletas.
 from .countries import COUNTRY_CHOICES
 from .disciplines import DISCIPLINE_CHOICES
@@ -37,7 +37,7 @@ class ProfileForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ['olympic_country', 'discipline', 'branch', 'team_name']
+        fields = ['olympic_country', 'discipline', 'branch']
 
     def __init__(self, *args, **kwargs):
         super(ProfileForm, self).__init__(*args, **kwargs)
@@ -48,14 +48,22 @@ class ProfileForm(forms.ModelForm):
         else:
             self.fields['branch'].choices = []
 
-# Formulario para que el coach pueda editar el nombre del equipo
-class TeamNameForm(forms.ModelForm):
+class SubTeamForm(forms.ModelForm):
     class Meta:
-        model = Profile
-        fields = ['team_name']
+        model = SubTeam
+        fields = ['name', 'athletes']
         labels = {
-            'team_name': 'Nombre del Equipo',
+            'name': 'Nombre del Subequipo',
+            'athletes': 'Seleccionar Atletas',
         }
+
+    def clean_athletes(self):
+        athletes = self.cleaned_data.get('athletes')
+        if athletes:
+            for athlete in athletes:
+                if SubTeam.objects.filter(athletes=athlete).exists():
+                    raise forms.ValidationError(f"{athlete.user.first_name} ya está en un subequipo.")
+        return athletes
 
 class AthleteRecordForm(forms.ModelForm):
     evaluation_date = forms.DateField(

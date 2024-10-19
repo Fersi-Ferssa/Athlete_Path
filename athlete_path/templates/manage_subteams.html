@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestionar Subequipos</title>
+</head>
+<body>
+
+    <!-- Mostrar mensajes de alerta si los hay -->
+    {% if messages %}
+    <div>
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <h1>Gestionar Subequipos</h1>
+
+    <!-- Mis subequipos -->
+    <h2>Mis Subequipos</h2>
+    <ul>
+      {% for subteam in my_subteams %}
+        <li>
+          {{ subteam.name }} - 
+          <a href="{% url 'edit_subteam' subteam.id %}">Editar</a> - 
+          <a href="{% url 'delete_subteam' subteam.id %}">Eliminar</a>
+          <!-- <ul>
+            {% for athlete in subteam.athletes.all %}
+            <li>
+              <a href="{% url 'coach_view_athlete_profile' athlete.id %}">{{ athlete.user.first_name }} {{ athlete.user.last_name }}</a>
+            </li>
+            {% endfor %}
+          </ul>
+        </li>
+        -->
+      {% empty %}
+        <p>No tienes subequipos aún.</p>
+      {% endfor %}
+    </ul>
+
+    <!-- Subequipos disponibles -->
+    <h2>Subequipos Disponibles</h2>
+    <ul>
+      {% for subteam in available_subteams %}
+        <li>
+          {{ subteam.name }} - <a href="{% url 'join_subteam' subteam.id %}">Unirse</a>
+        </li>
+      {% empty %}
+        <p>No hay subequipos disponibles para unirse.</p>
+      {% endfor %}
+    </ul>
+
+    <!-- Botón para redirigir a la página de creación de subequipo -->
+    <h2>Crear un Nuevo Subequipo</h2>
+    <a href="{% url 'create_subteam' %}">
+        <button>Crear Subequipo</button>
+    </a>
+
+    <!-- Botón para regresar -->
+    <br><br>
+    <a href="{% url 'coach_dashboard' %}">
+      <button class="button">Regresar</button>
+  </a>
+
+</body>
+</html>

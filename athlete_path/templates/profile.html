@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil del Coach</title>
+</head>
+<body>
+    <h1>Perfil de {{ profile.user.first_name }} {{ profile.user.last_name }}</h1>
+    
+    <!-- Mostrar la fecha de nacimiento -->
+    <p>Fecha de Nacimiento: {{ profile.date_of_birth|date:"d F Y" }}</p>
+    
+    <!-- Mostrar el país de nacimiento con nombre completo -->
+    <p>País de Nacimiento: {{ profile.get_country_display }} - {{ profile.country }}</p>
+    
+    <!-- Mostrar el país olímpico -->
+    <p>País Olímpico: {{ profile.get_olympic_country_display }} - {{ profile.olympic_country }}</p>
+
+    <!-- Mostrar la disciplina y rama -->
+    <p>Disciplina: {{ profile.discipline }}, Rama: {{ profile.branch }}</p>
+    
+    <!-- Botones -->
+    <div>
+        <a href="{% url 'password_change' %}">
+            <button>Cambiar Contraseña</button>
+        </a>
+        <br></br>
+        <a href="{% url 'home' %}">
+            <button>Regresar a la Página Principal</button>
+        </a>
+    </div>
+</body>
+</html>
