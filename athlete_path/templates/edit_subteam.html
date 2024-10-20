@@ -13,7 +13,7 @@
         {% csrf_token %}
         <label for="name">Nombre del Subequipo:</label>
         <input type="text" name="name" value="{{ subteam.name }}">
-        <br></br>
+        <br><br>
         <button type="submit" name="update_name">Actualizar Nombre</button>
     </form>
 
@@ -40,16 +40,16 @@
     <form method="POST" action="{% url 'edit_subteam' subteam.id %}">
         {% csrf_token %}
         <label for="athletes">Seleccionar Atletas:</label>
-        <br></br>
+        <br><br>
         <select name="athletes" multiple>
             {% for athlete in available_athletes %}
             <option value="{{ athlete.id }}">{{ athlete.user.first_name }} {{ athlete.user.last_name }} - {{ athlete.discipline }} ({{ athlete.branch }})</option>
             {% endfor %}
         </select>
-        <br></br>
+        <br><br>
         <button type="submit" name="update_athletes">Actualizar Atletas</button>
     </form>
-    <br></br>
+    <br><br>
     <a href="{% url 'manage_subteams' %}">
         <button class="button">Regresar a gestión de subequipos</button>
     </a>

@@ -70,10 +70,11 @@ class SubTeam(models.Model):
         """Verifica si puede agregar otro coach (máximo 3)"""
         return self.coaches.count() < 3
 
-    def can_add_athlete(self):
-        """Verifica si puede agregar atletas (no hay límite para atletas)"""
+    # Método para verificar si un atleta puede ser asignado a más de dos subequipos
+    def can_add_athlete(self, athlete):
+        if athlete.subteams_athletes.count() >= 2:
+            return False
         return True
-
     def can_remove_athlete(self, athlete):
         """Verifica si se puede remover a un atleta del subequipo"""
         return self.athletes.filter(id=athlete.id).exists()

@@ -1,8 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Profile, AthleteRecord, SubTeam
-# Importa la lista de países, disciplinas y atletas.
+from .models import Profile, AthleteRecord, SubTeam, EvaluationCriterion
 from .countries import COUNTRY_CHOICES
 from .disciplines import DISCIPLINE_CHOICES
 from .branches import BRANCH_CHOICES
@@ -22,18 +21,18 @@ class UserRegisterForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'first_name', 'last_name', 'date_of_birth', 'country', 'sex', 'role', 'password1', 'password2', 'security_answer1','security_answer2', 'security_answer3']
+        fields = ['username', 'email', 'first_name', 'last_name', 'date_of_birth', 'country', 'sex', 'role', 'password1', 'password2', 'security_answer1', 'security_answer2', 'security_answer3']
         labels = {
             'username': "Nombre de usuario",
             'password1': "Contraseña",
             'password2': "Confirmación de contraseña",
         }
 
-# Formulario para el perfil del usuario (atleta o coach)
+# FORMULARIO DEL PERFIL DE USUARIOS (ATLETAS/COACHES)
 class ProfileForm(forms.ModelForm):
     olympic_country = forms.ChoiceField(choices=COUNTRY_CHOICES, label="País olímpico")
     discipline = forms.ChoiceField(choices=DISCIPLINE_CHOICES, label="Disciplina")
-    branch = forms.ChoiceField(choices=[], label="Rama", required=False)  # Inicialmente vacío
+    branch = forms.ChoiceField(choices=[], label="Rama", required=False)
 
     class Meta:
         model = Profile
@@ -41,13 +40,13 @@ class ProfileForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(ProfileForm, self).__init__(*args, **kwargs)
-
         discipline_selected = self.data.get('discipline') or self.initial.get('discipline')
         if discipline_selected:
             self.fields['branch'].choices = BRANCH_CHOICES.get(discipline_selected, [])
         else:
             self.fields['branch'].choices = []
 
+# FORMULARIO DE SUBEQUIPOS
 class SubTeamForm(forms.ModelForm):
     class Meta:
         model = SubTeam
@@ -65,6 +64,7 @@ class SubTeamForm(forms.ModelForm):
                     raise forms.ValidationError(f"{athlete.user.first_name} ya está en un subequipo.")
         return athletes
 
+# FORMULARIO DE REGISTROS/VALUACIONES
 class AthleteRecordForm(forms.ModelForm):
     evaluation_date = forms.DateField(widget=forms.SelectDateWidget(years=range(2000, 2025)))
 
@@ -72,6 +72,11 @@ class AthleteRecordForm(forms.ModelForm):
         model = AthleteRecord
         fields = ['evaluation_date']
 
+    def clean(self):
+        cleaned_data = super().clean()
+        return cleaned_data
+
+# FORMULARIO DE RESET DE CONTRASEÑA
 class ResetPasswordForm(forms.Form):
     username = forms.CharField(max_length=150, label="Nombre de usuario")
     security_answer = forms.CharField(max_length=100, label="Nombre de tu primera mascota")

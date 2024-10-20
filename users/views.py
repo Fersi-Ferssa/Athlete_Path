@@ -4,7 +4,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.db.models import Max, F
+from django.db.models import Max, F, Sum, Count
 from django.contrib import messages
 from .forms import UserRegisterForm, ProfileForm, AthleteRecordForm, ResetPasswordForm, SubTeamForm
 from .models import Profile, AthleteRecord, OlympicTeam, SubTeam, EvaluationCriterion
@@ -40,7 +40,9 @@ def get_branches(request):
             branches = BRANCH_CHOICES.get(discipline, [])
             return JsonResponse({'branches': branches})
         except json.JSONDecodeError:
+            messages.error(request, "Datos JSON inválidos.")
             return JsonResponse({'error': 'Invalid JSON data'}, status=400)
+    messages.error(request, "Método de solicitud no válido.")
     return JsonResponse({'error': 'Invalid request method'}, status=400)
 
 # VIEW OLYMPIC TEAMS
@@ -49,7 +51,6 @@ def view_team(request):
     discipline = request.GET.get('discipline')
     branch = request.GET.get('branch')
 
-    # Filtrar el equipo olímpico basado en país, disciplina y rama
     team = OlympicTeam.objects.filter(
         olympic_country=country,
         discipline=discipline,
@@ -57,12 +58,11 @@ def view_team(request):
     ).first()
 
     if team:
-        # Obtener todos los atletas y coaches del equipo
         coaches = Profile.objects.filter(olympic_team=team, role='Coach')
         athletes = Profile.objects.filter(olympic_team=team, role='Athlete')
     else:
-        coaches = []
-        athletes = []
+        messages.warning(request, "No se encontró ningún equipo olímpico para los criterios seleccionados.")
+        coaches, athletes = [], []
 
     return render(request, 'view_team.html', {
         'team': team,
@@ -81,10 +81,7 @@ def register(request):
         profile_form = ProfileForm(request.POST)
         
         if user_form.is_valid() and profile_form.is_valid():
-            # Guardar el usuario
             user = user_form.save()
-
-            # Crear el perfil
             profile = profile_form.save(commit=False)
             profile.user = user
             profile.date_of_birth = user_form.cleaned_data['date_of_birth']
@@ -94,11 +91,9 @@ def register(request):
             profile.security_answer2 = user_form.cleaned_data['security_answer2']
             profile.security_answer3 = user_form.cleaned_data['security_answer3']
 
-            # Asignar automáticamente al equipo olímpico
             profile.assign_to_team()
             profile.save()
 
-            # Iniciar sesión y redirigir
             login(request, user)
             messages.success(request, "Registro completado y asignado a equipo olímpico.")
             return redirect('login')
@@ -110,21 +105,8 @@ def register(request):
 
     return render(request, 'register.html', {'user_form': user_form, 'profile_form': profile_form})
 
-def get_branches(request):
-    if request.method == 'POST':
-        try:
-            import json
-            data = json.loads(request.body)  # Capturamos el JSON del cuerpo de la solicitud
-            discipline = data.get('discipline')  # Obtenemos la disciplina seleccionada
-            branches = BRANCH_CHOICES.get(discipline, [])  # Obtenemos las ramas para esa disciplina
-            return JsonResponse({'branches': branches})
-        except json.JSONDecodeError:
-            return JsonResponse({'error': 'Invalid JSON data'}, status=400)
-    return JsonResponse({'error': 'Invalid request method'}, status=400)
-
 # LOGIN
 def user_login(request):
-    # Limpiar cualquier mensaje anterior cuando se accede a la página de login
     storage = messages.get_messages(request)
     storage.used = True  # Marcar mensajes como usados para que no se arrastren
 
@@ -132,17 +114,58 @@ def user_login(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
+        
         if user is not None:
             login(request, user)
+            profile = Profile.objects.get(user=user)
+            if profile.role == 'Coach':
+                messages.success(request, "Inicio de sesión exitoso. Redirigiendo al dashboard del coach.")
+                return redirect('coach_dashboard')
+            elif profile.role == 'Athlete':
+                messages.success(request, "Inicio de sesión exitoso. Redirigiendo al perfil del atleta.")
+                return redirect('athlete_profile')
             return redirect('home')
         else:
-            # Si el usuario no se autentica, mostrar el error solo en esta vista
-            messages.set_level(request, messages.ERROR)
             messages.error(request, 'Nombre de usuario o contraseña incorrectos.')
             return render(request, 'login.html')
 
     return render(request, 'login.html')
 
+# PASSWORD RESET
+def password_reset_view(request):
+    if request.method == 'POST':
+        form = ResetPasswordForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            security_answer = form.cleaned_data['security_answer']
+            new_password = form.cleaned_data['new_password']
+
+            try:
+                user = User.objects.get(username=username)
+                profile = getattr(user, 'profile', None)
+
+                if profile is None:
+                    messages.error(request, 'No se encontró un perfil asociado a este usuario.')
+                    return render(request, 'reset_password.html', {'form': form})
+
+                if profile.security_answer and profile.security_answer.lower() == security_answer.lower():
+                    user.set_password(new_password)
+                    user.save()
+                    update_session_auth_hash(request, user)
+                    messages.success(request, 'La contraseña ha sido cambiada exitosamente.')
+                    return redirect('login')
+                else:
+                    messages.error(request, 'La respuesta de seguridad es incorrecta.')
+            except User.DoesNotExist:
+                messages.error(request, 'El nombre de usuario no existe.')
+        else:
+            messages.error(request, "Por favor, corrija los errores en el formulario.")
+    else:
+        form = ResetPasswordForm()
+
+    return render(request, 'reset_password.html', {'form': form})
+
+# CLEAM MESSAGES
 def clean_messages(request):
     """
     Elimina los mensajes almacenados en la sesión de la solicitud actual.
@@ -219,19 +242,17 @@ def create_subteam(request):
     profile = request.user.profile
 
     if not profile.is_coach():
+        messages.error(request, "No tienes permiso para crear subequipos.")
         return redirect('home')
 
-    # Verificar si el coach tiene un equipo olímpico asignado
     if not profile.olympic_team:
         messages.error(request, "No tienes un equipo olímpico asignado.")
         return redirect('manage_subteams')
 
-    # Verificar si el coach puede crear más subequipos
     if SubTeam.objects.filter(coaches=profile).count() >= 4:
         messages.error(request, "No puedes crear más de 4 subequipos.")
         return redirect('manage_subteams')
 
-    # Obtener atletas disponibles antes de manejar el método POST
     available_athletes = Profile.objects.filter(
         olympic_team=profile.olympic_team,
         role='Athlete'
@@ -240,18 +261,14 @@ def create_subteam(request):
     if request.method == 'POST':
         subteam_form = SubTeamForm(request.POST)
         if subteam_form.is_valid():
-            # Crear el subequipo sin guardar aún
             subteam = subteam_form.save(commit=False)
-            # Asignar el equipo olímpico al subequipo
             subteam.team = profile.olympic_team
             subteam.save()
-            subteam.coaches.add(profile)  # Añadir el coach creador
+            subteam.coaches.add(profile)
 
-            # Asignar los atletas seleccionados al subequipo
             athletes_selected = request.POST.getlist('athletes')
             for athlete_id in athletes_selected:
                 athlete = Profile.objects.get(id=athlete_id)
-                # Verificar que el atleta pertenezca al mismo equipo olímpico
                 if athlete.olympic_team == profile.olympic_team:
                     subteam.athletes.add(athlete)
                 else:
@@ -262,13 +279,12 @@ def create_subteam(request):
         else:
             messages.error(request, "Corrige los errores en el formulario.")
     else:
-        # Inicializamos el formulario si es una solicitud GET
         subteam_form = SubTeamForm()
 
     return render(request, 'create_subteam.html', {
         'form': subteam_form,
         'available_athletes': available_athletes
-    })  
+    })   
 
 #MANAGE SUBTEAM
 @login_required
@@ -311,30 +327,74 @@ def edit_subteam(request, subteam_id):
     # Manejar la eliminación de un atleta del subequipo
     if request.method == 'POST' and 'remove_athlete' in request.POST:
         athlete_id = request.POST.get('athlete_id')
-        athlete = Profile.objects.get(id=athlete_id)
+        athlete = get_object_or_404(Profile, id=athlete_id)
 
-        if is_creator and subteam.can_remove_athlete(athlete):
+        if is_creator and athlete in subteam.athletes.all():
             subteam.athletes.remove(athlete)
             messages.success(request, f"{athlete.user.first_name} ha sido eliminado del subequipo.")
         else:
-            messages.error(request, "No tienes permiso para eliminar a este atleta.")
+            messages.error(request, "No tienes permiso para eliminar a este atleta o el atleta no está en el subequipo.")
+        return redirect('edit_subteam', subteam_id=subteam.id)
+
+    # Manejar la actualización de los atletas seleccionados
+    if request.method == 'POST' and 'update_athletes' in request.POST:
+        athletes_selected = request.POST.getlist('athletes')
+
+        # Remover todos los atletas actuales del subequipo
+        subteam.athletes.clear()
+
+        # Asignar los atletas seleccionados
+        for athlete_id in athletes_selected:
+            athlete = Profile.objects.get(id=athlete_id)
+            if athlete.olympic_team == subteam.team:
+                # Validar que el atleta no esté en ningún otro subequipo
+                if not athlete.subteams_athletes.exists():  # Verificar si no está en ningún subequipo
+                    subteam.athletes.add(athlete)
+                    messages.success(request, f"{athlete.user.first_name} ha sido añadido al subequipo correctamente.")
+                else:
+                    messages.error(request, f"{athlete.user.first_name} ya pertenece a otro subequipo y no puede ser añadido.")
+            else:
+                messages.error(request, f"{athlete.user.first_name} no pertenece al equipo olímpico correcto.")
+
         return redirect('edit_subteam', subteam_id=subteam.id)
 
     # Obtener los atletas actuales en el subequipo
     athletes_in_subteam = subteam.athletes.all()
 
-    # Obtener los atletas disponibles que no estén ya en el subequipo
+    # Obtener los atletas disponibles que no estén ya en el subequipo y no pertenezcan a ningún otro subequipo
     available_athletes = Profile.objects.filter(
         olympic_team=subteam.team,
         role='Athlete'
-    ).exclude(id__in=athletes_in_subteam)
+    ).exclude(id__in=athletes_in_subteam).exclude(subteams_athletes__isnull=False)
 
     return render(request, 'edit_subteam.html', {
         'subteam': subteam,
         'athletes_in_subteam': athletes_in_subteam,
         'available_athletes': available_athletes,
-        'is_creator': is_creator  # Pasamos si el coach es el creador
+        'is_creator': is_creator
     })
+
+# ASSIGN ATHLETE TO SUBTEAM
+@login_required
+def assign_athlete_to_subteam(request, subteam_id):
+    subteam = get_object_or_404(SubTeam, id=subteam_id)
+    profile = request.user.profile
+
+    if not profile.is_coach():
+        return JsonResponse({'error': 'No tienes permiso para asignar atletas.'}, status=403)
+
+    if request.method == 'POST':
+        athlete_id = request.POST.get('athlete_id')
+        athlete = Profile.objects.get(id=athlete_id)
+
+        if athlete.olympic_team == subteam.team:
+            if not subteam.athletes.filter(id=athlete_id).exists():
+                subteam.athletes.add(athlete)
+                return JsonResponse({'success': f'{athlete.user.first_name} ha sido asignado al subequipo.'})
+            else:
+                return JsonResponse({'error': 'El atleta ya está asignado a este subequipo.'}, status=400)
+        else:
+            return JsonResponse({'error': 'El atleta no pertenece al mismo equipo olímpico.'}, status=400)
 
 # DELETE SUBTEAM
 @login_required
@@ -406,40 +466,40 @@ def add_record(request):
 def evaluate_athlete(request, athlete_id):
     athlete = get_object_or_404(Profile, id=athlete_id, role='Athlete')
     coach = request.user.profile
-    full_name = f"{athlete.user.first_name} {athlete.user.last_name}"
 
-    # Verificar si el coach está en el mismo equipo que el atleta
     if coach.is_coach() and athlete.olympic_team == coach.olympic_team:
-        
-        # Cargar los criterios de evaluación desde el archivo JSON
         criteria_file = settings.BASE_DIR / 'evaluation_criteria.json'
         with open(criteria_file, 'r', encoding='utf-8') as f:
             criteria_data = json.load(f)
 
-        # Obtener los criterios para la disciplina y rama del atleta
         discipline = athlete.discipline
         branch = athlete.branch
         evaluation_criteria = criteria_data.get(discipline, {}).get(branch, [])
-        evaluation_range = range(1, 11)  # Rango de puntuación
+        evaluation_range = range(1, 11)
 
-        # Siempre definimos el formulario, ya sea para GET o POST
         form = AthleteRecordForm(request.POST or None)
 
         if request.method == 'POST':
             if form.is_valid():
-                # Guardamos el registro de evaluación general
                 record = form.save(commit=False)
                 record.athlete = athlete
                 record.coach = coach
                 record.save()
 
-                # Guardar cada criterio evaluado
+                errors = False
                 for criterion in evaluation_criteria:
                     score = request.POST.get(f'criterion_{criterion}')
                     note = request.POST.get(f'note_{criterion}')
 
-                    # Verificamos que haya una puntuación válida
-                    if score:
+                    if not (score and score.isdigit() and 1 <= int(score) <= 10):
+                        messages.error(request, f"La puntuación para {criterion} debe estar entre 1 y 10.")
+                        errors = True
+
+                    if not note or not note.strip():
+                        messages.error(request, f"Las notas para {criterion} no pueden estar vacías.")
+                        errors = True
+
+                    if not errors:
                         EvaluationCriterion.objects.create(
                             athlete_record=record,
                             criterion_name=criterion,
@@ -447,19 +507,17 @@ def evaluate_athlete(request, athlete_id):
                             notes=note or ''
                         )
 
-                messages.success(request, 'Evaluación guardada con éxito.')
-                return redirect('coach_dashboard')
+                if not errors:
+                    messages.success(request, 'Evaluación guardada con éxito.')
+                    return redirect('coach_dashboard')
             else:
-                # Si el formulario de evaluación no es válido
-                print("Errores del formulario:", form.errors)
                 messages.error(request, 'Error al guardar la evaluación. Revisa los campos obligatorios.')
 
         return render(request, 'evaluate_athlete.html', {
             'form': form,
             'athlete': athlete,
             'evaluation_criteria': evaluation_criteria,
-            'evaluation_range': evaluation_range,
-            'full_name': full_name,
+            'evaluation_range': evaluation_range
         })
     else:
         messages.error(request, 'No tienes permiso para evaluar a este atleta.')
@@ -541,16 +599,15 @@ def athlete_profile(request, athlete_id=None):
         # Acceder al nombre del equipo olímpico a través del coach
         team_name = coach.olympic_team.team_name if coach and coach.olympic_team else 'No asignado'
 
-        # Mejores atletas
-        best_athletes = Profile.objects.filter(
-            discipline=profile.discipline,
-            branch=profile.branch,
-            role='Athlete'
+        # Mejores atletas: Corregimos el uso de `EvaluationCriterion` para obtener los mejores
+        best_athletes = AthleteRecord.objects.filter(
+            athlete__discipline=profile.discipline,
+            athlete__branch=profile.branch
         ).annotate(
-            max_score=Max(F('athlete_records__difficulty') + F('athlete_records__execution'))
+            max_score=Sum('criteria__score')  # Sumamos los puntajes de los criterios
         ).order_by('-max_score')[:5]
 
-        # Campeones de las Olimpiadas
+        # Campeones de las Olimpiadas (si tienes esta lógica en tu JSON o modelo)
         champions = {
             'Uneven Bars': {'name': 'Rebeca Andrade', 'country': 'Brasil', 'difficulty': 6, 'execution': 8, 'score': 14},
             'Floor': {'name': 'Ana Barbosu', 'country': 'Rumania', 'difficulty': 5, 'execution': 7, 'score': 12},

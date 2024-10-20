@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil del Coach</title>
+    <title>Perfil</title>
 </head>
 <body>
     <h1>Perfil de {{ profile.user.first_name }} {{ profile.user.last_name }}</h1>
@@ -26,9 +26,7 @@
             <button>Cambiar Contraseña</button>
         </a>
         <br></br>
-        <a href="{% url 'home' %}">
-            <button>Regresar a la Página Principal</button>
-        </a>
+        <button class="button" onclick="window.history.back();">Regresar</button>
     </div>
 </body>
 </html>
