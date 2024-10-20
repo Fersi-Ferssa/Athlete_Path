@@ -435,6 +435,9 @@ def coach_view_athlete_profile(request, athlete_id):
     # Verificar si el coach está en el mismo equipo olímpico y puede evaluar al atleta
     can_evaluate = athlete_profile.olympic_team == request.user.profile.olympic_team
 
+    # Obtener el subequipo al que pertenece el atleta
+    subteam = SubTeam.objects.filter(athletes=athlete_profile).first()
+
     # Obtener el nombre del equipo olímpico
     team_name = athlete_profile.olympic_team.team_name if athlete_profile.olympic_team else 'No asignado'
     country = athlete_profile.olympic_country
@@ -445,7 +448,8 @@ def coach_view_athlete_profile(request, athlete_id):
         'athlete_records': athlete_records,
         'can_evaluate': can_evaluate,  # Usamos esta variable en el template para mostrar el botón
         'team_name': team_name,
-        'country': country
+        'country': country,
+        'subteam_id': subteam.id if subteam else None  # Asegúrate de pasar el subteam_id si existe
     })
 
 # ADD RECORD/EVALUATION
@@ -532,38 +536,68 @@ def view_evaluation_detail(request, record_id):
     evaluation_criteria = EvaluationCriterion.objects.filter(athlete_record=record)
 
     # Verificar si el usuario actual es el coach que hizo la evaluación
-    can_edit = request.user.profile == record.coach
+    can_edit = request.user.profile == record.coach  # Solo puede editar si es el coach creador
 
     return render(request, 'evaluation_detail.html', {
         'record': record,
         'evaluation_criteria': evaluation_criteria,
-        'can_edit': can_edit
+        'can_edit': can_edit  # Usamos esta variable en el template para ocultar/mostrar botones de edición
     })
 
 # EDIT EVALUATION
 @login_required
 def edit_evaluation(request, record_id):
     record = get_object_or_404(AthleteRecord, id=record_id)
+    
+    # Verificar si el usuario actual es el coach que hizo la evaluación
     if record.coach != request.user.profile:
-        return redirect('home')  # Solo el coach autor puede editar
+        messages.error(request, 'No tienes permiso para editar esta evaluación.')
+        return redirect('view_evaluation_detail', record_id=record.id)
 
     if request.method == 'POST':
         form = AthleteRecordForm(request.POST, instance=record)
         if form.is_valid():
+            # Guardar la evaluación general
             form.save()
-            messages.success(request, "Evaluación actualizada con éxito.")
+
+            # Actualizar los criterios de evaluación
+            for criterion in EvaluationCriterion.objects.filter(athlete_record=record):
+                score = request.POST.get(f'criterion_{criterion.id}')
+                note = request.POST.get(f'note_{criterion.id}')
+                
+                # Validación del puntaje
+                if score and score.isdigit() and 1 <= int(score) <= 10:
+                    criterion.score = int(score)
+                else:
+                    messages.error(request, f"El puntaje para {criterion.criterion_name} debe estar entre 1 y 10.")
+                    return redirect('edit_evaluation', record_id=record.id)
+
+                # Guardar las notas actualizadas
+                criterion.notes = note
+                criterion.save()
+
+            messages.success(request, 'Evaluación actualizada con éxito.')
             return redirect('view_evaluation_detail', record_id=record.id)
     else:
         form = AthleteRecordForm(instance=record)
 
-    return render(request, 'edit_evaluation.html', {'form': form, 'record': record})
+    # Obtener los criterios asociados a la evaluación
+    evaluation_criteria = EvaluationCriterion.objects.filter(athlete_record=record)
+
+    return render(request, 'edit_evaluation.html', {
+        'form': form,
+        'record': record,
+        'evaluation_criteria': evaluation_criteria
+    })
 
 # DELETE EVALUATION
 @login_required
 def delete_evaluation(request, record_id):
     record = get_object_or_404(AthleteRecord, id=record_id)
     if record.coach != request.user.profile:
-        return redirect('home')  # Solo el coach autor puede eliminar
+        # Si el coach no es el creador de la evaluación, no puede eliminarla
+        messages.error(request, "No tienes permiso para eliminar esta evaluación porque no la realizaste.")
+        return redirect('view_evaluation_detail', record_id=record.id)
 
     if request.method == 'POST':
         record.delete()

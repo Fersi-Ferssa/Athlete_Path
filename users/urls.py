@@ -28,6 +28,6 @@ urlpatterns = [
     path('profile/athlete/', views.athlete_profile, name='athlete_profile'),
     path('coach/view_athlete_profile/<int:athlete_id>/', views.coach_view_athlete_profile, name='coach_view_athlete_profile'),
     path('evaluation/<int:record_id>/', view_evaluation_detail, name='view_evaluation_detail'),
-    path('evaluation/edit/<int:record_id>/', edit_evaluation, name='edit_evaluation'),
+    path('evaluation/edit/<int:record_id>/', views.edit_evaluation, name='edit_evaluation'),
     path('evaluation/delete/<int:record_id>/', delete_evaluation, name='delete_evaluation'),
 ]

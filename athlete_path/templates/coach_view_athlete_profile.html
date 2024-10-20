@@ -33,7 +33,14 @@
         <button>Evaluar Atleta</button>
     </a>
     {% endif %}
-    <br></br>
-    <button onclick="window.history.back();">Regresar</button>
+    <br><br>
+    <!-- El botón ahora redirige a la vista de editar subequipo -->
+    {% if subteam_id %}
+    <a href="{% url 'edit_subteam' subteam_id %}">
+        <button>Regresar</button>
+    </a>
+    {% else %}
+        <button onclick="window.history.back();">Regresar</button>
+    {% endif %}
 </body>
 </html>

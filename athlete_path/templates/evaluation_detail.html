@@ -26,16 +26,25 @@
     <h3>Suma de Calificaciones: {{ record.total_score }}</h3>
 
     {% if can_edit %}
+        <!-- Botón para redirigir a la edición de evaluación -->
         <a href="{% url 'edit_evaluation' record.id %}">
             <button>Editar Evaluación</button>
         </a>
-        <br></br>
+        <br><br>
+
+        <!-- Formulario para eliminar la evaluación -->
         <form action="{% url 'delete_evaluation' record.id %}" method="POST">
             {% csrf_token %}
-            <button type="submit">Eliminar Evaluación</button>
+            <button type="submit" onclick="return confirm('¿Estás seguro de que deseas eliminar esta evaluación?');">Eliminar Evaluación</button>
         </form>
+    {% else %}
+        <p>No tienes permiso para editar o eliminar esta evaluación porque no la realizaste.</p>
     {% endif %}
-    <br></br>
-    <button onclick="window.history.back();">Regresar</button>
+    
+    <br><br>
+    <!-- Modificación: El botón ahora redirige al perfil del atleta -->
+    <a href="{% url 'coach_view_athlete_profile' record.athlete.id %}">
+        <button>Regresar</button>
+    </a>
 </body>
 </html>
