@@ -14,22 +14,61 @@ import json
 from django.conf import settings
 from django.http import JsonResponse
 from django.contrib import messages
+from .countries import COUNTRY_CHOICES
+from .disciplines import DISCIPLINE_CHOICES  # Importa las disciplinas
+from .branches import BRANCH_CHOICES  # Importa las ramas
 
 ####################################################################################################
 #                                       MAIN HOME PAGE                                             #
 ####################################################################################################
 
-# HOME
-@login_required
+# MAIN HOME PAGE
 def home(request):
-    profile = request.user.profile
-    full_name = f"{profile.user.first_name} {profile.user.last_name}"
-    # Redirigir según el tipo de perfil
-    if profile.is_coach():
-        return redirect('coach_dashboard')
-    elif profile.is_athlete():
-        return redirect('athlete_profile')
-    return render(request, 'home.html', {'full_name': full_name})
+    countries = COUNTRY_CHOICES
+    disciplines = DISCIPLINE_CHOICES
+    return render(request, 'home.html', {
+        'countries': countries,
+        'disciplines': disciplines
+    })
+
+# OBTAIN THE DISCIPLINES BRANCHES
+def get_branches(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            discipline = data.get('discipline')
+            branches = BRANCH_CHOICES.get(discipline, [])
+            return JsonResponse({'branches': branches})
+        except json.JSONDecodeError:
+            return JsonResponse({'error': 'Invalid JSON data'}, status=400)
+    return JsonResponse({'error': 'Invalid request method'}, status=400)
+
+# VIEW OLYMPIC TEAMS
+def view_team(request):
+    country = request.GET.get('country')
+    discipline = request.GET.get('discipline')
+    branch = request.GET.get('branch')
+
+    # Filtrar el equipo olímpico basado en país, disciplina y rama
+    team = OlympicTeam.objects.filter(
+        olympic_country=country,
+        discipline=discipline,
+        branch=branch
+    ).first()
+
+    if team:
+        # Obtener todos los atletas y coaches del equipo
+        coaches = Profile.objects.filter(olympic_team=team, role='Coach')
+        athletes = Profile.objects.filter(olympic_team=team, role='Athlete')
+    else:
+        coaches = []
+        athletes = []
+
+    return render(request, 'view_team.html', {
+        'team': team,
+        'coaches': coaches,
+        'athletes': athletes
+    })
 
 ####################################################################################################
 #                                       GENERAL ASPECTS                                            #

@@ -1,66 +1,166 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <!-- Configuración del documento HTML -->
-    <meta charset="UTF-8"> <!-- Define el conjunto de caracteres del documento como UTF-8 -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Ajusta el ancho del viewport para pantallas móviles -->
-    <title>Inicio</title> <!-- Título que aparecerá en la pestaña del navegador -->
-    <!--
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Athlete Path | Inicio</title>
     <style>
         body {
-            font-family: 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
             margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
         }
 
         .welcome-container {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
             text-align: center;
-            max-width: 600px;
-            width: 100%;
+            padding: 50px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         h1 {
-            color: #4066d5;
-            font-size: 28px;
-            margin-bottom: 20px;
-        }
-
-        p {
-            font-size: 18px;
+            font-size: 2.5em;
             color: #333;
         }
 
-        @media (max-width: 600px) {
-            .welcome-container {
-                padding: 20px;
-            }
+        p {
+            font-size: 1.2em;
+            color: #666;
+        }
 
-            h1 {
-                font-size: 24px;
-            }
+        .form-group {
+            margin: 15px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-            p {
-                font-size: 16px;
-            }
+        .form-group label {
+            margin-right: 10px;
+        }
+
+        .form-group select {
+            padding: 10px;
+            font-size: 1em;
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .auth-options {
+            margin-top: 30px;
+        }
+
+        .auth-options a {
+            display: inline-block;
+            margin: 15px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .auth-options a:hover {
+            background-color: #0056b3;
         }
     </style>
--->
 </head>
 <body>
-    <div class="welcome-container">
-        <!-- Encabezado principal de la página -->
-        <h1>Bienvenido a la Plataforma de Atletas</h1>
-        
-        <!-- Muestra el nombre de usuario del usuario que ha iniciado sesión -->
-        <p>Has iniciado sesión como <strong>{{ user.first_name }} {{ user.last_name }}</strong></p>
+    <div class="container">
+        <div class="welcome-container">
+            <h1>Bienvenido a Athlete Path</h1>
+            <p>Selecciona un país olímpico, disciplina y rama para ver el equipo.</p>
+
+            <!-- Formulario para seleccionar país, disciplina y rama -->
+            <form action="{% url 'view_team' %}" method="GET">
+                <div class="form-group">
+                    <label for="country">País:</label>
+                    <select name="country" id="country">
+                        {% for country in countries %}
+                        <option value="{{ country.0 }}">{{ country.1 }}</option>
+                        {% endfor %}
+                    </select>
+
+                    <label for="discipline">Disciplina:</label>
+                    <select name="discipline" id="discipline">
+                        {% for discipline in disciplines %}
+                        <option value="{{ discipline.0 }}">{{ discipline.1 }}</option>
+                        {% endfor %}
+                    </select>
+
+                    <label for="branch">Rama:</label>
+                    <select name="branch" id="branch">
+                        <!-- Las ramas se llenarán dinámicamente aquí -->
+                    </select>
+
+                    <button type="submit">Ver equipo</button>
+                </div>
+            </form>
+
+            <!-- Script para obtener las ramas dinámicamente -->
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    var disciplineSelect = document.getElementById("discipline");
+                    var branchSelect = document.getElementById("branch");
+
+                    disciplineSelect.addEventListener("change", function() {
+                        var selectedDiscipline = disciplineSelect.value;
+
+                        // Realizamos la solicitud al servidor para obtener las ramas
+                        fetch('/users/get_branches/', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRFToken': '{{ csrf_token }}'
+                            },
+                            body: JSON.stringify({ 'discipline': selectedDiscipline })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            branchSelect.innerHTML = '';  // Limpiar opciones anteriores
+
+                            // Añadir nuevas opciones de ramas
+                            data.branches.forEach(branch => {
+                                var option = document.createElement("option");
+                                option.value = branch[0];
+                                option.textContent = branch[1];
+                                branchSelect.appendChild(option);
+                            });
+                        })
+                        .catch(error => console.error('Error al cargar las ramas:', error));
+                    });
+                });
+            </script>
+
+            <!-- Opciones de autenticación -->
+            <div class="auth-options">
+                <p>Acceso a la plataforma</p>
+                <a href="{% url 'login' %}">Iniciar sesión</a>
+                <a href="{% url 'register' %}">Crear cuenta</a>
+            </div>
+        </div>
     </div>
 </body>
 </html>

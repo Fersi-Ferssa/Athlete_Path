@@ -16,9 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from . import views
 
 # Lista de patrones URL que asignan rutas a vistas y otros archivos URL
 urlpatterns = [
+
     # URL para la administración de Django
     path('admin/', admin.site.urls),
     

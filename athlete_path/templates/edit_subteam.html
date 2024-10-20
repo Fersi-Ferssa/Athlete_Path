@@ -36,19 +36,23 @@
     
 
     <!-- Sección para actualizar los atletas del subequipo -->
+    <h3>Atletas disponibles para agregar al subequipo</h3>
     <form method="POST" action="{% url 'edit_subteam' subteam.id %}">
         {% csrf_token %}
         <label for="athletes">Seleccionar Atletas:</label>
+        <br></br>
         <select name="athletes" multiple>
             {% for athlete in available_athletes %}
             <option value="{{ athlete.id }}">{{ athlete.user.first_name }} {{ athlete.user.last_name }} - {{ athlete.discipline }} ({{ athlete.branch }})</option>
             {% endfor %}
         </select>
+        <br></br>
         <button type="submit" name="update_athletes">Actualizar Atletas</button>
     </form>
-
+    <br></br>
     <a href="{% url 'manage_subteams' %}">
         <button class="button">Regresar a gestión de subequipos</button>
     </a>
+    
 </body>
 </html>

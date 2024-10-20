@@ -5,6 +5,7 @@ from .views import (view_evaluation_detail, edit_evaluation, delete_evaluation)
 
 urlpatterns = [
     path('home/', views.home, name='home'),
+    path('view_team/', views.view_team, name='view_team'),
     path('login/', views.user_login, name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('password_change/', auth_views.PasswordChangeView.as_view(template_name='password_change_form.html'), name='password_change'),

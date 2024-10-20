@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equipo Olímpico</title>
+</head>
+<body>
+    <h1>Equipo Olímpico de {{ team.olympic_country }} - {{ team.discipline }} - {{ team.branch }}</h1>
+    
+    <h2>Coaches</h2>
+    <ul>
+        {% for coach in coaches %}
+        <li>{{ coach.user.first_name }} {{ coach.user.last_name }} - Coach</li>
+        {% empty %}
+        <li>No hay coaches en este equipo.</li>
+        {% endfor %}
+    </ul>
+    
+    <h2>Atletas</h2>
+    <ul>
+        {% for athlete in athletes %}
+        <li>{{ athlete.user.first_name }} {{ athlete.user.last_name }} - Athlete</li>
+        {% empty %}
+        <li>No hay atletas en este equipo.</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'home' %}">
+        <button> Regresar </button>
+    </a>
+</body>
+</html>
