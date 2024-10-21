@@ -11,13 +11,18 @@ from .models import Profile, AthleteRecord, OlympicTeam, SubTeam, EvaluationCrit
 from django.http import JsonResponse
 from .branches import BRANCH_CHOICES
 import json
+import requests
 from django.conf import settings
 from django.urls import reverse
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.contrib import messages
 from .countries import COUNTRY_CHOICES
 from .disciplines import DISCIPLINE_CHOICES  # Importa las disciplinas
 from .branches import BRANCH_CHOICES  # Importa las ramas
+import google.generativeai as genai
+from django.conf import settings
+from django.http import HttpResponse
+from .ai import analyze_video_with_gemini, model_configai # Importar la función desde ai.py
 
 ####################################################################################################
 #                                       MAIN HOME PAGE                                             #
@@ -776,3 +781,70 @@ def compare_with_athletes(request):
 
         return render(request, 'compare_with_athletes.html', {'athletes': other_athletes})
     return redirect('home')
+
+# API
+genai.configure(api_key=settings.GEMINI_API_KEY)
+
+# Configurar el modelo de Gemini
+def model_configai():
+    genai.configure(api_key='AIzaSyCDy1JgkjlY-RXN_CJgM1fTfOVKTsuvh9I')  # Reemplaza con tu API Key de Google Gemini.
+
+    generation_config = {
+        "temperature": 1,
+        "top_p": 0.95,
+        "top_k": 40,
+        "max_output_tokens": 8192,
+        "response_mime_type": "text/plain",
+    }
+
+    model = genai.GenerativeModel(model_name="gemini-1.5-pro-002", generation_config=generation_config)
+    return model
+
+# Función para enviar el video URL y recibir el análisis
+def analyze_video_with_gemini(model, video_url):
+    chat = model.start_chat(
+        history=[
+            {
+                "role": "user",
+                "parts": [
+                    '''Necesito que hagas el rol de un juez/analista olímpico. Te voy a mandar un video y quisiera que me evalues lo siguiente: 
+                    Disciplina, errores o mejoras que consideras que debería tener la técnica y si pudieras darle un puntaje cuál sería.'''
+                ]
+            }
+        ]
+    )
+
+    # Enviar el mensaje y obtener la respuesta
+    response = chat.send_message(f"Individual, técnica y dificultad, aquí va el video: {video_url}")
+    return response.text
+
+# Vista para manejar el análisis de video
+def analyze_competition_video(request):
+    if request.method == "POST":
+        video_url = request.POST.get("video_url")  # Captura el URL del video del formulario
+
+        try:
+            # Configuramos el modelo y analizamos el video
+            model = model_configai()
+            analysis_response = analyze_video_with_gemini(model, video_url)
+        except Exception as e:
+            # En caso de error, lo registramos y mostramos un mensaje de error
+            print(f"Error al procesar el video: {str(e)}")
+            return HttpResponse(f"Error al procesar el video: {str(e)}")
+
+        # Formatear el análisis antes de enviarlo a la plantilla
+        formatted_analysis = format_analysis_as_html(analysis_response)
+
+        # Redirige a la página de resultados con el análisis obtenido
+        return render(request, "analysis_result.html", {"analysis": formatted_analysis})
+
+    return render(request, "analyze_video.html")
+
+# Función para formatear el texto del análisis como HTML
+def format_analysis_as_html(analysis_text):
+    # Aquí es donde formateas el análisis generado como HTML
+    analysis_formatted = analysis_text.replace('\n', '<br>')  # Reemplaza saltos de línea con <br> para evitar bloque de texto
+    analysis_formatted = analysis_formatted.replace('**', '<strong>').replace('**', '</strong>')  # Convierte ** en negrita
+    
+    return analysis_formatted
+

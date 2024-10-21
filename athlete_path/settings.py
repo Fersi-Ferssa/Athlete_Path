@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import google.generativeai as genai
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -133,3 +134,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Directorio donde se guardarán los archivos estáticos compilados
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') 
+
+# Claves API
+GEMINI_API_KEY = 'AIzaSyCDy1JgkjlY-RXN_CJgM1fTfOVKTsuvh9I'  # Clave API de Google Gemini (Generative AI)

@@ -6,7 +6,7 @@ from .countries import COUNTRY_CHOICES
 from .disciplines import DISCIPLINE_CHOICES
 from .branches import BRANCH_CHOICES
 
-# FORMULARIO DE REGISTRO DE USUARIOS
+# REGISTER
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField(label="Correo electrónico")
     first_name = forms.CharField(max_length=50, label="Primer Nombre")
@@ -28,7 +28,7 @@ class UserRegisterForm(UserCreationForm):
             'password2': "Confirmación de contraseña",
         }
 
-# FORMULARIO DEL PERFIL DE USUARIOS (ATLETAS/COACHES)
+# PROFILE
 class ProfileForm(forms.ModelForm):
     olympic_country = forms.ChoiceField(choices=COUNTRY_CHOICES, label="País olímpico")
     discipline = forms.ChoiceField(choices=DISCIPLINE_CHOICES, label="Disciplina")
@@ -46,7 +46,7 @@ class ProfileForm(forms.ModelForm):
         else:
             self.fields['branch'].choices = []
 
-# FORMULARIO DE SUBEQUIPOS
+# SUBTEAMS
 class SubTeamForm(forms.ModelForm):
     class Meta:
         model = SubTeam
@@ -64,7 +64,7 @@ class SubTeamForm(forms.ModelForm):
                     raise forms.ValidationError(f"{athlete.user.first_name} ya está en un subequipo.")
         return athletes
 
-# FORMULARIO DE REGISTROS/VALUACIONES
+# ATHLETE EVALUATION/RECORD
 class AthleteRecordForm(forms.ModelForm):
     evaluation_date = forms.DateField(widget=forms.SelectDateWidget(years=range(2000, 2025)))
 

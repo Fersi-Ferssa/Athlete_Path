@@ -33,4 +33,5 @@ urlpatterns = [
     path('request_team_unsubscribe/', views.request_team_unsubscribe, name='request_team_unsubscribe'),
     path('athlete_records/<int:athlete_id>/', views.view_athlete_records, name='view_athlete_records'),
     path('athlete/evaluation/<int:record_id>/', views.athlete_view_evaluation_detail, name='athlete_view_evaluation_detail'),
+    path('video_analysis/', views.analyze_competition_video, name='video_analysis'),
 ]

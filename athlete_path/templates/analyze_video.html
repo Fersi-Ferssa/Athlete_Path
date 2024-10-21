@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enviar Video para Análisis</title>
+</head>
+<body>
+    <h1>Enviar Video para Análisis</h1>
+    <form method="POST" action="">
+        {% csrf_token %}
+        <label for="video_url">URL del Video:</label>
+        <input type="text" name="video_url" id="video_url" required>
+        <button type="submit">Enviar Video para Análisis</button>
+    </form>     
+
+    <form action="{% url 'athlete_profile' %}" method="get" style="margin-top: 20px;">
+        <button type="submit">Volver al Perfil del Atleta</button>
+    </form>    
+</body>
+</html>
