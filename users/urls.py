@@ -27,7 +27,10 @@ urlpatterns = [
     path('profile/', views.coach_profile, name='profile'),
     path('profile/athlete/', views.athlete_profile, name='athlete_profile'),
     path('coach/view_athlete_profile/<int:athlete_id>/', views.coach_view_athlete_profile, name='coach_view_athlete_profile'),
-    path('evaluation/<int:record_id>/', view_evaluation_detail, name='view_evaluation_detail'),
+    path('evaluation/<int:record_id>/', views.view_evaluation_detail, name='view_evaluation_detail'),
     path('evaluation/edit/<int:record_id>/', views.edit_evaluation, name='edit_evaluation'),
-    path('evaluation/delete/<int:record_id>/', delete_evaluation, name='delete_evaluation'),
+    path('evaluation/delete/<int:record_id>/', views.delete_evaluation, name='delete_evaluation'),
+    path('request_team_unsubscribe/', views.request_team_unsubscribe, name='request_team_unsubscribe'),
+    path('athlete_records/<int:athlete_id>/', views.view_athlete_records, name='view_athlete_records'),
+    path('athlete/evaluation/<int:record_id>/', views.athlete_view_evaluation_detail, name='athlete_view_evaluation_detail'),
 ]

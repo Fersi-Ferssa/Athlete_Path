@@ -89,14 +89,14 @@ class AthleteRecord(models.Model):
     coach = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name='coach_records')
     evaluation_date = models.DateField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)  
     
     def __str__(self):
         return f"Evaluación de {self.athlete.user.username} por {self.coach.user.username} el {self.evaluation_date}"
-
+    
     def total_score(self):
-        # Sumar todas las puntuaciones de los criterios asociados a este registro
-        total = self.criteria.aggregate(total=Sum('score'))['total']
-        return total if total else 0
+        # Este método suma todas las puntuaciones de los criterios asociados a este registro.
+        return self.criteria.aggregate(Sum('score'))['score__sum'] or 0
 
 # Modelo para los criterios de evaluación de los atletas
 class EvaluationCriterion(models.Model):
@@ -104,6 +104,11 @@ class EvaluationCriterion(models.Model):
     criterion_name = models.CharField(max_length=255)  # Nombre del criterio (Dificultad, Sincronización, etc.)
     score = models.IntegerField(choices=[(i, i) for i in range(1, 11)])  # Puntuación del 1 al 10
     notes = models.TextField(max_length=255, blank=True, null=True)  # Notas opcionales
-
+    
     def __str__(self):
         return f"{self.criterion_name}: {self.score} puntos"
+    
+    def total_score(self):
+        return self.criteria.aggregate(Sum('score'))['score__sum'] or 0
+
+

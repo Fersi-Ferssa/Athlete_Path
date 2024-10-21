@@ -6,70 +6,56 @@
     <title>Perfil del Atleta</title>
 </head>
 <body>
-    {% if messages %}
-    <div>
-        {% for message in messages %}
-            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
-        {% endfor %}
-    </div>
-    {% endif %}
-    
     <div class="profile-container">
-        <h1>Bienvenido, <span class="highlight">{{ profile.user.first_name }} {{ profile.user.last_name }}</span> (Atleta)</h1>
+        <h1>Bienvenido, <span class="highlight">{{ profile.user.first_name }} {{ profile.user.last_name }}</span></h1>
         
+        <!-- Opciones del atleta -->
         <div class="info-block">
-            <h2>Información del Atleta</h2>
-            <p><strong>Disciplina:</strong> <span class="highlight">{{ profile.discipline }}</span></p>
-            <p><strong>Rama:</strong> <span class="highlight">{{ profile.branch }}</span></p>
-            <p><strong>Nacionalidad:</strong> <span class="highlight">{{ profile.olympic_country }}</span></p>
-        </div>
-
-        <!-- Última evaluación del atleta -->
-        <div class="info-block">
-            <h3>Última Evaluación</h3>
-            {% if latest_record %}
-                <p><strong>Puntuación Total:</strong> <span class="highlight">{{ latest_record.total_score }}</span></p>
-                <p><strong>Fecha de Evaluación:</strong> <span class="highlight">{{ latest_record.evaluation_date }}</span></p>
-                <p><strong>Notas:</strong> <span class="highlight">{{ latest_record.notes }}</span></p>
-            {% else %}
-                <p>No tienes evaluaciones disponibles aún.</p>
-            {% endif %}
-        </div>
-
-        <!-- Historial de evaluaciones del atleta -->
-        <div class="info-block">
-            <h3>Historial de Evaluaciones</h3>
+            <h2>Opciones del Atleta</h2>
             <ul>
-                {% for record in athlete_records %}
-                <li>
-                    <strong>{{ record.evaluation_date }}:</strong> Puntuación: {{ record.total_score }}, Notas: {{ record.notes }}
-                    
-                    <!-- Solo mostrar opciones si el coach actual es quien creó el registro -->
-                    {% if can_edit_records %}
-                        <a href="{% url 'edit_record' record.id %}">Editar</a> |
-                        <a href="{% url 'delete_record' record.id %}" onclick="return confirm('¿Estás seguro de que quieres eliminar este registro?');">Eliminar</a>
-                    {% endif %}
-                </li>
-                {% endfor %}
+                <li><a href="{% url 'profile' %}">Perfil</a></li>
+                <li><a href="{% url 'view_athlete_records' profile.id %}">Historial de Evaluaciones</a></li>
+                <li><a href="{% url 'comparison_options' %}">Comparaciones</a></li>
+                <li><a href="#">Análisis de Competencia</a></li> <!-- Pendiente de implementar -->
             </ul>
         </div>
-
-        <!-- Formulario para cerrar sesión -->
-        <form method="POST" action="{% url 'logout' %}">
-            {% csrf_token %}
-            <button type="submit" class="button logout-btn">Cerrar sesión</button>
-        </form>
-        
-        <!-- Formulario de cambio de contraseña, solo si el usuario es el dueño del perfil -->
-        {% if form %}
-        <br><br>
-        <a href="{% url 'password_change' %}">
-            <button> Cambiar Contraseña </button>
-        </a>
-        {% endif %}
-        
-        <br><br>
-        <button class="button" onclick="window.history.back();">Regresar</button>
     </div>
+
+    <!-- Solicitud de baja del subequipo -->
+    <div class="info-block">
+        <h3>Equipo Olímpico</h3>
+        <p>Subequipo asignado: <strong>{{ profile.olympic_team.team_name }}</strong></p>
+        
+        <!-- Botón para solicitar la baja del subequipo -->
+        <button onclick="confirmUnsubscribe()">Solicitar baja del subequipo</button>
+
+        <script>
+        function confirmUnsubscribe() {
+            if (confirm("¿Seguro que quieres darte de baja del equipo {{ profile.olympic_team.team_name }}?")) {
+                window.location.href = "{% url 'request_team_unsubscribe' %}";  <!-- Ruta que manejaremos en el servidor -->
+            }
+        }
+        </script>
+    </div>
+    <br></br>
+    <div class="info-block">
+        <h3>Última Evaluación</h3>
+        {% if latest_record %}
+            <p><strong>Fecha de Evaluación:</strong> {{ latest_record.evaluation_date }}</p>
+            <p><strong>Puntuación Total:</strong> {{ latest_record.total_score }}</p>
+            <p><strong>Coach:</strong> {{ latest_record.coach.user.first_name }} {{ latest_record.coach.user.last_name }}</p>
+            <a href="{% url 'athlete_view_evaluation_detail' latest_record.id %}">
+                <button>Ver Detalle de la Evaluación</button>
+            </a>
+        {% else %}
+            <p>No tienes evaluaciones disponibles aún.</p>
+        {% endif %}
+    </div>    
+    <br></br>
+    <!-- Formulario para cerrar sesión -->
+    <form method="POST" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="button logout-btn">Cerrar sesión</button>
+    </form>
 </body>
 </html>

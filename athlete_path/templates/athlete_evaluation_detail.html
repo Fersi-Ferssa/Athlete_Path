@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles de la Evaluación de {{ record.athlete.user.first_name }} {{ record.athlete.user.last_name }}</title>
+</head>
+<body>
+    <h1>Detalles de la Evaluación de {{ record.athlete.user.first_name }} {{ record.athlete.user.last_name }}</h1>
+
+    <p><strong>Fecha de Evaluación:</strong> {{ record.evaluation_date }}</p>
+    <p><strong>Evaluado por:</strong> {{ record.coach.user.first_name }} {{ record.coach.user.last_name }}</p>
+
+    <h3>Criterios de Evaluación:</h3>
+    <ul>
+        {% for criterion in evaluation_criteria %}
+        <li>
+            <strong>{{ criterion.criterion_name }}:</strong> {{ criterion.score }}<br>
+            <strong>Notas:</strong> {{ criterion.notes }}
+        </li>
+        {% endfor %}
+    </ul>
+
+    <p><strong>Suma de Calificaciones:</strong> {{ total_score }}</p>
+    <p><strong>Última Modificación:</strong> {{ last_updated|date:"d de F de Y a las H:i" }}</p>
+    
+    <button onclick="window.history.back();">Regresar</button>
+</body>
+</html>

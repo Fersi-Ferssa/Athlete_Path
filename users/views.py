@@ -606,69 +606,15 @@ def athlete_profile(request, athlete_id=None):
 
     full_name = f"{profile.user.first_name} {profile.user.last_name}"
 
-    if profile.is_athlete() or request.user.profile.is_coach():
-        latest_record = AthleteRecord.objects.filter(athlete=profile).order_by('-evaluation_date').first()
+    # Obtener la última evaluación del atleta
+    latest_record = AthleteRecord.objects.filter(athlete=profile).order_by('-evaluation_date').first()
 
-        # Obtener el coach del atleta si está asignado
-        coach = Profile.objects.filter(
-            role='Coach',
-            discipline=profile.discipline,
-            branch=profile.branch
-        ).first()
-
-        # Acceder al nombre del equipo olímpico a través del coach
-        team_name = coach.olympic_team.team_name if coach and coach.olympic_team else 'No asignado'
-
-        # Mejores atletas: Corregimos el uso de `EvaluationCriterion` para obtener los mejores
-        best_athletes = AthleteRecord.objects.filter(
-            athlete__discipline=profile.discipline,
-            athlete__branch=profile.branch
-        ).annotate(
-            max_score=Sum('criteria__score')  # Sumamos los puntajes de los criterios
-        ).order_by('-max_score')[:5]
-
-        # Campeones de las Olimpiadas (si tienes esta lógica en tu JSON o modelo)
-        champions = {
-            'Uneven Bars': {'name': 'Rebeca Andrade', 'country': 'Brasil', 'difficulty': 6, 'execution': 8, 'score': 14},
-            'Floor': {'name': 'Ana Barbosu', 'country': 'Rumania', 'difficulty': 5, 'execution': 7, 'score': 12},
-            'Balance Beam': {'name': 'Luisa Blanco', 'country': 'Colombia', 'difficulty': 5, 'execution': 7, 'score': 12},
-        }
-        champion = champions.get(profile.branch, None)
-
-        olympic_country = profile.olympic_country
-        athlete_records = AthleteRecord.objects.filter(athlete=profile)
-
-        # Permisos de edición de registros
-        can_edit_records = request.user.profile.is_coach() and athlete_records.filter(coach=request.user.profile).exists()
-
-        # Formulario de cambio de contraseña
-        if request.user == profile.user:
-            if request.method == 'POST':
-                form = PasswordChangeForm(user=request.user, data=request.POST)
-                if form.is_valid():
-                    user = form.save()
-                    update_session_auth_hash(request, user)
-                    messages.success(request, 'Tu contraseña ha sido cambiada exitosamente.')
-                    return redirect('athlete_profile', athlete_id=profile.id)
-            else:
-                form = PasswordChangeForm(user=request.user)
-        else:
-            form = None
-
-        return render(request, 'athlete_profile.html', {
-            'profile': profile,
-            'full_name': full_name,
-            'latest_record': latest_record,
-            'best_athletes': best_athletes,
-            'champion': champion,
-            'team_name': team_name,
-            'olympic_country': olympic_country,
-            'athlete_records': athlete_records,
-            'can_edit_records': can_edit_records,
-            'form': form
-        })
-
-    return redirect('home')
+    # Pasamos latest_record solo si existe
+    return render(request, 'athlete_profile.html', {
+        'profile': profile,
+        'full_name': full_name,
+        'latest_record': latest_record if latest_record else None  # Asegúrate de pasar None si no hay latest_record
+    })
 
 # ATHLETE RECORDS
 @login_required
@@ -676,7 +622,45 @@ def view_athlete_records(request, athlete_id):
     athlete = get_object_or_404(Profile, id=athlete_id, role='Athlete')
     full_name = f"{athlete.user.first_name} {athlete.user.last_name}"
     records = AthleteRecord.objects.filter(athlete=athlete)
-    return render(request, 'view_records.html', {'athlete': athlete, 'full_name': full_name, 'records': records})
+    
+    return render(request, 'view_athlete_records.html', {
+        'athlete': athlete,
+        'full_name': full_name,
+        'records': records
+    })
+
+# VIEW RECORDS
+@login_required
+def athlete_view_evaluation_detail(request, record_id):
+    # Obtener el registro de la evaluación
+    record = get_object_or_404(AthleteRecord, id=record_id)
+
+    # Asegurarse de que el usuario sea el atleta al que pertenece la evaluación
+    if record.athlete.user != request.user:
+        messages.error(request, 'No tienes permiso para ver esta evaluación.')
+        return redirect('athlete_profile')
+
+    # Obtener los criterios asociados a esta evaluación
+    evaluation_criteria = EvaluationCriterion.objects.filter(athlete_record=record)
+
+    return render(request, 'athlete_evaluation_detail.html', {
+        'record': record,
+        'evaluation_criteria': evaluation_criteria,
+        'total_score': record.total_score(),  # Total de la puntuación
+        'last_updated': record.updated_at  # Fecha de última modificación
+    })
+
+# SUBTEAM UNSUSCRIBE
+@login_required
+def request_team_unsubscribe(request):
+    profile = request.user.profile
+    if profile.is_athlete() and profile.olympic_team:
+        # Enviar notificación o solicitud al coach creador del subequipo para aprobar la baja
+        messages.success(request, "Tu solicitud de baja del equipo ha sido enviada al coach.")
+        return redirect('athlete_profile')
+    else:
+        messages.error(request, "No estás asignado a un subequipo.")
+        return redirect('athlete_profile')
 
 # COMPARISON OPTIONS (ONLY OPTIONS)
 @login_required
@@ -699,11 +683,6 @@ def comparison_options(request):
 def compare_personal_records(request):
     profile = request.user.profile
 
-    # Limpiar mensajes pendientes para evitar que se arrastren
-    storage = messages.get_messages(request)
-    for _ in storage:
-        pass  # Elimina los mensajes pendientes
-
     if profile.is_athlete():
         personal_records = AthleteRecord.objects.filter(athlete=profile).order_by('-evaluation_date')
 
@@ -712,17 +691,20 @@ def compare_personal_records(request):
             record_2_id = request.POST.get('record_2')
 
             if not record_1_id or not record_2_id:
-                messages.set_level(request, messages.ERROR)
                 messages.error(request, 'Por favor selecciona dos récords diferentes para comparar.')
                 return render(request, 'compare_personal_records.html', {'records': personal_records})
 
             if record_1_id == record_2_id:
-                messages.set_level(request, messages.ERROR)
                 messages.error(request, 'No puedes comparar el mismo récord.')
                 return render(request, 'compare_personal_records.html', {'records': personal_records})
 
+            # Obtener los registros seleccionados
             record_1 = get_object_or_404(AthleteRecord, id=record_1_id)
             record_2 = get_object_or_404(AthleteRecord, id=record_2_id)
+
+            # Obtener los criterios asociados a ambos registros
+            criteria_1 = EvaluationCriterion.objects.filter(athlete_record=record_1)
+            criteria_2 = EvaluationCriterion.objects.filter(athlete_record=record_2)
 
             # Calcular la diferencia de puntuación
             score_difference = record_1.total_score() - record_2.total_score()
@@ -731,8 +713,10 @@ def compare_personal_records(request):
             return render(request, 'compare_personal_records_result.html', {
                 'record_1': record_1,
                 'record_2': record_2,
+                'criteria_1': criteria_1,  # Pasamos los criterios de evaluación al template
+                'criteria_2': criteria_2,
                 'score_difference': score_difference,
-                'abs_difference': abs_difference,  # Añadimos la diferencia para usar en el template
+                'abs_difference': abs_difference
             })
 
         return render(request, 'compare_personal_records.html', {'records': personal_records})
@@ -765,15 +749,15 @@ def compare_with_athletes(request):
             selected_athlete_record = AthleteRecord.objects.filter(athlete=selected_athlete).order_by('-evaluation_date').first()
 
             # Verificar si se encontraron registros
-            if not current_athlete_record:
-                messages.error(request, 'No tienes registros disponibles para comparar.')
+            if not current_athlete_record or not selected_athlete_record:
+                messages.error(request, 'No hay suficientes registros disponibles para realizar la comparación.')
                 return redirect('comparison_options')
 
-            if not selected_athlete_record:
-                messages.error(request, 'El atleta seleccionado no tiene registros disponibles para comparar.')
-                return redirect('comparison_options')
+            # Obtener los criterios de evaluación de ambos registros
+            current_criteria = EvaluationCriterion.objects.filter(athlete_record=current_athlete_record)
+            selected_criteria = EvaluationCriterion.objects.filter(athlete_record=selected_athlete_record)
 
-            # Calcular la diferencia de puntos y el valor absoluto
+            # Calcular la diferencia de puntuación
             current_score = current_athlete_record.total_score()
             selected_score = selected_athlete_record.total_score()
             score_difference = current_score - selected_score
@@ -784,6 +768,8 @@ def compare_with_athletes(request):
                 'athlete_record': current_athlete_record,
                 'compare_athlete': selected_athlete,
                 'compare_record': selected_athlete_record,
+                'current_criteria': current_criteria,  # Pasamos los criterios de evaluación al template
+                'selected_criteria': selected_criteria,
                 'score_difference': score_difference,
                 'abs_difference': abs_difference
             })

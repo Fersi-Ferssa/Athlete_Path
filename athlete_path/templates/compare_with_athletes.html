@@ -4,91 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Comparar Atletas</title>
-    <!--
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .comparison-container {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 500px;
-            text-align: center;
-        }
-
-        h1 {
-            color: #4066d5;
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-
-        label {
-            font-size: 16px;
-            color: #333;
-            display: block;
-            margin-bottom: 10px;
-            text-align: left;
-        }
-
-        select {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 20px;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            font-size: 16px;
-            box-sizing: border-box;
-        }
-
-        button[type="submit"] {
-            background-color: #4066d5;
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            width: 100%;
-        }
-
-        button[type="submit"]:hover {
-            background-color: #3053b0;
-        }
-
-        button {
-            margin-top: 10px;
-        }
-
-        @media (max-width: 600px) {
-            .comparison-container {
-                padding: 20px;
-            }
-
-            h1 {
-                font-size: 20px;
-            }
-
-            label {
-                font-size: 14px;
-            }
-
-            button[type="submit"] {
-                font-size: 14px;
-            }
-        }
-    </style>
--->
 </head>
 <body>
     <div class="comparison-container">
@@ -103,7 +18,7 @@
                 <option value="{{ athlete.id }}">{{ athlete.user.first_name }} {{ athlete.user.last_name }} - {{ athlete.olympic_country }}</option>
                 {% endfor %}
             </select>
-
+            <br></br>
             <button type="submit">Comparar</button>
         </form>
         <br>

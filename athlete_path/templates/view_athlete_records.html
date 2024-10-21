@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historial de Evaluaciones de {{ full_name }}</title>
+</head>
+<body>
+    <h1>Historial de Evaluaciones de {{ full_name }}</h1>
+
+    <div>
+        {% if records %}
+        <ul>
+            {% for record in records %}
+            <li>
+                <a href="{% url 'athlete_view_evaluation_detail' record.id %}">
+                    <strong>Fecha:</strong> {{ record.evaluation_date }}<br>
+                    <strong>Puntuación Total:</strong> {{ record.total_score }}<br>
+                    <strong>Coach:</strong> {{ record.coach.user.first_name }} {{ record.coach.user.last_name }}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+            <p>No tienes evaluaciones disponibles aún.</p>
+        {% endif %}
+    </div>
+
+    <a href="{% url 'athlete_profile' %}">Volver al perfil</a>
+</body>
+</html>
