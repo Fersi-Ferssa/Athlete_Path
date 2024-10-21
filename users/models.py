@@ -1,12 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import Sum
-# Importa la lista de países, disciplinas y atletas.
 from .countries import COUNTRY_CHOICES
 from .disciplines import DISCIPLINE_CHOICES
 from .branches import BRANCH_CHOICES
 
-# Modelo para representar los equipos olímpicos
+# OLYMPIC TEAM
 class OlympicTeam(models.Model):
     olympic_country = models.CharField(max_length=2, choices=COUNTRY_CHOICES)
     discipline = models.CharField(max_length=100, choices=DISCIPLINE_CHOICES)
@@ -56,6 +55,7 @@ class Profile(models.Model):
         self.olympic_team = team
         self.save()
 
+# SUBTEAM
 class SubTeam(models.Model):
     name = models.CharField(max_length=100, unique=True)
     team = models.ForeignKey(OlympicTeam, on_delete=models.CASCADE, related_name="subteams")
@@ -83,7 +83,7 @@ class SubTeam(models.Model):
         """Verifica si el coach puede tener más subequipos (máximo 4)"""
         return coach.subteams_coaches.count() < 4
 
-# Modelo para los récords confidenciales de los atletas
+# ATHLETE RECORD
 class AthleteRecord(models.Model):
     athlete = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name='athlete_records')
     coach = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name='coach_records')
@@ -98,7 +98,7 @@ class AthleteRecord(models.Model):
         # Este método suma todas las puntuaciones de los criterios asociados a este registro.
         return self.criteria.aggregate(Sum('score'))['score__sum'] or 0
 
-# Modelo para los criterios de evaluación de los atletas
+# ATHLETE EVALUATION
 class EvaluationCriterion(models.Model):
     athlete_record = models.ForeignKey(AthleteRecord, on_delete=models.CASCADE, related_name='criteria')
     criterion_name = models.CharField(max_length=255)  # Nombre del criterio (Dificultad, Sincronización, etc.)

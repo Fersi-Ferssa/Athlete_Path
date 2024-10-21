@@ -18,7 +18,7 @@ def model_configai():
     model = genai.GenerativeModel(model_name="gemini-1.5-pro-002", generation_config=generation_config)
     return model
 
-# Función para subir archivos a Gemini (si es necesario usar otros medios además de texto, como imágenes o PDFs)
+# Función para subir archivos a Gemini
 def upload_to_gemini(path, mime_type=None):
     """Sube el archivo a Gemini."""
     file = genai.upload_file(path, mime_type=mime_type)
@@ -39,7 +39,7 @@ def wait_for_files_active(files):
             raise Exception(f"El archivo {file.name} falló en procesarse")
     print("Archivos listos.")
 
-# Función que utilizará la API para analizar el video con un prompt de juez olímpico
+# Función que utilizará la API para analizar el video
 def analyze_video_with_gemini(model, video_url):
     chat = model.start_chat(
         history=[

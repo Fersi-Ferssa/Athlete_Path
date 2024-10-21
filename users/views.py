@@ -785,7 +785,7 @@ def compare_with_athletes(request):
 # API
 genai.configure(api_key=settings.GEMINI_API_KEY)
 
-# Configurar el modelo de Gemini
+# CONFIGURE AI MODEL
 def model_configai():
     genai.configure(api_key='AIzaSyCDy1JgkjlY-RXN_CJgM1fTfOVKTsuvh9I')  # Reemplaza con tu API Key de Google Gemini.
 
@@ -800,25 +800,30 @@ def model_configai():
     model = genai.GenerativeModel(model_name="gemini-1.5-pro-002", generation_config=generation_config)
     return model
 
-# Función para enviar el video URL y recibir el análisis
+# ANALYZE VIDEO
 def analyze_video_with_gemini(model, video_url):
     chat = model.start_chat(
         history=[
             {
                 "role": "user",
                 "parts": [
-                    '''Necesito que hagas el rol de un juez/analista olímpico. Te voy a mandar un video y quisiera que me evalues lo siguiente: 
-                    Disciplina, errores o mejoras que consideras que debería tener la técnica y si pudieras darle un puntaje cuál sería.'''
+                    '''
+                    Actúa como un juez y analista experto en clavados olímpicos. Te enviaré un video de una rutina de clavados y necesito que realices un análisis detallado en base a los siguientes criterios:
+                    Identifica posibles errores técnicos o áreas de mejora en la ejecución del clavado.
+                    Ofrece recomendaciones específicas para optimizar la técnica.
+                    Evalúa la rutina en función de los estándares olímpicos, y asigna una puntuación en una escala del 1 al 10 basada en la precisión, dificultad y ejecución.
+                    Aquí está el video para tu análisis: " + video_url.
+                    '''
                 ]
             }
         ]
     )
 
     # Enviar el mensaje y obtener la respuesta
-    response = chat.send_message(f"Individual, técnica y dificultad, aquí va el video: {video_url}")
+    response = chat.send_message(f"Aquí va el video para análisis: {video_url}")
     return response.text
 
-# Vista para manejar el análisis de video
+# ANALYSIS OF VIDEO
 def analyze_competition_video(request):
     if request.method == "POST":
         video_url = request.POST.get("video_url")  # Captura el URL del video del formulario
@@ -840,7 +845,7 @@ def analyze_competition_video(request):
 
     return render(request, "analyze_video.html")
 
-# Función para formatear el texto del análisis como HTML
+# FORMAT AI RESPONSE ON HTML
 def format_analysis_as_html(analysis_text):
     # Aquí es donde formateas el análisis generado como HTML
     analysis_formatted = analysis_text.replace('\n', '<br>')  # Reemplaza saltos de línea con <br> para evitar bloque de texto

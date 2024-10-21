@@ -76,7 +76,7 @@ class AthleteRecordForm(forms.ModelForm):
         cleaned_data = super().clean()
         return cleaned_data
 
-# FORMULARIO DE RESET DE CONTRASEÑA
+# PASSWORD RESET
 class ResetPasswordForm(forms.Form):
     username = forms.CharField(max_length=150, label="Nombre de usuario")
     security_question = forms.ChoiceField(
