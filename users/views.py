@@ -12,6 +12,7 @@ from django.http import JsonResponse
 from .branches import BRANCH_CHOICES
 import json
 from django.conf import settings
+from django.urls import reverse
 from django.http import JsonResponse
 from django.contrib import messages
 from .countries import COUNTRY_CHOICES
@@ -137,6 +138,7 @@ def password_reset_view(request):
         form = ResetPasswordForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data['username']
+            selected_question = form.cleaned_data['security_question']
             security_answer = form.cleaned_data['security_answer']
             new_password = form.cleaned_data['new_password']
 
@@ -148,7 +150,9 @@ def password_reset_view(request):
                     messages.error(request, 'No se encontró un perfil asociado a este usuario.')
                     return render(request, 'reset_password.html', {'form': form})
 
-                if profile.security_answer and profile.security_answer.lower() == security_answer.lower():
+                # Validamos la respuesta según la pregunta seleccionada
+                expected_answer = getattr(profile, selected_question, None)
+                if expected_answer and expected_answer.lower() == security_answer.lower():
                     user.set_password(new_password)
                     user.save()
                     update_session_auth_hash(request, user)
@@ -165,7 +169,20 @@ def password_reset_view(request):
 
     return render(request, 'reset_password.html', {'form': form})
 
-# CLEAM MESSAGES
+# PASSWORD CHANGE
+@login_required
+def password_change_done(request):
+    profile = request.user.profile
+    if profile.is_athlete():
+        redirect_url = reverse('athlete_profile')
+    elif profile.is_coach():
+        redirect_url = reverse('coach_dashboard')
+    else:
+        redirect_url = reverse('home')
+
+    return render(request, 'password_change_done.html', {'redirect_url': redirect_url})
+
+# CLEAN MESSAGES
 def clean_messages(request):
     """
     Elimina los mensajes almacenados en la sesión de la solicitud actual.
@@ -173,38 +190,6 @@ def clean_messages(request):
     storage = messages.get_messages(request)
     for message in storage:
         pass  # Marca todos los mensajes como "usados"
-
-# PASSWORD RESET
-def password_reset_view(request):
-    if request.method == 'POST':
-        form = ResetPasswordForm(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            security_answer = form.cleaned_data['security_answer']
-            new_password = form.cleaned_data['new_password']
-
-            try:
-                user = User.objects.get(username=username)
-                profile = getattr(user, 'profile', None)
-
-                if profile is None:
-                    messages.error(request, 'No se encontró un perfil asociado a este usuario.')
-                    return render(request, 'reset_password.html', {'form': form})
-
-                if profile.security_answer and profile.security_answer.lower() == security_answer.lower():
-                    user.set_password(new_password)
-                    user.save()
-                    update_session_auth_hash(request, user)
-                    messages.success(request, 'La contraseña ha sido cambiada exitosamente.')
-                    return redirect('login')
-                else:
-                    messages.error(request, 'La respuesta de seguridad es incorrecta.')
-            except User.DoesNotExist:
-                messages.error(request, 'El nombre de usuario no existe.')
-    else:
-        form = ResetPasswordForm()
-
-    return render(request, 'reset_password.html', {'form': form})
 
 ####################################################################################################
 #                                       COACH                                                      #
@@ -269,10 +254,10 @@ def create_subteam(request):
             athletes_selected = request.POST.getlist('athletes')
             for athlete_id in athletes_selected:
                 athlete = Profile.objects.get(id=athlete_id)
-                if athlete.olympic_team == profile.olympic_team:
+                if athlete.olympic_team == profile.olympic_team and not athlete.subteams_athletes.exists():
                     subteam.athletes.add(athlete)
                 else:
-                    messages.error(request, f"{athlete.user.first_name} no pertenece al equipo olímpico correcto.")
+                    messages.error(request, f"{athlete.user.first_name} no puede ser añadido al subequipo.")
 
             messages.success(request, f"Subequipo '{subteam.name}' creado con éxito.")
             return redirect('manage_subteams')
@@ -284,7 +269,7 @@ def create_subteam(request):
     return render(request, 'create_subteam.html', {
         'form': subteam_form,
         'available_athletes': available_athletes
-    })   
+    })
 
 #MANAGE SUBTEAM
 @login_required
@@ -346,15 +331,11 @@ def edit_subteam(request, subteam_id):
         # Asignar los atletas seleccionados
         for athlete_id in athletes_selected:
             athlete = Profile.objects.get(id=athlete_id)
-            if athlete.olympic_team == subteam.team:
-                # Validar que el atleta no esté en ningún otro subequipo
-                if not athlete.subteams_athletes.exists():  # Verificar si no está en ningún subequipo
-                    subteam.athletes.add(athlete)
-                    messages.success(request, f"{athlete.user.first_name} ha sido añadido al subequipo correctamente.")
-                else:
-                    messages.error(request, f"{athlete.user.first_name} ya pertenece a otro subequipo y no puede ser añadido.")
+            if athlete.olympic_team == subteam.team and not athlete.subteams_athletes.exists():
+                subteam.athletes.add(athlete)
+                messages.success(request, f"{athlete.user.first_name} ha sido añadido al subequipo correctamente.")
             else:
-                messages.error(request, f"{athlete.user.first_name} no pertenece al equipo olímpico correcto.")
+                messages.error(request, f"{athlete.user.first_name} ya pertenece a otro subequipo y no puede ser añadido.")
 
         return redirect('edit_subteam', subteam_id=subteam.id)
 
@@ -418,7 +399,12 @@ def join_subteam(request, subteam_id):
         messages.error(request, "Este subequipo ya tiene el número máximo de 3 coaches.")
         return redirect('manage_subteams')
 
-    subteam.coaches.add(profile)
+    if profile.role == 'Athlete':
+        if profile.subteams_athletes.exists():
+            messages.error(request, "No puedes unirte a más de un subequipo.")
+            return redirect('manage_subteams')
+
+    subteam.coaches.add(profile) if profile.is_coach() else subteam.athletes.add(profile)
     messages.success(request, 'Te has unido al subequipo exitosamente.')
     return redirect('manage_subteams')
 

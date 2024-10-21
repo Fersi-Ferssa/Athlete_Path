@@ -79,5 +79,13 @@ class AthleteRecordForm(forms.ModelForm):
 # FORMULARIO DE RESET DE CONTRASEÑA
 class ResetPasswordForm(forms.Form):
     username = forms.CharField(max_length=150, label="Nombre de usuario")
-    security_answer = forms.CharField(max_length=100, label="Nombre de tu primera mascota")
+    security_question = forms.ChoiceField(
+        choices=[
+            ('security_answer1', '¿Cuál es tu color favorito?'),
+            ('security_answer2', '¿Cuál es el apodo de tu mejor amigo?'),
+            ('security_answer3', '¿Cuál es tu película favorita?')
+        ],
+        label="Selecciona una pregunta de seguridad"
+    )
+    security_answer = forms.CharField(max_length=100, label="Respuesta a la pregunta seleccionada")
     new_password = forms.CharField(widget=forms.PasswordInput, label="Nueva contraseña")
