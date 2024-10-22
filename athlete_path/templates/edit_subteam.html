@@ -4,55 +4,165 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Subequipo: {{ subteam.name }}</title>
+    <style>
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: white;
+            padding: 60px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+            max-width: 900px;
+            width: 100%;
+            text-align: left;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #007bff;
+            text-align: center;
+        }
+
+        h3 {
+            font-size: 2em;
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+
+        label, input, select, ul, li {
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul li {
+            margin-bottom: 10px;
+        }
+
+        .button {
+            width: 200px;
+            padding: 10px;
+            font-size: 1.2em;
+            color: white;
+            text-align: center;
+            border: none;
+            border-radius: 5px;
+            margin: 10px 0;
+            cursor: pointer;
+        }
+
+        /* Botón azul para actualizar */
+        .update-btn {
+            background-color: #007bff;
+        }
+
+        .update-btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Botón rojo para eliminar (más pequeño) */
+        .remove-btn {
+            background-color: #dc3545; /* Rojo */
+            color: white;
+            font-size: 0.7em;  /* Reducimos el tamaño del texto */
+            padding: 6px 1px; /* Reducimos el padding */
+            border: none;
+            border-radius: 5px;
+            margin: 10px 0;
+            cursor: pointer;
+            width: auto; /* Elimina el ancho fijo para que se ajuste al contenido */
+        }
+        
+        .remove-btn:hover {
+            background-color: #c82333; /* Color rojo más oscuro al pasar el mouse */
+        }
+        
+
+        /* Botón gris para regresar */
+        .back-btn {
+            background-color: #6c757d;
+            margin-top: 40px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .back-btn:hover {
+            background-color: #5a6268;
+        }
+
+        .athlete-link {
+            color: #6f42c1;
+            text-decoration: none;
+        }
+
+        .athlete-link:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <h1>{{ subteam.name }}</h1>
 
-    <!-- Sección para cambiar el nombre del subequipo -->
-    <form method="POST" action="{% url 'edit_subteam' subteam.id %}">
-        {% csrf_token %}
-        <label for="name">Nombre del Subequipo:</label>
-        <input type="text" name="name" value="{{ subteam.name }}">
-        <br><br>
-        <button type="submit" name="update_name">Actualizar Nombre</button>
-    </form>
+    <div class="container">
+        <h1>{{ subteam.name }}</h1>
 
-    <!-- ATLETAS EN EL SUBEQUIPO -->
-    <h3>Atletas en el subequipo:</h3>
-    <ul>
-        {% for athlete in subteam.athletes.all %}
-        <li>
-            <a href="{% url 'coach_view_athlete_profile' athlete.id %}">{{ athlete.user.first_name }} {{ athlete.user.last_name }}</a>
-            {% if is_creator %}
-            <form method="POST" action="{% url 'edit_subteam' subteam.id %}" onsubmit="return confirm('¿Estás seguro de que quieres eliminar a este atleta?');" style="display:inline;">
-                {% csrf_token %}
-                <input type="hidden" name="athlete_id" value="{{ athlete.id }}">
-                <button type="submit" name="remove_athlete">Eliminar</button>
-            </form>            
-            {% endif %}
-        </li>
-        {% endfor %}
-    </ul>
-    
+        <!-- Sección para cambiar el nombre del subequipo -->
+        <form method="POST" action="{% url 'edit_subteam' subteam.id %}">
+            {% csrf_token %}
+            <label for="name">Nombre del Subequipo:</label>
+            <input type="text" name="name" value="{{ subteam.name }}">
+            <button type="submit" name="update_name" class="button update-btn">Actualizar Nombre</button>
+        </form>
 
-    <!-- Sección para actualizar los atletas del subequipo -->
-    <h3>Atletas disponibles para agregar al subequipo</h3>
-    <form method="POST" action="{% url 'edit_subteam' subteam.id %}">
-        {% csrf_token %}
-        <label for="athletes">Seleccionar Atletas:</label>
-        <br><br>
-        <select name="athletes" multiple>
-            {% for athlete in available_athletes %}
-            <option value="{{ athlete.id }}">{{ athlete.user.first_name }} {{ athlete.user.last_name }} - {{ athlete.discipline }} ({{ athlete.branch }})</option>
+        <!-- ATLETAS EN EL SUBEQUIPO -->
+        <h3>Atletas en el subequipo:</h3>
+        <ul>
+            {% for athlete in subteam.athletes.all %}
+            <li>
+                <a href="{% url 'coach_view_athlete_profile' athlete.id %}" class="athlete-link">{{ athlete.user.first_name }} {{ athlete.user.last_name }}</a>
+                {% if is_creator %}
+                <form method="POST" action="{% url 'edit_subteam' subteam.id %}" onsubmit="return confirm('¿Estás seguro de que quieres eliminar a este atleta?');" style="display:inline;">
+                    {% csrf_token %}
+                    <input type="hidden" name="athlete_id" value="{{ athlete.id }}">
+                    <button type="submit" name="remove_athlete" class="button remove-btn">Eliminar</button>
+                </form>
+                {% endif %}
+            </li>
             {% endfor %}
-        </select>
+        </ul>
+
+        <!-- Sección para actualizar los atletas del subequipo -->
+        <h3>Atletas disponibles para agregar al subequipo</h3>
+        <form method="POST" action="{% url 'edit_subteam' subteam.id %}">
+            {% csrf_token %}
+            <label for="athletes">Seleccionar Atletas:</label>
+            <select name="athletes" multiple>
+                {% for athlete in available_athletes %}
+                <option value="{{ athlete.id }}">{{ athlete.user.first_name }} {{ athlete.user.last_name }} - {{ athlete.discipline }} ({{ athlete.branch }})</option>
+                {% endfor %}
+            </select>
+            <button type="submit" name="update_athletes" class="button update-btn">Actualizar Atletas</button>
+        </form>
+
+        <!-- Botón para regresar a la gestión de subequipos -->
         <br><br>
-        <button type="submit" name="update_athletes">Actualizar Atletas</button>
-    </form>
-    <br><br>
-    <a href="{% url 'manage_subteams' %}">
-        <button class="button">Regresar a gestión de subequipos</button>
-    </a>
+        <a href="{% url 'manage_subteams' %}">
+            <button class="button back-btn">Regresar a gestión de subequipos</button>
+        </a>
+    </div>
     
 </body>
 </html>

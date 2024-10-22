@@ -4,43 +4,145 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil del Atleta: {{ full_name }}</title>
+    <style>
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: white;
+            padding: 80px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+            max-width: 900px;
+            width: 100%;
+            text-align: left;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #007bff;
+            text-align: center;
+        }
+
+        h3 {
+            font-size: 2em;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.3em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        ul {
+            font-size: 1.2em;
+            color: #333;
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            margin-bottom: 10px;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .button {
+            width: 200px;
+            padding: 15px;
+            font-size: 1.2em;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            margin: 10px 0;
+            cursor: pointer;
+            display: block;
+        }
+
+        .evaluate-btn {
+            background-color: #007bff;
+        }
+
+        .evaluate-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .back-btn {
+            background-color: #6c757d;
+            margin-top: 20px;
+        }
+
+        .back-btn:hover {
+            background-color: #5a6268;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
 </head>
 <body>
-    <h1>Perfil del Atleta: {{ full_name }}</h1>
-    <p>Fecha de Nacimiento: {{ profile.date_of_birth }}</p>
-    <p>País de Nacimiento: {{ profile.get_country_display }}</p>
-    <p>Equipo Olímpico: {{ team_name }}</p>
-    <p>Disciplina: {{ profile.discipline }}</p>
-    <p>Rama: {{ profile.branch }}</p>
-    <p>País Olímpico: {{ profile.get_olympic_country_display }}</p>
 
-    <h3>Evaluaciones del Atleta</h3>
-    <ul>
-        {% for record in athlete_records %}
-            <li>
-                <a href="{% url 'view_evaluation_detail' record.id %}">
-                    Evaluación realizada el: {{ record.evaluation_date }} por {{ record.coach.user.first_name }}
-                </a>
-            </li>
-        {% empty %}
-            <p>No hay evaluaciones registradas para este atleta.</p>
-        {% endfor %}
-    </ul>
-    
-    <!-- Agregar el botón de "Evaluar Atleta" solo si puede evaluar -->
-    {% if can_evaluate %}
-    <a href="{% url 'evaluate_athlete' profile.id %}">
-        <button>Evaluar Atleta</button>
-    </a>
-    {% endif %}
-    <br><br>
-    <!-- El botón ahora redirige a la vista de editar subequipo -->
-    {% if subteam_id %}
-    <a href="{% url 'edit_subteam' subteam_id %}">
-        <button>Regresar</button>
-    </a>
-    {% else %}
-        <button onclick="window.history.back();">Regresar</button>
-    {% endif %}
+    <div class="container">
+        <h1>Perfil del Atleta: {{ full_name }}</h1>
+        <p>Fecha de Nacimiento: {{ profile.date_of_birth }}</p>
+        <p>País de Nacimiento: {{ profile.get_country_display }}</p>
+        <p>Equipo Olímpico: {{ team_name }}</p>
+        <p>Disciplina: {{ profile.discipline }}</p>
+        <p>Rama: {{ profile.branch }}</p>
+        <p>País Olímpico: {{ profile.get_olympic_country_display }}</p>
+
+        <h3>Evaluaciones del Atleta</h3>
+        <ul>
+            {% for record in athlete_records %}
+                <li>
+                    <a href="{% url 'view_evaluation_detail' record.id %}">
+                        Evaluación realizada el: {{ record.evaluation_date }} por {{ record.coach.user.first_name }}
+                    </a>
+                </li>
+            {% empty %}
+                <p>No hay evaluaciones registradas para este atleta.</p>
+            {% endfor %}
+        </ul>
+
+        <div class="button-container">
+            <!-- Agregar el botón de "Evaluar Atleta" solo si puede evaluar -->
+            {% if can_evaluate %}
+            <a href="{% url 'evaluate_athlete' profile.id %}">
+                <button class="button evaluate-btn">Evaluar Atleta</button>
+            </a>
+            {% endif %}
+
+            <!-- Botón de regresar -->
+            {% if subteam_id %}
+            <a href="{% url 'edit_subteam' subteam_id %}">
+                <button class="button back-btn">Regresar</button>
+            </a>
+            {% else %}
+                <button class="button back-btn" onclick="window.history.back();">Regresar</button>
+            {% endif %}
+        </div>
+    </div>
+
 </body>
 </html>

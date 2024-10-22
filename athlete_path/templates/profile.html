@@ -4,29 +4,99 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil</title>
+    <style>
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .profile-container {
+            background-color: white;
+            padding: 80px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+            max-width: 900px;
+            width: 100%;
+            text-align: left; /* Alineación a la izquierda */
+        }
+
+        h1 {
+            font-size: 3em;
+            color: #007bff;
+            text-align: center; /* El título permanece centrado */
+        }
+
+        p {
+            font-size: 1.5em;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 40px; /* Más espacio entre la información y los botones */
+        }
+
+        .button {
+            width: 250px;
+            padding: 15px;
+            font-size: 1.5em;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            margin: 10px 0;
+            cursor: pointer;
+        }
+
+        .change-password-btn {
+            background-color: #007bff; /* Azul para cambiar contraseña */
+        }
+
+        .back-btn {
+            background-color: #6c757d; /* Gris para el botón de regresar */
+        }
+
+        .change-password-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .back-btn:hover {
+            background-color: #5a6268;
+        }
+    </style>
 </head>
 <body>
-    <h1>Perfil de {{ profile.user.first_name }} {{ profile.user.last_name }}</h1>
-    
-    <!-- Mostrar la fecha de nacimiento -->
-    <p>Fecha de Nacimiento: {{ profile.date_of_birth|date:"d F Y" }}</p>
-    
-    <!-- Mostrar el país de nacimiento con nombre completo -->
-    <p>País de Nacimiento: {{ profile.get_country_display }} - {{ profile.country }}</p>
-    
-    <!-- Mostrar el país olímpico -->
-    <p>País Olímpico: {{ profile.get_olympic_country_display }} - {{ profile.olympic_country }}</p>
+    <div class="profile-container">
+        <h1>Perfil de {{ profile.user.first_name }} {{ profile.user.last_name }}</h1>
+        
+        <!-- Mostrar la fecha de nacimiento -->
+        <p>Fecha de Nacimiento: {{ profile.date_of_birth|date:"d F Y" }}</p>
+        
+        <!-- Mostrar el país de nacimiento con nombre completo -->
+        <p>País de Nacimiento: {{ profile.get_country_display }} - {{ profile.country }}</p>
+        
+        <!-- Mostrar el país olímpico -->
+        <p>País Olímpico: {{ profile.get_olympic_country_display }} - {{ profile.olympic_country }}</p>
 
-    <!-- Mostrar la disciplina y rama -->
-    <p>Disciplina: {{ profile.discipline }}, Rama: {{ profile.branch }}</p>
-    
-    <!-- Botones -->
-    <div>
-        <a href="{% url 'password_change' %}">
-            <button>Cambiar Contraseña</button>
-        </a>
-        <br></br>
-        <button class="button" onclick="window.history.back();">Regresar</button>
+        <!-- Mostrar la disciplina y rama -->
+        <p>Disciplina: {{ profile.discipline }}, Rama: {{ profile.branch }}</p>
+        
+        <!-- Botones -->
+        <div class="button-container">
+            <a href="{% url 'password_change' %}">
+                <button class="button change-password-btn">Cambiar Contraseña</button>
+            </a>
+            <button class="button back-btn" onclick="window.history.back();">Regresar</button>
+        </div>
     </div>
 </body>
 </html>

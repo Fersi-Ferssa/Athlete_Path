@@ -4,17 +4,82 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard del Coach</title>
+    <style>
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .dashboard-container {
+            background-color: white;
+            padding: 80px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+            max-width: 900px;
+            width: 100%;
+            text-align: left;
+        }
+
+        h1 {
+            font-size: 3em;
+            color: #007bff;
+            text-align: center;
+        }
+
+        .options ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .options li {
+            margin-bottom: 25px;
+        }
+
+        .options a {
+            font-size: 1.8em;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .options a:hover {
+            text-decoration: underline;
+        }
+
+        .logout-btn, .back-btn {
+            display: block;
+            width: 200px;
+            padding: 15px;
+            font-size: 1.5em;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin: 20px auto;
+            cursor: pointer;
+        }
+
+        .logout-btn {
+            background-color: #ff4d4d;
+        }
+
+        .back-btn {
+            background-color: #6c757d;
+        }
+
+        .logout-btn:hover {
+            background-color: #e33d3d;
+        }
+
+        .back-btn:hover {
+            background-color: #5a6268;
+        }
+    </style>
 </head>
 <body>
-
-    <!-- Mostrar mensajes de alerta si los hay -->
-    {% if messages %}
-    <div>
-        {% for message in messages %}
-            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
-        {% endfor %}
-    </div>
-    {% endif %}
 
     <div class="dashboard-container">
         <h1>Bienvenid@ Coach: {{ profile.user.first_name }} {{ profile.user.last_name }}</h1>
@@ -27,14 +92,14 @@
                 <li><a href="{% url 'create_subteam' %}">Crear Subequipo</a></li>
             </ul>
         </div>
-        
+
         <!-- Botón de cerrar sesión -->
         <form method="POST" action="{% url 'logout' %}">
             {% csrf_token %}
             <button type="submit" class="logout-btn">Cerrar sesión</button>
         </form>
-        <br><br>
-        <button class="button" onclick="window.history.back();">Regresar</button>
+
+        <button class="back-btn" onclick="window.history.back();">Regresar</button>
     </div>
 </body>
 </html>
