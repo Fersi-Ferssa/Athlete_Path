@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -5,43 +7,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil del Atleta</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
     <style>
         body {
-            font-family: 'Lato', sans-serif;
-            background-color: #f9f9f9;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
+            font-family: 'Olympics', sans-serif;
+            background-color: #eaf4ff;
+            color: #333;
             margin: 0;
-            padding-top: 30px;
+            padding: 0;
+            position: relative;
+        }
+
+        .content-wrapper {
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .header-section {
+            position: relative;
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .header-section .vector-background {
+            width: 100%;
+            height: auto;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        .logo-container img {
+            max-width: 100px;
+            margin: 0 auto;
         }
 
         .profile-container {
             background-color: white;
-            padding: 80px;
-            border-radius: 15px;
-            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-            max-width: 900px;
+            padding: 40px;
+            border-radius: 0;
+            box-shadow: none;
             width: 100%;
+            text-align: center;
         }
 
         h1 {
             font-size: 2.5em;
             color: #007bff;
-            text-align: center;
             margin-bottom: 20px;
+            font-family: 'Olympics', sans-serif;
         }
 
         .highlight {
-            color: #ff6347; /* Puedes cambiar el color para resaltar */
-        }
-
-        .info-block {
-            background-color: white;
-            padding: 20px;
-            margin-bottom: 20px;
-            text-align: left;
+            color: #ff6347;
         }
 
         h2, h3 {
@@ -56,57 +77,88 @@
             margin-bottom: 15px;
         }
 
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        ul li {
-            font-size: 1.2em;
-            margin-bottom: 10px;
-            text-align: left;
-        }
-
-        ul li a {
-            color: #007bff;
-            text-decoration: none;
-        }
-
-        ul li a:hover {
-            text-decoration: underline;
-        }
-
-        button {
-            padding: 12px 20px;
-            font-size: 1.1em;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+        /* Estilo de los botones */
+        .option-card a {
+            display: inline-block;
             width: 100%;
-        }
-
-        button.logout-btn {
-            background-color: #dc3545; /* Rojo para el botón de logout */
-            margin-top: 15px;
-        }
-
-        button.logout-btn:hover {
-            background-color: #c82333;
-        }
-
-        button {
+            padding: 10px;
+            font-size: 1.1em;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #fff;
             background-color: #007bff;
-            transition: background-color 0.3s ease;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
         }
 
-        button:hover {
+        .option-card a:hover {
             background-color: #0056b3;
         }
 
-        .info-block button {
-            width: auto;
-            margin-top: 10px;
+        /* Ajuste del icono de perfil */
+        .dropdown-toggle {
+            background-color: transparent;
+            border: none;
+            color: #fff;
+            font-size: 3em;
+            cursor: pointer;
+        }
+
+        ul li a:hover {
+            color: #007bff;
+            text-decoration: underline;
+        }
+
+        /* Contenedor del menú desplegable con z-index */
+        .menu-container {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 9999;
+        }
+
+        /* Nueva sección de opciones */
+        .options-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .option-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 250px;
+            text-align: center;
+            padding: 30px;
+            transition: transform 0.3s ease;
+        }
+
+        .option-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .option-card i {
+            font-size: 3em;
+            color: #007bff;
+            margin-bottom: 15px;
+        }
+
+        .option-card h4 {
+            font-size: 1.5em;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .option-card p {
+            font-size: 1.1em;
+            color: #555;
+            margin-bottom: 20px;
         }
 
         @media (max-width: 768px) {
@@ -118,59 +170,93 @@
                 font-size: 1.5em;
             }
 
-            ul li {
-                font-size: 1em;
-            }
-
             button {
                 font-size: 1em;
             }
 
+            .options-container {
+                flex-direction: column;
+                align-items: center;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="profile-container">
-        <h1>Bienvenido, <span class="highlight">{{ profile.user.first_name }} {{ profile.user.last_name }}</span></h1>
-
-        <!-- Opciones del atleta -->
-        <div class="info-block">
-            <h2>Opciones del Atleta</h2>
-            <ul>
-                <li><a href="{% url 'profile' %}">Perfil</a></li>
-                <li><a href="{% url 'view_athlete_records' profile.id %}">Historial de Evaluaciones</a></li>
-                <li><a href="{% url 'comparison_options' %}">Comparaciones</a></li>
-                <li><a href="{% url 'video_analysis' %}">Analizar Competencia</a></li>
+    <!-- Menú desplegable de perfil en la esquina superior derecha -->
+    <div class="menu-container">
+        <div class="dropdown">
+            <button class="dropdown-toggle profile-icon" type="button" id="userProfileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-person-circle"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userProfileDropdown">
+                <li><a class="dropdown-item" href="{% url 'profile' %}">Ver Perfil</a></li>
+                <li><a class="dropdown-item" href="{% url 'password_change' %}">Cambiar Contraseña</a></li>
+                <li>
+                    <form method="POST" action="{% url 'logout' %}" class="m-0">
+                        {% csrf_token %}
+                        <button type="submit" class="dropdown-item">Cerrar Sesión</button>
+                    </form>
+                </li>
             </ul>
         </div>
-
-        <!-- Solicitud de baja del subequipo -->
-        <div class="info-block">
-            <h3>Equipo Olímpico</h3>
-            <p>Subequipo asignado: <strong>{{ profile.olympic_team.team_name }}</strong></p>
-
-        <!-- Última Evaluación -->
-        <div class="info-block">
-            <h3>Última Evaluación</h3>
-            {% if latest_record %}
-                <p><strong>Fecha de Evaluación:</strong> {{ latest_record.evaluation_date }}</p>
-                <p><strong>Puntuación Total:</strong> {{ latest_record.total_score }}</p>
-                <p><strong>Coach:</strong> {{ latest_record.coach.user.first_name }} {{ latest_record.coach.user.last_name }}</p>
-                <a href="{% url 'athlete_view_evaluation_detail' latest_record.id %}">
-                    <button>Ver Detalle de la Evaluación</button>
-                </a>
-            {% else %}
-                <p>No tienes evaluaciones disponibles aún.</p>
-            {% endif %}
-        </div>
-
-        <!-- Formulario para cerrar sesión -->
-        <form method="POST" action="{% url 'logout' %}">
-            {% csrf_token %}
-            <button type="submit" class="button logout-btn">Cerrar sesión</button>
-        </form>
     </div>
 
+    <!-- Sección de encabezado con vector y logo centrado -->
+    <div class="header-section">
+        <img src="{% static '/css/images/Vector_Completo.png' %}" alt="Vector de Fondo" class="vector-background">
+        <div class="logo-container">
+            <img src="{% static '/css/images/WhiteLogo.png' %}" alt="Logo" class="img-fluid">
+        </div>
+    </div>
+
+    <div class="content-wrapper">
+        <!-- Contenedor de perfil -->
+        <div class="profile-container">
+            <h1>Bienvenido, <span class="highlight">{{ profile.user.first_name }} {{ profile.user.last_name }}</span></h1>
+
+            <!-- Opciones del atleta -->
+            <div class="options-container">
+                <div class="option-card">
+                    <i class="bi bi-file-earmark-text"></i>
+                    <h4>Historial de Evaluaciones</h4>
+                    <p>Consulta todas las evaluaciones previas realizadas.</p>
+                    <a href="{% url 'view_athlete_records' profile.id %}">Ver Historial</a>
+                </div>
+
+                <div class="option-card">
+                    <i class="bi bi-bar-chart"></i>
+                    <h4>Comparaciones</h4>
+                    <p>Compara tu rendimiento con otras evaluaciones.</p>
+                    <a href="{% url 'comparison_options' %}">Ir a Comparar</a>
+                </div>
+
+                <div class="option-card">
+                    <i class="bi bi-camera-reels"></i>
+                    <h4>Analizar Competencia</h4>
+                    <p>Sube y analiza tu desempeño en video.</p>
+                    <a href="{% url 'video_analysis' %}">Analizar Video</a>
+                </div>
+
+                <!-- Última Evaluación como tarjeta de opción -->
+                <div class="option-card">
+                    <i class="bi bi-clipboard-check"></i>
+                    <h4>Última Evaluación</h4>
+                    {% if latest_record %}
+                        <p><strong>Fecha de Evaluación:</strong> {{ latest_record.evaluation_date }}</p>
+                        <p><strong>Puntuación Total:</strong> {{ latest_record.total_score }}</p>
+                        <p><strong>Coach:</strong> {{ latest_record.coach.user.first_name }} {{ latest_record.coach.user.last_name }}</p>
+                        <a href="{% url 'athlete_view_evaluation_detail' latest_record.id %}" class="details-btn">Ver Detalle de la Evaluación</a>
+                    {% else %}
+                        <p>No tienes evaluaciones disponibles aún.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts de Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

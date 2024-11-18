@@ -1,102 +1,163 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil</title>
+    <title>Perfil de {{ profile.user.first_name }} {{ profile.user.last_name }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
     <style>
         body {
-            font-family: 'Lato', sans-serif;
-            background-color: #f9f9f9;
+            font-family: 'Olympics', sans-serif;
+            background-image: url("{% static '/css/images/Vector_Completo.png' %}"); /* Fondo de vector */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
+            min-height: 100vh;
         }
 
-        .profile-container {
+        .container {
             background-color: white;
-            padding: 80px;
+            padding: 40px;
             border-radius: 15px;
             box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
             max-width: 900px;
             width: 100%;
-            text-align: left; /* Alineación a la izquierda */
+            text-align: center;
+        }
+
+        .header-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header-section img {
+            max-width: 100px;
+            margin-bottom: 20px;
         }
 
         h1 {
             font-size: 3em;
-            color: #007bff;
-            text-align: center; /* El título permanece centrado */
+            color: #FD3B07;
+            font-family: 'Olympics', sans-serif;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
         }
 
-        p {
+        .divider {
+            width: 80%;
+            height: 3px;
+            background-color: #0AB9E4;
+            margin: 25px auto;
+        }
+
+        .profile-info {
             font-size: 1.5em;
             color: #333;
-            margin-bottom: 20px;
+            line-height: 1.8;
+            text-align: left;
+        }
+
+        .profile-info p {
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .profile-info p i {
+            font-size: 1.4em;
+            margin-right: 15px;
+            color: #FD3B07;
         }
 
         .button-container {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 40px; /* Más espacio entre la información y los botones */
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
         }
 
         .button {
-            width: 250px;
-            padding: 15px;
-            font-size: 1.5em;
+            padding: 15px 30px;
+            font-size: 1.3em;
             color: white;
             text-align: center;
             text-decoration: none;
             border: none;
-            border-radius: 5px;
-            margin: 10px 0;
+            border-radius: 8px;
             cursor: pointer;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .button:hover {
+            transform: scale(1.05);
         }
 
         .change-password-btn {
-            background-color: #007bff; /* Azul para cambiar contraseña */
+            background-color: #0AB9E4;
         }
 
         .back-btn {
-            background-color: #6c757d; /* Gris para el botón de regresar */
+            background-color: #6c757d;
         }
 
         .change-password-btn:hover {
-            background-color: #0056b3;
+            background-color: #0792C7;
         }
 
         .back-btn:hover {
             background-color: #5a6268;
         }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5em;
+            }
+
+            .profile-info {
+                font-size: 1.2em;
+            }
+
+            .button {
+                font-size: 1.1em;
+                padding: 12px 20px;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="profile-container">
-        <h1>Perfil de {{ profile.user.first_name }} {{ profile.user.last_name }}</h1>
+    <div class="container">
+        <!-- Logo y título principal -->
+        <div class="header-section">
+            <img src="{% static 'css/images/Logo.png' %}" alt="Logo">
+            <h1>Perfil de {{ profile.user.first_name }} {{ profile.user.last_name }}</h1>
+            <div class="divider"></div>
+        </div>
         
-        <!-- Mostrar la fecha de nacimiento -->
-        <p>Fecha de Nacimiento: {{ profile.date_of_birth|date:"d F Y" }}</p>
+        <!-- Información del perfil -->
+        <div class="profile-info">
+            <p><i class="bi bi-calendar"></i><strong>Fecha de Nacimiento:</strong> {{ profile.date_of_birth|date:"d F Y" }}</p>
+            <p><i class="bi bi-geo-alt"></i><strong>País de Nacimiento:</strong> {{ profile.get_country_display }} - {{ profile.country }}</p>
+            <p><i class="bi bi-flag"></i><strong>País Olímpico:</strong> {{ profile.get_olympic_country_display }} - {{ profile.olympic_country }}</p>
+            <p><i class="bi bi-trophy"></i><strong>Disciplina:</strong> {{ profile.discipline }}, Rama: {{ profile.branch }}</p>
+        </div>
         
-        <!-- Mostrar el país de nacimiento con nombre completo -->
-        <p>País de Nacimiento: {{ profile.get_country_display }} - {{ profile.country }}</p>
-        
-        <!-- Mostrar el país olímpico -->
-        <p>País Olímpico: {{ profile.get_olympic_country_display }} - {{ profile.olympic_country }}</p>
-
-        <!-- Mostrar la disciplina y rama -->
-        <p>Disciplina: {{ profile.discipline }}, Rama: {{ profile.branch }}</p>
-        
-        <!-- Botones -->
+        <!-- Botones de acción -->
         <div class="button-container">
-            <a href="{% url 'password_change' %}">
-                <button class="button change-password-btn">Cambiar Contraseña</button>
-            </a>
+            <a href="{% url 'password_change' %}" class="button change-password-btn">Cambiar Contraseña</a>
             <button class="button back-btn" onclick="window.history.back();">Regresar</button>
         </div>
     </div>
+
+    <!-- Iconos de Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
 </body>
 </html>

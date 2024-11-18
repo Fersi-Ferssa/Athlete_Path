@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -5,43 +7,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Comparación de Récords Personales</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
     <style>
         body {
-            font-family: 'Lato', sans-serif;
-            background-color: #f9f9f9;
+            font-family: 'Olympics', sans-serif;
+            background-color: #FFFCF2;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
+            color: #031147;
         }
 
         .comparison-container {
-            background-color: white;
-            padding: 80px;
-            border-radius: 15px;
-            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-            max-width: 900px;
+            background-color: #FFFFFF;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
             width: 100%;
         }
 
-        h2 {
-            font-size: 2.5em;
-            color: #007bff;
+        .header-section {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
+        }
+
+        .header-section img {
+            max-width: 80px;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 2em;
+            color: #FD3B07;
+            text-align: center;
+            margin-bottom: 20px;
+            font-family: 'Olympics', sans-serif;
         }
 
         p {
             font-size: 1.2em;
             color: #333;
             margin-bottom: 20px;
+            text-align: center;
         }
 
         label {
-            font-size: 1.2em;
+            font-size: 1.1em;
             color: #555;
-            margin-bottom: 10px;
+            margin-top: 10px;
+            display: block;
         }
 
         select {
@@ -50,39 +68,40 @@
             margin: 10px 0;
             border: 1px solid #ccc;
             border-radius: 5px;
-            font-size: 1.1em;
+            font-size: 1em;
         }
 
-        button[type="submit"] {
+        .btn-primary {
             width: 100%;
             padding: 12px;
-            background-color: #007bff;
+            background-color: #0AB9E4;
             color: white;
             border: none;
             border-radius: 5px;
-            font-size: 1.2em;
+            font-size: 1.1em;
             cursor: pointer;
             transition: background-color 0.3s ease;
             margin-top: 20px;
         }
 
-        button[type="submit"]:hover {
-            background-color: #0056b3;
+        .btn-primary:hover {
+            background-color: #0792C7;
         }
 
-        button[type="button"] {
+        .btn-secondary {
             width: 100%;
             padding: 12px;
             background-color: #6c757d;
             color: white;
+            border: none;
             border-radius: 5px;
-            font-size: 1.2em;
+            font-size: 1.1em;
             margin-top: 10px;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
 
-        button[type="button"]:hover {
+        .btn-secondary:hover {
             background-color: #5a6268;
         }
 
@@ -90,15 +109,16 @@
             font-size: 1em;
             margin-bottom: 20px;
             padding: 10px;
+            text-align: center;
         }
 
         @media (max-width: 768px) {
             .comparison-container {
-                padding: 40px;
+                padding: 20px;
             }
 
             h2 {
-                font-size: 2em;
+                font-size: 1.8em;
             }
 
             button {
@@ -109,6 +129,11 @@
 </head>
 <body>
     <div class="comparison-container">
+        <!-- Sección de encabezado con el logo -->
+        <div class="header-section">
+            <img src="{% static '/css/images/Logo.png' %}" alt="Logo">
+        </div>
+        
         <h2>Comparación de Récords Personales</h2>
         
         <!-- Mostrar mensajes de error dentro del contenedor blanco -->
@@ -138,11 +163,11 @@
                 <option value="{{ record.id }}">{{ record.evaluation_date }} - Dificultad: {{ record.difficulty }}, Ejecución: {{ record.execution }}</option>
                 {% endfor %}
             </select>
-            <br><br>
-            <button type="submit">Comparar</button>
+            
+            <button type="submit" class="btn-primary">Comparar</button>
         </form>
-        <br>
-        <button type="button" onclick="window.history.back();">Regresar</button>
+        
+        <button type="button" class="btn-secondary" onclick="window.history.back();">Regresar</button>
     </div>
 </body>
 </html>

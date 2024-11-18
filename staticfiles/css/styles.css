@@ -1,0 +1,363 @@
+/* Variables de color */
+:root {
+    --primary-color: #f4f4f4;
+    --secondary-color: #ffd700;
+    --background-color: #f4f4f4;
+    --text-color: #333;
+    --highlight-color: #e6e6e6;
+    --border-color: #ccc;
+
+    /* Nuevas variables de color para diferentes elementos */
+    --button-login-bg: #FFD700; /* Color de fondo para botón "Iniciar sesión" */
+    --button-login-text: #002f6c; /* Color de texto para botón "Iniciar sesión" */
+    --button-register-bg: #00A1E0; /* Color de fondo para botón "Registrarse" */
+    --button-register-text: #ffffff; /* Color de texto para botón "Registrarse" */
+    --table-header-bg: #FFD700; /* Color de fondo para encabezado de la tabla */
+    --table-header-text: #002f6c; /* Color de texto para encabezado de la tabla */
+    --title-color: #0f4d9b; /* Color para los títulos */
+    --button-view-bg: #FFBF04; /* Color de fondo para el botón "Ver equipo" */
+    --button-view-text: #ffffff; /* Color de texto para el botón "Ver equipo" */
+}
+
+/* Estilos globales */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: 'Olympics';
+    src: url('../fonts/Olympics.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'Olympics', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+/* Encabezado */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--title-color);
+}
+
+.welcome-title {
+    font-size: 2.5rem; /* Ajusta el tamaño según tus necesidades */
+    font-weight: bold;
+    color: var(--title-color);
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+
+p, a, li {
+    font-weight: 400;
+    color: var(--text-color);
+    font-size: 1.1rem;
+}
+
+/* Contenedor principal */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 2rem auto;
+}
+
+/* Botones */
+.btn-primary {
+    background-color: var(--button-view-bg);
+    color: var(--button-view-text);
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #e6be00;
+}
+
+#mainNav .btn-outline-primary {
+    background-color: var(--button-login-bg);
+    color: var(--button-login-text);
+    border: 1px solid var(--button-login-bg);
+}
+
+#mainNav .btn-primary {
+    background-color: var(--button-register-bg);
+    color: var(--button-register-text);
+    border: none;
+}
+
+/* Carrusel */
+.carousel-inner img {
+    height: 500px;
+    object-fit: cover;
+}
+
+/* Tablas */
+.table th {
+    background-color: var(--table-header-bg);
+    color: var(--table-header-text);
+}
+
+.table td {
+    color: var(--text-color);
+}
+
+.table tr:hover {
+    background-color: var(--highlight-color);
+}
+
+/* Center form elements */
+.form-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+label {
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-right: 0.5rem;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .container {
+        width: 100%;
+    }
+
+    .medal-card {
+        width: 100%;
+    }
+}
+
+/* Barra de navegación inicial transparente */
+#mainNav {
+    background-color: transparent;
+    transition: background 0.3s ease;
+    color: white;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+/* Aplicar la imagen de fondo al hacer scroll */
+#mainNav.navbar-scrolled {
+    background: url("../css/images/Vector.png") no-repeat center center;
+    background-size: cover;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#mainNav .navbar-brand img {
+    height: 100px; /* Ajusta la altura según tus necesidades */
+    width: auto;
+    object-fit: contain;
+    padding: 0;
+    margin-left: -5px;
+    background: none;
+}
+
+#mainNav.navbar-scrolled .navbar-brand img {
+    height: 80px; /* Ajusta el tamaño cuando haces scroll */
+    transition: height 0.3s ease;
+}
+
+#headerCarousel {
+    height: 100vh;
+    overflow: hidden;
+}
+
+#headerCarousel .carousel-inner img {
+    height: 100vh;
+    object-fit: cover;
+}
+
+/* --------------------------------------------------------------------------------------------------*/
+/* Contenedor principal para el equipo */
+.team-container {
+    background: linear-gradient(to bottom, #0ab9e4, #121364); /* Degradado con colores específicos */
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Contenedor del título con vector de fondo */
+.team-header {
+    position: relative;
+    background-image: url('../css/images/vector2.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    padding: 20px;
+    text-align: center;
+    color: white;
+    border-radius: 8px 8px 0 0;
+}
+
+/* Capa semi-transparente sobre el vector */
+.team-header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.18); /* Ajusta el nivel de transparencia */
+    z-index: 1;
+    border-radius: 8px 8px 0 0;
+}
+
+/* Estilo para el título */
+.team-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #ffffff;
+    position: relative;
+    z-index: 2;
+}
+
+/* Fondo de la tabla y estilo */
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 0; /* Alineado con el contenedor */
+    font-size: 1em;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco con opacidad */
+    border-radius: 0 0 8px 8px; /* Bordes redondeados para el fondo de la tabla */
+    overflow: hidden;
+}
+
+.styled-table th {
+    background-color: #FFD700;
+    color: #002f6c;
+    padding: 12px 15px;
+}
+
+.styled-table td {
+    padding: 12px 15px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e6e6e6;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f2f2f2;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #FFD700;
+}
+
+/* ------------------------------------------------------------------------------------------------ */
+
+.medal-icon {
+    width: 30px; /* Ajusta el tamaño según lo que necesites */
+    height: auto;
+    vertical-align: middle; /* Alinea la imagen verticalmente con el texto */
+    margin-right: 5px; /* Añade un pequeño margen si deseas separación */
+}
+
+/* ----------------------------------------------------------------------------------------------- */
+
+/* Iconos de medallas en el encabezado de la tabla */
+.medal-icon {
+    width: 20px; /* Tamaño reducido para las medallas en el encabezado */
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+/* Estilos para la tabla */
+.styled-table th, .styled-table td {
+    padding: 10px;
+    text-align: center;
+    font-size: 16px;
+}
+
+/* ------------------------------------------------------------------------------------------- */
+
+/* Estilo para el enlace del país */
+.country-link {
+    text-decoration: none; /* Elimina el subrayado */
+    color: inherit; /* Usa el color de texto normal */
+    padding: 5px 10px; /* Espaciado alrededor del texto */
+    border-radius: 5px; /* Bordes redondeados para el efecto de hover */
+}
+
+/* Efecto al pasar el mouse */
+.country-link:hover {
+    color: #007bff; /* Cambia el color del texto al pasar el mouse */
+    cursor: pointer; /* Muestra el cursor de enlace */
+}
+
+/* ------------------------------------------------------------------------------ */
+
+/* Estilo para el enlace del país */
+.country-link {
+    text-decoration: none; /* Elimina el subrayado */
+    color: inherit; /* Usa el color de texto normal */
+    padding: 5px 10px; /* Espaciado alrededor del texto */
+    border-radius: 5px; /* Bordes redondeados para el efecto de hover */
+}
+
+/* Efecto al pasar el mouse */
+.country-link:hover {
+    color: #007bff; /* Cambia el color del texto al pasar el mouse */
+    cursor: pointer; /* Muestra el cursor de enlace */
+}
+
+/* ----------------------------------------------------------------------------------------------------- */
+/* Banner específico para all medals */
+/* Estilo para el banner específico de all medals con el vector */
+.vector-banner {
+    background: url("../css/images/Vector3.png");
+    background-size: 100%; /* Tamaño inicial del vector */
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    color: white;
+    transition: background-size 0.3s ease, padding 0.3s ease;
+    padding: 10px 0;
+}
+
+.vector-banner .navbar-brand img {
+    height: 100px; /* Tamaño inicial del logo */
+    transition: height 0.3s ease;
+}
+
+.vector-banner.navbar-scrolled {
+    background-size: 80%; /* Reducir el tamaño del vector al hacer scroll */
+    padding: 5px 0; /* Reducir el padding para compactar el banner */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.vector-banner.navbar-scrolled .navbar-brand img {
+    height: 80px; /* Tamaño reducido del logo al hacer scroll */
+}
+
+/* Estilos para los botones en el banner */
+.vector-banner .btn-outline-primary {
+    background-color: #FFD700;
+    color: #002f6c;
+    border: 1px solid #FFD700;
+}
+
+.vector-banner .btn-primary {
+    background-color: #00A1E0;
+    color: white;
+    border: none;
+}
+
+.vector-banner .btn-outline-primary:hover,
+.vector-banner .btn-primary:hover {
+    opacity: 0.9;
+}

@@ -1,138 +1,201 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Subequipo: {{ subteam.name }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
     <style>
         body {
-            font-family: 'Lato', sans-serif;
-            background-color: #f9f9f9;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            font-family: 'Olympics', sans-serif;
+            background-image: url("{% static '/css/images/Vector_Completo.png' %}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
             margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
         }
 
         .container {
-            background-color: white;
-            padding: 60px;
-            border-radius: 15px;
-            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-            max-width: 900px;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            max-width: 800px;
             width: 100%;
-            text-align: left;
+            text-align: center;
+        }
+
+        .logo {
+            width: 80px;
+            margin-bottom: 20px;
         }
 
         h1 {
             font-size: 2.5em;
-            color: #007bff;
-            text-align: center;
+            color: #d35400;
+            font-weight: bold;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        h3 {
-            font-size: 2em;
-            color: #007bff;
-            margin-bottom: 10px;
+        .edit-icon {
+            font-size: 0.8em;
+            color: #3498db;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: color 0.3s;
         }
 
-        label, input, select, ul, li {
+        .edit-icon:hover {
+            color: #2980b9;
+        }
+
+        .input-name {
             font-size: 1.2em;
-            color: #333;
-            margin-bottom: 10px;
-        }
-
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        ul li {
-            margin-bottom: 10px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            width: 80%;
+            display: none;
+            margin: 10px auto;
         }
 
         .button {
-            width: 200px;
-            padding: 10px;
-            font-size: 1.2em;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 20px;
+            font-size: 1em;
+            font-weight: bold;
             color: white;
             text-align: center;
             border: none;
-            border-radius: 5px;
-            margin: 10px 0;
+            border-radius: 8px;
             cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin: 10px 5px;
         }
 
-        /* Botón azul para actualizar */
-        .update-btn {
-            background-color: #007bff;
+        .update-name-btn {
+            background-color: #3498db;
+            display: none;
         }
 
-        .update-btn:hover {
-            background-color: #0056b3;
+        .update-name-btn:hover {
+            background-color: #2980b9;
         }
 
-        /* Botón rojo para eliminar (más pequeño) */
+        .update-athletes-btn {
+            background-color: #3498db;
+        }
+
+        .update-athletes-btn:hover {
+            background-color: #2980b9;
+        }
+
         .remove-btn {
-            background-color: #dc3545; /* Rojo */
-            color: white;
-            font-size: 0.7em;  /* Reducimos el tamaño del texto */
-            padding: 6px 1px; /* Reducimos el padding */
-            border: none;
-            border-radius: 5px;
-            margin: 10px 0;
-            cursor: pointer;
-            width: auto; /* Elimina el ancho fijo para que se ajuste al contenido */
+            background-color: #e74c3c;
+            font-size: 0.9em;
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin-left: 10px;
         }
-        
-        .remove-btn:hover {
-            background-color: #c82333; /* Color rojo más oscuro al pasar el mouse */
-        }
-        
 
-        /* Botón gris para regresar */
+        .remove-btn:hover {
+            background-color: #c0392b;
+        }
+
         .back-btn {
-            background-color: #6c757d;
-            margin-top: 40px;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
+            background-color: #95a5a6;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1em;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            display: inline-block;
+            margin-top: 20px;
         }
 
         .back-btn:hover {
-            background-color: #5a6268;
+            background-color: #7f8c8d;
         }
 
         .athlete-link {
-            color: #6f42c1;
+            color: #031147;
             text-decoration: none;
+            font-weight: bold;
+            font-size: 1em;
         }
 
         .athlete-link:hover {
             text-decoration: underline;
+        }
+
+        .athlete-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #f7f1e3;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            font-size: 1em;
+            width: 80%;
+            margin: 0 auto 15px auto;
+        }
+
+        h3 {
+            font-size: 1.8em;
+            color: #d35400;
+            margin-top: 30px;
+        }
+
+        label, select {
+            font-size: 1em;
+        }
+
+        select {
+            padding: 10px;
+            border-radius: 8px;
+            width: 80%;
+            margin: 0 auto;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>{{ subteam.name }}</h1>
+        <img src="{% static '/css/images/Logo.png' %}" alt="Logo" class="logo">
+        <h1>{{ subteam.name }}
+            <i class="fas fa-edit edit-icon" onclick="toggleEditName()" title="Editar nombre del subequipo"></i>
+        </h1>
 
-        <!-- Sección para cambiar el nombre del subequipo -->
         <form method="POST" action="{% url 'edit_subteam' subteam.id %}">
             {% csrf_token %}
-            <label for="name">Nombre del Subequipo:</label>
-            <input type="text" name="name" value="{{ subteam.name }}">
-            <button type="submit" name="update_name" class="button update-btn">Actualizar Nombre</button>
+            <input type="text" name="name" value="{{ subteam.name }}" class="input-name" id="inputName">
+            <button type="submit" name="update_name" class="button update-name-btn" id="updateNameBtn">Guardar Cambios</button>
         </form>
 
-        <!-- ATLETAS EN EL SUBEQUIPO -->
         <h3>Atletas en el subequipo:</h3>
-        <ul>
+        <ul style="list-style: none; padding: 0;">
             {% for athlete in subteam.athletes.all %}
-            <li>
-                <a href="{% url 'coach_view_athlete_profile' athlete.id %}" class="athlete-link">{{ athlete.user.first_name }} {{ athlete.user.last_name }}</a>
+            <li class="athlete-item">
+                <span>
+                    <a href="{% url 'coach_view_athlete_profile' athlete.id %}" class="athlete-link">{{ athlete.user.first_name }} {{ athlete.user.last_name }}</a>
+                </span>
                 {% if is_creator %}
                 <form method="POST" action="{% url 'edit_subteam' subteam.id %}" onsubmit="return confirm('¿Estás seguro de que quieres eliminar a este atleta?');" style="display:inline;">
                     {% csrf_token %}
@@ -144,7 +207,6 @@
             {% endfor %}
         </ul>
 
-        <!-- Sección para actualizar los atletas del subequipo -->
         <h3>Atletas disponibles para agregar al subequipo</h3>
         <form method="POST" action="{% url 'edit_subteam' subteam.id %}">
             {% csrf_token %}
@@ -154,15 +216,25 @@
                 <option value="{{ athlete.id }}">{{ athlete.user.first_name }} {{ athlete.user.last_name }} - {{ athlete.discipline }} ({{ athlete.branch }})</option>
                 {% endfor %}
             </select>
-            <button type="submit" name="update_athletes" class="button update-btn">Actualizar Atletas</button>
+            <button type="submit" name="update_athletes" class="button update-athletes-btn">Actualizar Atletas</button>
         </form>
 
-        <!-- Botón para regresar a la gestión de subequipos -->
-        <br><br>
-        <a href="{% url 'manage_subteams' %}">
-            <button class="button back-btn">Regresar a gestión de subequipos</button>
-        </a>
+        <a href="{% url 'manage_subteams' %}" class="back-btn">Regresar a gestión de subequipos</a>
     </div>
+
+    <script>
+        function toggleEditName() {
+            var inputName = document.getElementById('inputName');
+            var updateNameBtn = document.getElementById('updateNameBtn');
+            if (inputName.style.display === 'none') {
+                inputName.style.display = 'block';
+                updateNameBtn.style.display = 'inline-flex';
+            } else {
+                inputName.style.display = 'none';
+                updateNameBtn.style.display = 'none';
+            }
+        }
+    </script>
     
 </body>
 </html>

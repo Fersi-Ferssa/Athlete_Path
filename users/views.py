@@ -8,7 +8,6 @@ from django.db.models import Max, F, Sum, Count
 from django.contrib import messages
 from .forms import UserRegisterForm, ProfileForm, AthleteRecordForm, ResetPasswordForm, SubTeamForm
 from .models import Profile, AthleteRecord, OlympicTeam, SubTeam, EvaluationCriterion
-from django.http import JsonResponse
 from .branches import BRANCH_CHOICES
 import json
 import requests
@@ -28,14 +27,73 @@ from .ai import analyze_video_with_gemini, model_configai # Importar la función
 #                                       MAIN HOME PAGE                                             #
 ####################################################################################################
 
+def load_medal_data():
+    try:
+        with open('staticfiles/medals_data.json', 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        return data
+    except FileNotFoundError:
+        return []
+    except UnicodeDecodeError:
+        # Manejo del error de decodificación si persiste
+        print("Error de decodificación al leer el archivo JSON.")
+        return []
+
+
 # MAIN HOME PAGE
 def home(request):
     countries = COUNTRY_CHOICES
     disciplines = DISCIPLINE_CHOICES
+
+    # Cargar datos de medallas desde el JSON y ordenar por total de medallas
+    data = load_medal_data()
+    top_countries = sorted(data, key=lambda x: x['total'], reverse=True)[:10]
+
+    team = None
+    coaches = []
+    athletes = []
+
+    if request.method == 'GET' and 'country' in request.GET:
+        # Procesa los datos del equipo olímpico
+        country = request.GET.get('country')
+        discipline = request.GET.get('discipline')
+        branch = request.GET.get('branch')
+
+        team = OlympicTeam.objects.filter(
+            olympic_country=country,
+            discipline=discipline,
+            branch=branch
+        ).first()
+
+        if team:
+            coaches = Profile.objects.filter(olympic_team=team, role='Coach')
+            athletes = Profile.objects.filter(olympic_team=team, role='Athlete')
+        else:
+            messages.warning(request, "No se encontró ningún equipo olímpico para los criterios seleccionados.")
+
     return render(request, 'home.html', {
         'countries': countries,
-        'disciplines': disciplines
+        'disciplines': disciplines,
+        'top_countries': top_countries,  # Asegúrate de que la variable esté en el contexto
+        'team': team,
+        'coaches': coaches,
+        'athletes': athletes
     })
+
+# Página con todos los países y sus medallas
+def all_medals(request):
+    data = load_medal_data()
+    sorted_countries = sorted(data, key=lambda x: x['total'], reverse=True)
+    return render(request, 'all_medals.html', {'countries': sorted_countries})
+
+# Página de detalle de medallas de un país específico
+def country_medals(request, country_name):
+    data = load_medal_data()
+    country_data = next((item for item in data if item["country"] == country_name), None)
+    if country_data:
+        return render(request, 'country_medals.html', {'country': country_data})
+    else:
+        return HttpResponse("País no encontrado", status=404)
 
 # OBTAIN THE DISCIPLINES BRANCHES
 def get_branches(request):
@@ -330,17 +388,14 @@ def edit_subteam(request, subteam_id):
     if request.method == 'POST' and 'update_athletes' in request.POST:
         athletes_selected = request.POST.getlist('athletes')
 
-        # Remover todos los atletas actuales del subequipo
-        subteam.athletes.clear()
-
-        # Asignar los atletas seleccionados
+        # Añadir los atletas seleccionados sin eliminar a los existentes
         for athlete_id in athletes_selected:
             athlete = Profile.objects.get(id=athlete_id)
-            if athlete.olympic_team == subteam.team and not athlete.subteams_athletes.exists():
+            if athlete.olympic_team == subteam.team and not subteam.athletes.filter(id=athlete.id).exists():
                 subteam.athletes.add(athlete)
                 messages.success(request, f"{athlete.user.first_name} ha sido añadido al subequipo correctamente.")
             else:
-                messages.error(request, f"{athlete.user.first_name} ya pertenece a otro subequipo y no puede ser añadido.")
+                messages.warning(request, f"{athlete.user.first_name} ya pertenece a otro subequipo o no puede ser añadido.")
 
         return redirect('edit_subteam', subteam_id=subteam.id)
 

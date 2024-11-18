@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -5,83 +6,141 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Historial de Evaluaciones de {{ full_name }}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
     <style>
-        body {
-            font-family: 'Lato', sans-serif;
-            background-color: #f9f9f9;
-            margin: 0;
-            padding: 20px;
-            height: 100vh;
-            overflow-y: auto;
-        }
-
-        h1 {
-            font-size: 2.5em;
-            color: #007bff;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .history-container {
-            background-color: white;
-            padding: 80px;
-            border-radius: 15px;
-            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-            max-width: 900px;
+        /* Full-width header with vector background */
+        .header {
             width: 100%;
-            margin: 0 auto;
-            text-align: left;
+            background-image: url("{% static '/css/images/Vector2.png' %}");
+            background-size: cover;
+            background-position: center;
+            padding: 40px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        ul {
-            list-style-type: none;
+        /* Logo styling */
+        .header .logo {
+            width: 100px;
+        }
+
+        /* Title styling below the header */
+        .title-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .title-container h1 {
+            font-size: 2.5em;
+            color: #FD3B07;
+            font-family: 'Olympics', sans-serif;
+            margin: 0;
+        }
+
+        /* Page background */
+        body {
+            font-family: 'Olympics', sans-serif;
+            background-color: #FFFFFF;
+            margin: 0;
             padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #031147;
         }
 
-        ul li {
+        /* Main content container */
+        .history-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* Card styling */
+        .evaluation-card {
+            background-color: #FFFFFF;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .evaluation-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Icon in card */
+        .evaluation-card i {
+            font-size: 2em;
+            color: #0792C7;
+            margin-bottom: 10px;
+        }
+
+        /* Card headings and text */
+        .evaluation-card h4 {
             font-size: 1.2em;
-            margin-bottom: 15px;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 10px;
+            color: #031147;
+            margin-bottom: 10px;
         }
 
-        ul li a {
+        .evaluation-card p {
+            font-size: 1em;
+            color: #555;
+            margin: 5px 0;
+        }
+
+        /* Button in card */
+        .evaluation-card a {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 1em;
+            color: #FFFFFF;
+            background-color: #0AB9E4;
+            border-radius: 5px;
             text-decoration: none;
-            color: #007bff;
+            transition: background-color 0.3s ease;
         }
 
-        ul li a:hover {
-            text-decoration: underline;
+        .evaluation-card a:hover {
+            background-color: #0792C7;
         }
 
+        /* Back button container */
         .button-container {
             display: flex;
-            justify-content: center; /* Alineado al centro */
+            justify-content: center;
             margin-top: 20px;
         }
 
         .gray-button {
             padding: 10px 20px;
             font-size: 1em;
-            color: white;
-            background-color: #6c757d; /* Color gris */
+            color: #FFFFFF;
+            background-color: #FDA305;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            text-decoration: none;
             transition: background-color 0.3s ease;
-            text-decoration: none; /* Quita el subrayado */
         }
 
         .gray-button:hover {
-            background-color: #5a6268; /* Gris más oscuro al pasar el cursor */
+            background-color: #FD3B07;
         }
 
         @media (max-width: 768px) {
-            .history-container {
-                padding: 40px;
-            }
-
-            h1 {
+            .title-container h1 {
                 font-size: 2em;
             }
 
@@ -93,27 +152,37 @@
     </style>
 </head>
 <body>
-    <h1>Historial de Evaluaciones de {{ full_name }}</h1>
+    <!-- Full-width header with vector background and logo -->
+    <div class="header">
+        <img src="{% static '/css/images/WhiteLogo.png' %}" alt="Logo" class="logo">
+    </div>
 
+    <!-- Title below the header -->
+    <div class="title-container">
+        <h1>Historial de Evaluaciones de {{ full_name }}</h1>
+    </div>
+
+    <!-- Main content area with evaluation cards -->
     <div class="history-container">
         {% if records %}
-        <ul>
             {% for record in records %}
-            <li>
-                <a href="{% url 'athlete_view_evaluation_detail' record.id %}">
-                    <strong>Fecha:</strong> {{ record.evaluation_date }}<br>
-                    <strong>Puntuación Total:</strong> {{ record.total_score }}<br>
-                    <strong>Coach:</strong> {{ record.coach.user.first_name }} {{ record.coach.user.last_name }}
-                </a>
-            </li>
+                <div class="evaluation-card">
+                    <i class="bi bi-clipboard-check"></i>
+                    <h4>Fecha de Evaluación</h4>
+                    <p>{{ record.evaluation_date }}</p>
+                    <h4>Puntuación Total</h4>
+                    <p>{{ record.total_score }}</p>
+                    <h4>Coach</h4>
+                    <p>{{ record.coach.user.first_name }} {{ record.coach.user.last_name }}</p>
+                    <a href="{% url 'athlete_view_evaluation_detail' record.id %}">Ver Detalle</a>
+                </div>
             {% endfor %}
-        </ul>
         {% else %}
             <p>No tienes evaluaciones disponibles aún.</p>
         {% endif %}
     </div>
 
-    <!-- Contenedor para alinear el botón correctamente -->
+    <!-- Back button -->
     <div class="button-container">
         <a href="{% url 'athlete_profile' %}" class="gray-button">Volver al perfil</a>
     </div>

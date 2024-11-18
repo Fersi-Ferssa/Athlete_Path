@@ -1,18 +1,45 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalles de la Evaluación de {{ record.athlete.user.first_name }} {{ record.athlete.user.last_name }}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
     <style>
         body {
-            font-family: 'Lato', sans-serif;
-            background-color: #f9f9f9;
+            font-family: 'Olympics', sans-serif;
+            background-image: url("{% static '/css/images/Vector_Completo.png' %}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             margin: 0;
             padding: 20px;
-            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
             overflow-y: auto;
+        }
+
+        /* Outer solid white container */
+        .outer-container {
+            background-color: white; /* Changed to solid white */
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .evaluation-container {
+            background-color: #f9f9f9; /* Light gray to distinguish inner content */
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+            text-align: left;
         }
 
         h1 {
@@ -22,15 +49,10 @@
             text-align: center;
         }
 
-        .evaluation-container {
-            background-color: white;
-            padding: 80px;
-            border-radius: 15px;
-            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-            max-width: 900px;
-            width: 100%;
-            margin: 0 auto;
-            text-align: left;
+        h3 {
+            font-size: 1.8em;
+            color: #333;
+            margin-top: 30px;
         }
 
         p, ul {
@@ -51,7 +73,7 @@
 
         .button-container {
             display: flex;
-            justify-content: center; /* Alineado al centro */
+            justify-content: center;
             margin-top: 20px;
         }
 
@@ -59,7 +81,7 @@
             padding: 10px 20px;
             font-size: 1em;
             color: white;
-            background-color: #6c757d; /* Color gris */
+            background-color: #6c757d;
             border: none;
             border-radius: 5px;
             cursor: pointer;
@@ -67,12 +89,12 @@
         }
 
         .gray-button:hover {
-            background-color: #5a6268; /* Gris más oscuro al pasar el cursor */
+            background-color: #5a6268;
         }
 
         @media (max-width: 768px) {
             .evaluation-container {
-                padding: 40px;
+                padding: 30px;
             }
 
             h1 {
@@ -87,30 +109,31 @@
     </style>
 </head>
 <body>
-    <h1>Detalles de la Evaluación de {{ record.athlete.user.first_name }} {{ record.athlete.user.last_name }}</h1>
+    <div class="outer-container">
+        <div class="evaluation-container">
+            <h1>Detalles de la Evaluación de {{ record.athlete.user.first_name }} {{ record.athlete.user.last_name }}</h1>
+            
+            <p><strong>Fecha de Evaluación:</strong> {{ record.evaluation_date }}</p>
+            <p><strong>Evaluado por:</strong> {{ record.coach.user.first_name }} {{ record.coach.user.last_name }}</p>
 
-    <div class="evaluation-container">
-        <p><strong>Fecha de Evaluación:</strong> {{ record.evaluation_date }}</p>
-        <p><strong>Evaluado por:</strong> {{ record.coach.user.first_name }} {{ record.coach.user.last_name }}</p>
+            <h3>Criterios de Evaluación:</h3>
+            <ul>
+                {% for criterion in evaluation_criteria %}
+                <li>
+                    <strong>{{ criterion.criterion_name }}:</strong> {{ criterion.score }}<br>
+                    <strong>Notas:</strong> {{ criterion.notes }}
+                </li>
+                {% endfor %}
+            </ul>
 
-        <h3>Criterios de Evaluación:</h3>
-        <ul>
-            {% for criterion in evaluation_criteria %}
-            <li>
-                <strong>{{ criterion.criterion_name }}:</strong> {{ criterion.score }}<br>
-                <strong>Notas:</strong> {{ criterion.notes }}
-            </li>
-            {% endfor %}
-        </ul>
+            <p><strong>Suma de Calificaciones:</strong> {{ total_score }}</p>
+            <p><strong>Última Modificación:</strong> {{ last_updated|date:"d de F de Y a las H:i" }}</p>
 
-        <p><strong>Suma de Calificaciones:</strong> {{ total_score }}</p>
-        <p><strong>Última Modificación:</strong> {{ last_updated|date:"d de F de Y a las H:i" }}</p>
+            <!-- Botón para regresar -->
+            <div class="button-container">
+                <button class="gray-button" onclick="window.history.back();">Regresar</button>
+            </div>
+        </div>
     </div>
-
-    <!-- Botón para regresar -->
-    <div class="button-container">
-        <button class="gray-button" onclick="window.history.back();">Regresar</button>
-    </div>
-
 </body>
 </html>

@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -5,59 +7,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resultado de Comparación Personal</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
     <style>
         body {
-            font-family: 'Lato', sans-serif;
+            font-family: 'Olympics', sans-serif;
             background-color: #f9f9f9;
             display: flex;
             justify-content: center;
             align-items: flex-start;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
             padding-top: 30px;
+            color: #031147;
         }
 
         .comparison-container {
-            display: flex;
-            justify-content: space-between;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 20px;
             max-width: 1200px;
             width: 100%;
         }
 
-        .comparison-block {
+        .comparison-block, .chart-container {
             background-color: white;
-            padding: 80px;
+            padding: 40px;
             border-radius: 15px;
             box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            min-height: 400px; /* Asegura que todos los bloques tengan la misma altura */
             text-align: left;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+        }
+
+        .header-section {
+            text-align: center;
+            grid-column: span 2;
+            margin-bottom: 20px;
+        }
+
+        .header-section img {
+            max-width: 100px;
+            margin-bottom: 10px;
         }
 
         h3 {
-            font-size: 2em;
+            font-size: 1.8em;
             color: #007bff;
             text-align: center;
             margin-bottom: 20px;
         }
 
         h4 {
-            font-size: 1.5em;
+            font-size: 1.4em;
             color: #333;
             margin-bottom: 10px;
         }
 
-        p {
-            font-size: 1.2em;
+        p, ul li {
+            font-size: 1.1em;
             color: #333;
-        }
-
-        .highlight {
-            color: #ff6347; /* Color para resaltar diferencias */
         }
 
         ul {
@@ -65,25 +72,20 @@
             padding: 0;
         }
 
-        ul li {
-            font-size: 1.2em;
-            margin-bottom: 10px;
-        }
-
-        ul li strong {
-            font-weight: bold;
+        .button-container {
+            grid-column: span 2;
+            text-align: center;
+            margin-top: 20px;
         }
 
         button {
-            width: 100%;
             padding: 12px 20px;
-            font-size: 1.2em;
+            font-size: 1.1em;
             color: white;
             background-color: #007bff;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            margin-top: 20px;
             transition: background-color 0.3s ease;
         }
 
@@ -92,29 +94,24 @@
         }
 
         .gray-button {
-            background-color: #6c757d; /* Fondo gris */
+            background-color: #6c757d;
         }
 
         .gray-button:hover {
-            background-color: #5a6268; /* Fondo gris oscuro al pasar el mouse */
+            background-color: #5a6268;
         }
 
         @media (max-width: 768px) {
             .comparison-container {
-                flex-direction: column;
-                gap: 20px;
+                grid-template-columns: 1fr;
             }
 
-            .comparison-block {
-                padding: 40px;
+            .comparison-block, .chart-container {
+                padding: 20px;
             }
 
             h3, h4 {
                 font-size: 1.5em;
-            }
-
-            p, ul li {
-                font-size: 1em;
             }
 
             button {
@@ -125,6 +122,12 @@
 </head>
 <body>
     <div class="comparison-container">
+        <!-- Sección de encabezado con el logo -->
+        <div class="header-section">
+            <img src="{% static '/css/images/Logo.png' %}" alt="Logo">
+        </div>
+
+        <!-- Primer y segundo bloque de comparaciones -->
         <div class="comparison-block">
             <h3>Primer Récord:</h3>
             <p><strong>Fecha:</strong> <span class="highlight">{{ record_1.evaluation_date }}</span></p>
@@ -157,8 +160,9 @@
             </ul>
         
             <p><strong>Puntuación Total:</strong> <span class="highlight">{{ record_2.total_score }}</span></p>
-        </div>    
+        </div>
 
+        <!-- Bloque de diferencia de puntuación -->
         <div class="comparison-block">
             <h3>Diferencia de Puntuación:</h3>
             {% if score_difference == 0 %}
@@ -168,9 +172,59 @@
             {% else %}
                 <p>El segundo récord tiene una ventaja de <span class="highlight">{{ abs_difference }}</span> puntos sobre el primer récord.</p>
             {% endif %}
-            
+        </div>
+
+        <!-- Gráfico de comparación -->
+        <div class="chart-container comparison-block">
+            <h3>Comparación de Criterios</h3>
+            <canvas id="comparisonChart"></canvas>
+        </div>
+
+        <!-- Botón de regreso como elemento independiente -->
+        <div class="button-container">
             <button class="gray-button" onclick="window.history.back();">Regresar</button>
         </div>
     </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('comparisonChart').getContext('2d');
+        const comparisonChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: [{% for criterion in criteria_1 %}'{{ criterion.criterion_name }}',{% endfor %}],
+                datasets: [
+                    {
+                        label: 'Primer Récord',
+                        data: [{% for criterion in criteria_1 %}{{ criterion.score }},{% endfor %}],
+                        backgroundColor: 'rgba(0, 123, 255, 0.5)',
+                        borderColor: 'rgba(0, 123, 255, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Segundo Récord',
+                        data: [{% for criterion in criteria_2 %}{{ criterion.score }},{% endfor %}],
+                        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
 </body>
 </html>

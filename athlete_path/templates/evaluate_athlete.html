@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -5,10 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Evaluar a {{ athlete.user.first_name }} {{ athlete.user.last_name }}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
     <style>
+        /* Full-page background with vector image */
         body {
-            font-family: 'Lato', sans-serif;
-            background-color: #f9f9f9;
+            font-family: 'Olympics', sans-serif;
+            background-image: url("{% static '/css/images/Vector_Completo.png' %}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -16,6 +23,7 @@
             margin: 0;
         }
 
+        /* Main evaluation container with white background */
         .evaluation-container {
             background-color: white;
             padding: 40px;
@@ -23,31 +31,36 @@
             box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
             max-width: 800px;
             width: 100%;
+            text-align: center;
+        }
+
+        .logo {
+            width: 120px;
+            margin-bottom: 20px;
         }
 
         h2 {
-            font-size: 2.2em;
-            color: #007bff;
-            text-align: center;
-            margin-bottom: 20px;
+            font-size: 2.5em;
+            color: #d35400;
+            margin-bottom: 30px;
         }
 
         h3 {
             font-size: 1.5em;
-            color: #007bff;
-            margin-bottom: 15px;
+            color: #d35400;
+            margin-top: 20px;
         }
 
         label {
-            font-size: 1.2em;
+            font-size: 1.1em;
             color: #333;
-            margin-bottom: 10px;
+            font-weight: bold;
         }
 
         select, textarea {
             width: 100%;
             padding: 10px;
-            margin-bottom: 20px;
+            margin-top: 5px;
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 1em;
@@ -60,13 +73,12 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            margin-bottom: 15px;
+            margin-top: 15px;
         }
 
         button[type="submit"] {
             background-color: #007bff;
             color: white;
-            transition: background-color 0.3s ease;
         }
 
         button[type="submit"]:hover {
@@ -82,58 +94,60 @@
             background-color: #5a6268;
         }
 
-        table {
-            width: 100%;
-            margin-bottom: 30px;
-        }
-
-        td {
-            padding: 10px 0;
+        .table-responsive {
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
 
     <div class="evaluation-container">
+        <!-- Logo at the top -->
+        <img src="{% static '/css/images/Logo.png' %}" alt="Logo" class="logo">
+
         <h2>Evaluar a {{ athlete.user.first_name }} {{ athlete.user.last_name }}</h2>
         
         <form method="POST">
             {% csrf_token %}
             
-            <!-- Campo de Fecha de Evaluación -->
+            <!-- Evaluation Date Field -->
             <h3>Fecha de Evaluación:</h3>
-            {{ form.evaluation_date }}
+            <div class="mb-3">
+                {{ form.evaluation_date }}
+            </div>
 
-            <!-- Criterios dinámicos de evaluación -->
+            <!-- Dynamic Evaluation Criteria -->
             <h3>Criterios de Evaluación:</h3>
-            <table>
-                {% for criterion in evaluation_criteria %}
-                <tr>
-                    <td>
-                        <!-- Campo del criterio de evaluación -->
-                        <label for="criterion_{{ criterion }}">{{ criterion }}:</label>
-                        <select name="criterion_{{ criterion }}">
-                            {% for score in evaluation_range %}
-                                <option value="{{ score }}">{{ score }}</option>
-                            {% endfor %}
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <!-- Campo de notas para el criterio -->
-                        <label for="note_{{ criterion }}">Notas para {{ criterion }}:</label>
-                        <textarea name="note_{{ criterion }}" rows="3"></textarea>
-                    </td>
-                </tr>
-                {% endfor %}
-            </table>
+            <div class="table-responsive">
+                <table class="table table-borderless">
+                    <tbody>
+                        {% for criterion in evaluation_criteria %}
+                        <tr>
+                            <td>
+                                <label for="criterion_{{ criterion }}">{{ criterion }}:</label>
+                                <select name="criterion_{{ criterion }}" class="form-select">
+                                    {% for score in evaluation_range %}
+                                        <option value="{{ score }}">{{ score }}</option>
+                                    {% endfor %}
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="note_{{ criterion }}">Notas para {{ criterion }}:</label>
+                                <textarea name="note_{{ criterion }}" rows="3" class="form-control"></textarea>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
 
-            <!-- Botón para guardar evaluación -->
+            <!-- Save Evaluation Button -->
             <button type="submit">Guardar Evaluación</button>
         </form>
         
-        <!-- Botón para regresar a la vista anterior -->
+        <!-- Back Button to Previous View -->
         <button type="button" onclick="window.history.back();">Regresar</button>
     </div>
 

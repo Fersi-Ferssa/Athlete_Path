@@ -5,68 +5,105 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalles de la Evaluación de {{ record.athlete.user.first_name }} {{ record.athlete.user.last_name }}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
-            font-family: 'Lato', sans-serif;
-            background-color: #f9f9f9;
+            font-family: 'Olympics', sans-serif;
+            background-color: #fcf7e3;
             margin: 0;
             padding: 20px;
-            height: 100vh;
-            overflow-y: auto;
+            text-align: center;
         }
 
         h2 {
             font-size: 2.5em;
-            color: #007bff;
+            color: #d35400;
             margin-bottom: 20px;
-            text-align: center;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
         }
 
-        .evaluation-container {
-            background-color: white;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-            max-width: 900px;
+        .evaluation-info {
+            font-size: 1.3em;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .content-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .evaluation-criteria {
+            font-size: 1.2em;
+            color: #333;
+            list-style-type: none;
+            width: 100%;
+            max-width: 400px;
+            text-align: left;
             margin: 0 auto;
         }
 
-        p, ul {
-            font-size: 1.2em;
-            color: #333;
-        }
-
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        ul li {
-            margin-bottom: 15px;
-            padding-bottom: 10px;
+        .evaluation-criteria li {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
             border-bottom: 1px solid #ddd;
+        }
+
+        .criterion-name {
+            font-weight: bold;
+            color: #333;
+            flex: 1;
+        }
+
+        .score {
+            font-weight: bold;
+            color: #28a745;
+            font-size: 1.3em;
+            text-align: right;
+            width: 50px;
+        }
+
+        .notes {
+            font-style: italic;
+            color: #666;
+            text-align: right;
+            width: 150px;
+            margin-left: 10px;
+        }
+
+        .chart-container {
+            width: 100%;
+            max-width: 500px;
         }
 
         .button-container {
             display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
         }
 
         .button {
-            padding: 10px 20px;
-            font-size: 1em;
+            padding: 12px 24px;
+            font-size: 1.1em;
             color: white;
             background-color: #6c757d;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
-            text-decoration: none; /* Elimina el subrayado */
+            transition: all 0.3s ease;
+            text-decoration: none;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .button:hover {
-            background-color: #5a6268;
+            transform: scale(1.05);
         }
 
         .edit-button {
@@ -85,28 +122,40 @@
             background-color: #c82333;
         }
 
-        @media (max-width: 768px) {
-            .evaluation-container {
-                padding: 20px;
-            }
+        .back-button {
+            background-color: #6c757d;
+            margin-top: 40px;
+        }
 
+        .back-button:hover {
+            background-color: #5a6268;
+        }
+
+        .total-score {
+            font-size: 1.5em;
+            color: #d35400;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
             h2 {
                 font-size: 2em;
             }
 
+            .content-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
             .button {
-                font-size: 0.9em;
-                padding: 8px 16px;
+                font-size: 1em;
+                padding: 10px 20px;
             }
 
             .button-container {
                 flex-direction: column;
                 align-items: center;
-            }
-
-            .button-container a, .button-container form {
-                width: 100%;
-                margin-bottom: 10px;
             }
         }
     </style>
@@ -114,42 +163,77 @@
 <body>
     <h2>Detalles de la Evaluación de {{ record.athlete.user.first_name }} {{ record.athlete.user.last_name }}</h2>
 
-    <div class="evaluation-container">
-        <p><strong>Fecha de Evaluación:</strong> {{ record.evaluation_date }}</p>
-        <p><strong>Evaluado por:</strong> {{ record.coach.user.first_name }} {{ record.coach.user.last_name }}</p>
+    <div class="evaluation-info">
+        <p><i class="fas fa-calendar-alt"></i> <strong>Fecha de Evaluación:</strong> {{ record.evaluation_date }}</p>
+        <p><i class="fas fa-user"></i> <strong>Evaluado por:</strong> {{ record.coach.user.first_name }} {{ record.coach.user.last_name }}</p>
+    </div>
 
-        <h3>Criterios de Evaluación:</h3>
-        <ul>
+    <h3 class="total-score">Suma de Calificaciones: {{ record.total_score }}</h3>
+
+    <div class="content-container">
+        <!-- Lista de criterios de evaluación -->
+        <ul class="evaluation-criteria">
             {% for criterion in evaluation_criteria %}
                 <li>
-                    <strong>{{ criterion.criterion_name }}:</strong> {{ criterion.score }}<br>
-                    <strong>Notas:</strong> {{ criterion.notes }}
+                    <span class="criterion-name">{{ criterion.criterion_name }}:</span> 
+                    <span class="score">{{ criterion.score }}</span>
+                    <span class="notes">Notas: {{ criterion.notes }}</span>
                 </li>
             {% empty %}
                 <li>No hay criterios de evaluación para mostrar.</li>
             {% endfor %}
         </ul>
 
-        <h3>Suma de Calificaciones: {{ record.total_score }}</h3>
-
-        {% if can_edit %}
-        <!-- Botones para editar y eliminar la evaluación -->
-        <div class="button-container">
-            <a href="{% url 'edit_evaluation' record.id %}" class="button edit-button">Editar Evaluación</a>
-
-            <form action="{% url 'delete_evaluation' record.id %}" method="POST">
-                {% csrf_token %}
-                <button type="submit" class="button delete-button" onclick="return confirm('¿Estás seguro de que deseas eliminar esta evaluación?');">Eliminar Evaluación</button>
-            </form>
+        <!-- Gráfico de barras -->
+        <div class="chart-container">
+            <canvas id="evaluationChart"></canvas>
         </div>
-        {% else %}
-            <p>No tienes permiso para editar o eliminar esta evaluación porque no la realizaste.</p>
-        {% endif %}
     </div>
 
-    <!-- Botón para regresar al perfil del atleta -->
-    <div style="text-align: center; margin-top: 20px;">
-        <a href="{% url 'coach_view_athlete_profile' record.athlete.id %}" class="button">Regresar al perfil</a>
+    {% if can_edit %}
+    <div class="button-container">
+        <a href="{% url 'edit_evaluation' record.id %}" class="button edit-button">Editar Evaluación</a>
+        <form action="{% url 'delete_evaluation' record.id %}" method="POST" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="button delete-button" onclick="return confirm('¿Estás seguro de que deseas eliminar esta evaluación?');">Eliminar Evaluación</button>
+        </form>
     </div>
+    {% else %}
+        <p>No tienes permiso para editar o eliminar esta evaluación porque no la realizaste.</p>
+    {% endif %}
+
+    <div style="text-align: center; margin-top: 30px;">
+        <a href="{% url 'coach_view_athlete_profile' record.athlete.id %}" class="button back-button">Regresar al perfil</a>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('evaluationChart').getContext('2d');
+        const evaluationChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: [{% for criterion in evaluation_criteria %} '{{ criterion.criterion_name }}',{% endfor %}],
+                datasets: [{
+                    label: 'Calificaciones',
+                    data: [{% for criterion in evaluation_criteria %} {{ criterion.score }},{% endfor %}],
+                    backgroundColor: '#121364',
+                    borderColor: '#121364',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 10
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+    </script>
 </body>
 </html>
