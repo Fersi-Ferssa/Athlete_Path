@@ -7,6 +7,7 @@
     <title>Detalles de la Evaluación de {{ record.athlete.user.first_name }} {{ record.athlete.user.last_name }}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'css/images/WhiteLogo.png' %}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body class="evaluation-detail-body">
@@ -59,15 +60,23 @@
             <canvas id="evaluationChart"></canvas>
         </div>
 
+        <!-- Botón de regresar exclusivo para coaches sin permisos -->
+        {% if not can_edit %}
+        <div class="evaluation-button-container-coach-view-only">
+            <a href="{% url 'coach_view_athlete_profile' record.athlete.id %}" class="button evaluation-back-button-view-only">Regresar al perfil</a>
+        </div>
+        {% endif %}
+
+        <!-- Botones de editar/eliminar solo si se tiene permiso -->
         {% if can_edit %}
         <div class="evaluation-button-container">
             <a href="{% url 'edit_evaluation' record.id %}" class="button evaluation-edit-button" onclick="return confirm('¿Estás seguro de que deseas editar esta evaluación?');">Editar Evaluación</a>
-            <form action="{% url 'delete_evaluation' record.id %}" method="POST" style="margin-top: 15px;">
+            <form action="{% url 'delete_evaluation' record.id %}" method="POST">
                 {% csrf_token %}
                 <button type="submit" class="button evaluation-delete-button" onclick="return confirm('¿Estás seguro de que deseas eliminar esta evaluación?');">Eliminar Evaluación</button>
             </form>
             <a href="{% url 'coach_view_athlete_profile' record.athlete.id %}" class="button evaluation-back-button">Regresar al perfil</a>
-        </div>
+        </div>        
         {% endif %}
     </div>
 

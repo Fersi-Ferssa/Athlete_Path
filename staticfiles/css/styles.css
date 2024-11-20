@@ -729,6 +729,93 @@ input[type="text"], input[type="password"], input[type="email"], select {
 }
 
 /***********************************************************************************************
+*                                 PASSWORD CHANGE DONE                                        *
+***********************************************************************************************/
+/* Estilo para el body */
+.password-success-body {
+    font-family: 'Olympics', sans-serif;
+    background-image: url("/static/css/images/Vector_Completo.jpg");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding: 20px;
+    color: #031147;
+}
+
+/* Contenedor principal */
+.password-success-container {
+    background-color: rgba(255, 255, 255, 0.97); /* Fondo blanco con opacidad */
+    padding: 60px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 600px;
+    width: 100%;
+}
+
+/* Título */
+.password-success-title {
+    color: #28a745; /* Verde éxito */
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    font-family: 'Olympics', sans-serif;
+}
+
+/* Mensaje */
+.password-success-message {
+    font-size: 1.2em;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+/* Botón */
+.password-success-button {
+    background-color: #0AB9E4; /* Azul botón */
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Hover botón */
+.password-success-button:hover {
+    background-color: #0792C7; /* Azul más oscuro */
+    transform: scale(1.05); /* Animación al pasar el cursor */
+}
+
+/* Enlace */
+.password-success-link {
+    text-decoration: none;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .password-success-container {
+        padding: 40px;
+    }
+
+    .password-success-title {
+        font-size: 2em;
+    }
+
+    .password-success-message {
+        font-size: 1em;
+    }
+
+    .password-success-button {
+        font-size: 1em;
+    }
+}
+
+
+/***********************************************************************************************
 *                                       COACH DASHBOARD                                        *
 ***********************************************************************************************/
 /* Fondo y diseño general */
@@ -1783,10 +1870,10 @@ input[type="text"], input[type="password"], input[type="email"], select {
 
 .evaluation-button-container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    margin-top: 30px;
+    flex-direction: column; /* Cambia a columna */
+    align-items: center;    /* Centra los elementos */
+    gap: 15px;              /* Añade espacio entre los botones */
+    margin-top: 20px;
 }
 
 .button {
@@ -1824,6 +1911,28 @@ input[type="text"], input[type="password"], input[type="email"], select {
 
 .evaluation-back-button:hover {
     background-color: #5a6268;
+}
+
+.evaluation-button-container-coach-view-only {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.evaluation-back-button-view-only {
+    padding: 12px 24px;
+    font-size: 1.1em;
+    color: white;
+    background-color: #007bff; /* Azul específico */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.evaluation-back-button-view-only:hover {
+    background-color: #0056b3; /* Azul más oscuro */
 }
 
 /***********************************************************************************************
