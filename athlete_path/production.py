@@ -96,7 +96,7 @@ DATABASES = {
         'OPTIONS': {  
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
             'ssl': {
-                'ca': (BASE_DIR / "certificates" / "ca.pem").resolve(),
+                'ca': os.path.join(BASE_DIR, 'certificates', 'ca.pem'),
             }
         }
     }
