@@ -1,139 +1,29 @@
-{% load static %}
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resultado de Comparación Personal</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-
-    <style>
-        body {
-            font-family: 'Olympics', sans-serif;
-            background-color: #f9f9f9;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
-            margin: 0;
-            padding-top: 30px;
-            color: #031147;
-        }
-
-        .comparison-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            max-width: 1200px;
-            width: 100%;
-        }
-
-        .comparison-block, .chart-container {
-            background-color: white;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-            text-align: left;
-        }
-
-        .header-section {
-            text-align: center;
-            grid-column: span 2;
-            margin-bottom: 20px;
-        }
-
-        .header-section img {
-            max-width: 100px;
-            margin-bottom: 10px;
-        }
-
-        h3 {
-            font-size: 1.8em;
-            color: #007bff;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        h4 {
-            font-size: 1.4em;
-            color: #333;
-            margin-bottom: 10px;
-        }
-
-        p, ul li {
-            font-size: 1.1em;
-            color: #333;
-        }
-
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .button-container {
-            grid-column: span 2;
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        button {
-            padding: 12px 20px;
-            font-size: 1.1em;
-            color: white;
-            background-color: #007bff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        .gray-button {
-            background-color: #6c757d;
-        }
-
-        .gray-button:hover {
-            background-color: #5a6268;
-        }
-
-        @media (max-width: 768px) {
-            .comparison-container {
-                grid-template-columns: 1fr;
-            }
-
-            .comparison-block, .chart-container {
-                padding: 20px;
-            }
-
-            h3, h4 {
-                font-size: 1.5em;
-            }
-
-            button {
-                font-size: 1em;
-            }
-        }
-    </style>
 </head>
-<body>
-    <div class="comparison-container">
+<body class="body-compare-result">
+    <div class="comparison-container-result">
         <!-- Sección de encabezado con el logo -->
-        <div class="header-section">
-            <img src="{% static '/css/images/Logo.png' %}" alt="Logo">
+        <div class="header-section-result">
+            <a href="{% url 'home' %}">
+                <img src="{% static '/css/images/Logo.png' %}" alt="Logo">
+            </a>
         </div>
 
         <!-- Primer y segundo bloque de comparaciones -->
-        <div class="comparison-block">
-            <h3>Primer Récord:</h3>
+        <div class="comparison-block-result">
+            <h3 class="title-compare-result">Primer Récord:</h3>
             <p><strong>Fecha:</strong> <span class="highlight">{{ record_1.evaluation_date }}</span></p>
             
-            <h4>Criterios de Evaluación:</h4>
-            <ul>
+            <h4 class="subtitle-compare-result">Criterios de Evaluación:</h4>
+            <ul class="text-compare-result">
                 {% for criterion in criteria_1 %}
                 <li>
                     <strong>{{ criterion.criterion_name }}:</strong> {{ criterion.score }}<br>
@@ -142,15 +32,15 @@
                 {% endfor %}
             </ul>
             
-            <p><strong>Puntuación Total:</strong> <span class="highlight">{{ record_1.total_score }}</span></p>
+            <p class="text-compare-result"><strong>Puntuación Total:</strong> <span class="highlight">{{ record_1.total_score }}</span></p>
         </div>
         
-        <div class="comparison-block">
-            <h3>Segundo Récord:</h3>
+        <div class="comparison-block-result">
+            <h3 class="title-compare-result">Segundo Récord:</h3>
             <p><strong>Fecha:</strong> <span class="highlight">{{ record_2.evaluation_date }}</span></p>
             
-            <h4>Criterios de Evaluación:</h4>
-            <ul>
+            <h4 class="subtitle-compare-result">Criterios de Evaluación:</h4>
+            <ul class="text-compare-result">
                 {% for criterion in criteria_2 %}
                 <li>
                     <strong>{{ criterion.criterion_name }}:</strong> {{ criterion.score }}<br>
@@ -159,12 +49,12 @@
                 {% endfor %}
             </ul>
         
-            <p><strong>Puntuación Total:</strong> <span class="highlight">{{ record_2.total_score }}</span></p>
+            <p class="text-compare-result"><strong>Puntuación Total:</strong> <span class="highlight">{{ record_2.total_score }}</span></p>
         </div>
 
         <!-- Bloque de diferencia de puntuación -->
-        <div class="comparison-block">
-            <h3>Diferencia de Puntuación:</h3>
+        <div class="comparison-block-result">
+            <h3 class="title-compare-result">Diferencia de Puntuación:</h3>
             {% if score_difference == 0 %}
                 <p>¡Es un empate!</p>
             {% elif score_difference > 0 %}
@@ -175,14 +65,14 @@
         </div>
 
         <!-- Gráfico de comparación -->
-        <div class="chart-container comparison-block">
-            <h3>Comparación de Criterios</h3>
+        <div class="chart-container-result">
+            <h3 class="title-compare-result">Comparación de Criterios</h3>
             <canvas id="comparisonChart"></canvas>
         </div>
 
         <!-- Botón de regreso como elemento independiente -->
-        <div class="button-container">
-            <button class="gray-button" onclick="window.history.back();">Regresar</button>
+        <div class="button-container-result">
+            <button class="button-gray-result" onclick="window.history.back();">Regresar</button>
         </div>
     </div>
 
@@ -198,15 +88,15 @@
                     {
                         label: 'Primer Récord',
                         data: [{% for criterion in criteria_1 %}{{ criterion.score }},{% endfor %}],
-                        backgroundColor: 'rgba(0, 123, 255, 0.5)',
-                        borderColor: 'rgba(0, 123, 255, 1)',
+                        backgroundColor: '#0792c7',
+                        borderColor: '#0792c7',
                         borderWidth: 1
                     },
                     {
                         label: 'Segundo Récord',
                         data: [{% for criterion in criteria_2 %}{{ criterion.score }},{% endfor %}],
-                        backgroundColor: 'rgba(255, 99, 132, 0.5)',
-                        borderColor: 'rgba(255, 99, 132, 1)',
+                        backgroundColor: '#ffcf02',
+                        borderColor: '#ffcf02',
                         borderWidth: 1
                     }
                 ]

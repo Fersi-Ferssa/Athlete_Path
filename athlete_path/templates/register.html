@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -5,221 +6,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Usuario | Athlete Path</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <style>
-        body {
-            font-family: 'Lato', sans-serif;
-            background-color: white;
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            padding-top: 30px;
-        }
-
-        .register-container {
-            background-color: #fff;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-            max-width: 800px;
-            width: 100%;
-            margin-bottom: 30px;
-        }
-
-        h2 {
-            font-size: 2em;
-            color: #007bff;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        fieldset {
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            padding: 20px;
-        }
-
-        legend {
-            font-size: 1.2em;
-            font-weight: bold;
-            color: #555;
-        }
-
-        label {
-            font-size: 1em;
-            color: #555;
-        }
-
-        input[type="text"], input[type="password"], select {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        button[type="submit"] {
-            width: 100%;
-            padding: 12px;
-            background-color: #007bff; /* Botón azul */
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 1.1em;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        button[type="submit"]:hover {
-            background-color: #0056b3;
-        }
-
-        button[type="button"] {
-            width: 100%;
-            padding: 12px;
-            background-color: #a0a0a0; /* Botón gris */
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 1.1em;
-            margin-top: 20px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        button[type="button"]:hover {
-            background-color: #808080;
-        }
-
-        /* Asegurar que los campos del formulario sean visibles sin corte */
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .form-group label {
-            margin-bottom: 5px;
-        }
-
-        @media (max-width: 768px) {
-            .register-container {
-                padding: 20px;
-            }
-            button[type="submit"], button[type="button"] {
-                font-size: 1em;
-            }
-        }
-
-        input[type="email"], input[type="text"], input[type="password"], select {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+        .register-page {
+            background-image: url("{% static 'css/images/Vector_Completo.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
     </style>
-
-    <script>
-        // Función que oculta o muestra los campos según el rol seleccionado
-        function toggleFieldsBasedOnRole() {
-            var role = document.getElementById("id_role").value;
-            var teamField = document.getElementById("team_name_field");
-            var profileFields = document.getElementById("profile_fields");
-
-            // Si el rol es 'Coach', mostrar nombre del equipo
-            if (role === 'Coach') {
-                profileFields.style.display = "block";
-                teamField.style.display = "block";
-            }
-            // Si es 'Atleta', ocultar nombre del equipo pero mostrar los demás campos
-            else if (role === 'Athlete') {
-                profileFields.style.display = "block";
-                teamField.style.display = "none";
-            }
-            // Si no hay rol seleccionado, ocultar todos los campos
-            else {
-                profileFields.style.display = "none";
-                teamField.style.display = "none";
-            }
-        }
-
-        // Ejecutar la función al cargar la página
-        window.onload = function() {
-            toggleFieldsBasedOnRole();
-        };
-    </script>
 </head>
-<body>
+<body class="register-page">
     <div class="register-container">
-        <h2>Registro</h2>
+        <!-- Logo en el centro -->
+        <div class="logo-container">
+            <a href="{% url 'home' %}">
+                <img src="{% static 'css/images/Logo.png' %}" alt="Logo Athlete Path" class="register-logo">
+            </a>
+        </div>
+
+        <h2 class="register-title">Registro de Usuario</h2>
         <form method="POST">
             {% csrf_token %}
 
             <!-- Información básica del usuario -->
-            <fieldset>
-                <legend>Datos de Usuario</legend>
+            <fieldset class="register-fieldset-basic">
+                <legend class="register-legend-basic">Datos del Usuario</legend>
                 {{ user_form.as_p }}
             </fieldset>
 
-            <!-- Información adicional del perfil, inicialmente oculta -->
-            <fieldset id="profile_fields" style="display: none;">
-                <legend>Datos del Perfil</legend>
-                <div>
-                    {{ profile_form.olympic_country.label_tag }} {{ profile_form.olympic_country }}
-                </div>
-                <div>
-                    {{ profile_form.discipline.label_tag }} {{ profile_form.discipline }}
-                </div>
-                <div>
-                    {{ profile_form.branch.label_tag }} {{ profile_form.branch }}
-                </div>
+            <!-- Información adicional del perfil -->
+            <fieldset class="register-fieldset-profile" id="profile_fields">
+                <legend class="register-legend-profile">Datos del Perfil</legend>
+                {{ profile_form.as_p }}
             </fieldset>
 
-            <button type="submit">Registrarse</button>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    var disciplineSelect = document.getElementById("id_discipline");
+                    var branchSelect = document.getElementById("id_branch");
+        
+                    disciplineSelect.addEventListener("change", function() {
+                        var selectedDiscipline = disciplineSelect.value;
+        
+                        // Realizamos la solicitud al servidor para obtener las ramas
+                        fetch('/users/get_branches/', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRFToken': '{{ csrf_token }}'
+                            },
+                            body: JSON.stringify({ 'discipline': selectedDiscipline })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            branchSelect.innerHTML = '';  // Limpiar opciones anteriores
+        
+                            // Añadir nuevas opciones de ramas
+                            data.branches.forEach(branch => {
+                                var option = document.createElement("option");
+                                option.value = branch[0];
+                                option.textContent = branch[1];
+                                branchSelect.appendChild(option);
+                            });
+                        })
+                        .catch(error => console.error('Error al cargar las ramas:', error));
+                    });
+                });
+        
+                // Ejecutar la función cuando el usuario cambia el rol
+                document.getElementById("id_role").addEventListener("change", toggleFieldsBasedOnRole);
+            </script>
+
+            <button type="submit" class="register-btn-primary">Registrarse</button>
         </form>
 
-        <!-- Botón para regresar -->
-        <button type="button" onclick="window.history.back();">Regresar</button>
+        <button type="button" class="register-btn-secondary" onclick="window.history.back();">Regresar</button>
     </div>
-    
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var disciplineSelect = document.getElementById("id_discipline");
-            var branchSelect = document.getElementById("id_branch");
-
-            disciplineSelect.addEventListener("change", function() {
-                var selectedDiscipline = disciplineSelect.value;
-
-                // Realizamos la solicitud al servidor para obtener las ramas
-                fetch('/users/get_branches/', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRFToken': '{{ csrf_token }}'
-                    },
-                    body: JSON.stringify({ 'discipline': selectedDiscipline })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    branchSelect.innerHTML = '';  // Limpiar opciones anteriores
-
-                    // Añadir nuevas opciones de ramas
-                    data.branches.forEach(branch => {
-                        var option = document.createElement("option");
-                        option.value = branch[0];
-                        option.textContent = branch[1];
-                        branchSelect.appendChild(option);
-                    });
-                })
-                .catch(error => console.error('Error al cargar las ramas:', error));
-            });
-        });
-
-        // Ejecutar la función cuando el usuario cambia el rol
-        document.getElementById("id_role").addEventListener("change", toggleFieldsBasedOnRole);
-    </script>
 </body>
 </html>

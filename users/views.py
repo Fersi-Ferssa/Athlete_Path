@@ -682,6 +682,10 @@ def view_athlete_records(request, athlete_id):
     athlete = get_object_or_404(Profile, id=athlete_id, role='Athlete')
     full_name = f"{athlete.user.first_name} {athlete.user.last_name}"
     records = AthleteRecord.objects.filter(athlete=athlete)
+
+    # Mensaje de advertencia si no hay evaluaciones
+    if not records.exists():
+        messages.warning(request, f"{full_name} no tiene evaluaciones registradas.")
     
     return render(request, 'view_athlete_records.html', {
         'athlete': athlete,

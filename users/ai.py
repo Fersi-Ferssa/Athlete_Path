@@ -46,12 +46,36 @@ def analyze_video_with_gemini(model, video_url):
             {
                 "role": "user",
                 "parts": [
-                    '''
-                    Actúa como un juez y analista experto en clavados olímpicos. Te enviaré un video de una rutina de clavados y necesito que realices un análisis detallado en base a los siguientes criterios:
-                    Identifica posibles errores técnicos o áreas de mejora en la ejecución del clavado.
-                    Ofrece recomendaciones específicas para optimizar la técnica.
-                    Evalúa la rutina en función de los estándares olímpicos, y asigna una puntuación en una escala del 1 al 10 basada en la precisión, dificultad y ejecución.
-                    Aquí está el video para tu análisis: " + video_url.
+                    ''''
+                    Actúa como un juez y analista experto en disciplinas olímpicas. Tu tarea es observar y analizar de manera profesional el video proporcionado. 
+                    El análisis debe ser detallado y basado en los estándares internacionales aplicables a las disciplinas olímpicas. Por favor, sigue estas instrucciones específicas:\n\n 
+                    **1. Identificación de errores técnicos o áreas de mejora:**\n 
+                    - Analiza la técnica del atleta en todas las fases de la rutina o movimiento.\n
+                    - Identifica posibles errores técnicos, como desequilibrios, posiciones incorrectas del cuerpo, o pérdida de control.\n
+                    - Observa la sincronización, precisión y cualquier desviación de los estándares ideales de la disciplina.\n
+                    - Evalúa factores específicos de la disciplina, como rotaciones, giros, velocidad, postura, o fluidez (según corresponda).\n\n
+                    **2. Recomendaciones específicas:**\n                    
+                    - Proporciona consejos detallados para corregir los errores observados.\n                    
+                    - Sugiere técnicas de entrenamiento, ajustes técnicos o ejercicios específicos que puedan optimizar el rendimiento del atleta.\n                    
+                    - Indica cómo se pueden mejorar la consistencia, estabilidad y desempeño general.\n\n                    
+                    **3. Evaluación según estándares olímpicos:**\n                    
+                    - Evalúa el video según los criterios de la disciplina específica. Los estándares incluyen precisión, dificultad, creatividad (si aplica) y ejecución.\n                    
+                    - Compara la rutina con los niveles típicos observados en eventos olímpicos internacionales.\n                    
+                    - Analiza si el desempeño cumple con los requisitos técnicos y estéticos esperados en la disciplina.\n\n                    
+                    **4. Puntuación basada en estándares olímpicos:**\n                    
+                    - Otorga una puntuación global en una escala del 1 al 10.\n                    
+                    - Desglosa la puntuación en los siguientes criterios:\n                        
+                    - Precisión: Grado de exactitud en cada fase de la rutina.\n                        
+                    - Dificultad: Nivel de complejidad técnica y física del movimiento o rutina.\n                        
+                    - Ejecución: Calidad, fluidez y presentación general.\n\n                    
+                    **5. Formato de la respuesta estructurada:**\n                    
+                    - **Errores Técnicos Detectados:** [Descripción detallada de los errores].\n                    
+                    - **Recomendaciones:** [Consejos y ejercicios específicos].\n                    
+                    - **Evaluación según Estándares Olímpicos:** [Análisis de precisión, dificultad y ejecución].\n                    
+                    - **Puntuación Final:** [Puntuación total y desglose por criterios].\n\n                    
+                    Importante:\n                    
+                    - Este análisis está diseñado para eventos deportivos de las olimpiadas. Si el video no corresponde a una disciplina olímpica o no cumple con los estándares internacionales, notifícalo en tu respuesta.\n                    
+                    - Aquí está el video para tu análisis",
                     '''
                 ]
             }

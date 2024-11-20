@@ -8,123 +8,27 @@
     <title>Enviar Video para Análisis</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-
-    <style>
-        body {
-            font-family: 'Olympics', sans-serif;
-            background-color: #FFFCF2; /* Fondo ajustado */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            padding: 20px;
-            color: #031147;
-        }
-
-        h1 {
-            font-size: 2.5em;
-            color: #FD3B07;
-            margin-bottom: 20px;
-            text-align: center;
-            font-family: 'Olympics', sans-serif;
-        }
-
-        .header-section {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .header-section img {
-            max-width: 80px;
-            margin-bottom: 10px;
-        }
-
-        .form-container {
-            background-color: white;
-            padding: 80px; /* Aumentado a 80px */
-            border-radius: 15px;
-            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-            max-width: 900px; /* Aumentado a 900px */
-            width: 100%;
-            text-align: left;
-        }
-
-        label {
-            font-size: 1.2em;
-            color: #333;
-            margin-bottom: 10px;
-        }
-
-        input[type="text"] {
-            width: 100%;
-            padding: 10px;
-            margin-top: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 1em;
-        }
-
-        button {
-            width: 100%;
-            padding: 12px 20px;
-            font-size: 1.2em;
-            color: white;
-            background-color: #0AB9E4;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #0792C7;
-        }
-
-        .gray-button {
-            background-color: #6c757d; /* Botón gris */
-            color: white;
-        }
-
-        .gray-button:hover {
-            background-color: #5a6268; /* Botón gris oscuro al pasar el mouse */
-        }
-
-        @media (max-width: 768px) {
-            .form-container {
-                padding: 40px; /* Se reduce para pantallas pequeñas */
-            }
-
-            h1 {
-                font-size: 2em;
-            }
-
-            button {
-                font-size: 1em;
-            }
-        }
-    </style>
 </head>
-<body>
-    <!-- Sección de encabezado con el logo -->
-    <div class="header-section">
-        <img src="{% static '/css/images/Logo.png' %}" alt="Logo">
-    </div>
-    
-    <h1>Enviar Video para Análisis</h1>
-    
-    <div class="form-container">
+<body class="analyze-video-body">
+    <!-- Contenedor principal -->
+    <div class="analyze-video-form-container">
+        <!-- Logo y título dentro del contenedor -->
+        <div class="analyze-video-header">
+            <img src="{% static '/css/images/Logo.png' %}" alt="Logo Athlete Path">
+        </div>
+        <h1 class="analyze-video-title">Enviar Video para Análisis</h1>
+        
+        <!-- Formulario para enviar URL -->
         <form method="POST" action="">
             {% csrf_token %}
             <label for="video_url">URL del Video:</label>
-            <input type="text" name="video_url" id="video_url" required>
-            <button type="submit">Enviar Video para Análisis</button>
+            <input type="text" name="video_url" id="video_url" placeholder="Ingresa la URL del video" required>
+            <button type="submit" class="analyze-video-button-primary">Enviar Video para Análisis</button>
         </form>     
-
-        <form action="{% url 'athlete_profile' %}" method="get" style="margin-top: 20px;">
-            <button type="submit" class="gray-button">Volver al Perfil del Atleta</button>
+        
+        <!-- Botón para regresar al perfil del atleta -->
+        <form action="{% url 'athlete_profile' %}" method="get">
+            <button type="submit" class="analyze-video-button-secondary">Volver al Perfil del Atleta</button>
         </form> 
     </div>
 </body>

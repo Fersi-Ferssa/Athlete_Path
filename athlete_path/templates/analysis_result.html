@@ -1,79 +1,30 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resultado del Análisis</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Lato', sans-serif;
-            background-color: #f9f9f9;
-            margin: 0;
-            padding: 20px;
-            height: 100vh;
-            overflow-y: auto;
-        }
-
-        h1 {
-            font-size: 2.5em;
-            color: #007bff;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .analysis-container {
-            background-color: white;
-            padding: 80px;
-            border-radius: 15px;
-            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-            max-width: 900px;
-            width: 100%;
-            margin: 0 auto;
-            text-align: left;
-        }
-
-        button {
-            width: 100%;
-            padding: 12px 20px;
-            font-size: 1.2em;
-            color: white;
-            background-color: #6c757d; /* Color gris */
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: background-color 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #5a6268; /* Gris más oscuro al pasar el cursor */
-        }
-
-        @media (max-width: 768px) {
-            .analysis-container {
-                padding: 40px;
-            }
-
-            h1 {
-                font-size: 2em;
-            }
-
-            button {
-                font-size: 1em;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
-<body>
-    <h1>Resultado del Análisis</h1>
+<body class="analysis-result-body">
+    <div class="analysis-result-container">
+        <!-- Logo y título -->
+        <div class="analysis-result-header">
+            <a href="{% url 'home' %}">
+                <img src="{% static '/css/images/Logo.png' %}" alt="Logo Athlete Path" class="analysis-result-logo">
+            </a>
+            <h1 class="analysis-result-title">Resultado del Análisis</h1>
+        </div>
 
-    <div class="analysis-container">
-        {{ analysis|safe }}
+        <!-- Contenido del análisis -->
+        <div class="analysis-result-content">
+            {{ analysis|safe }}
+        </div>
+
+        <!-- Botón de regreso -->
+        <button class="analysis-result-button" onclick="window.history.back()">Regresar</button>
     </div>
-
-    <!-- Botón de volver en gris -->
-    <button onclick="window.history.back()">Volver</button>
-
 </body>
 </html>

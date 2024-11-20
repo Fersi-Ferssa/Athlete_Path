@@ -1,5 +1,4 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -9,218 +8,72 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-
-    <style>
-        body {
-            font-family: 'Olympics', sans-serif;
-            background-image: url("{% static '/css/images/Vector_Completo.png' %}");
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            color: #333;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .content {
-            background-color: white;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-            max-width: 900px;
-            width: 100%;
-            text-align: center;
-        }
-
-        .header-section {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .logo-container img {
-            max-width: 100px;
-            margin: 0 auto 20px;
-        }
-
-        h1 {
-            font-size: 2.5em;
-            color: #d35400;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        h2 {
-            font-size: 1.8em;
-            color: #d35400;
-            margin-top: 30px;
-            margin-bottom: 15px;
-        }
-
-        .subteam-section {
-            background-color: #fdf2e9;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: transform 0.2s;
-        }
-
-        .subteam-section:hover {
-            transform: translateY(-3px);
-        }
-
-        .subteam-section span {
-            font-size: 1em;
-        }
-
-        .subteam-section a {
-            font-weight: bold;
-            text-decoration: none;
-            margin-left: 10px;
-        }
-
-        .edit-link {
-            color: #28a745;
-        }
-
-        .delete-link {
-            color: #d9534f;
-        }
-
-        .button-container {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .button {
-            width: 220px;
-            padding: 12px;
-            font-size: 1.1em;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            font-weight: bold;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .button i {
-            margin-right: 8px;
-        }
-
-        .create-btn {
-            background-color: #28a745;
-        }
-
-        .create-btn:hover {
-            background-color: #218838;
-        }
-
-        .back-btn {
-            background-color: #6c757d;
-        }
-
-        .back-btn:hover {
-            background-color: #5a6268;
-        }
-
-        .alert {
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 5px;
-            color: white;
-            background-color: #dc3545;
-            text-align: center;
-        }
-
-        .section-message {
-            font-size: 1.2em;
-            color: #555;
-            text-align: center;
-            margin: 15px 0;
-        }
-
-        @media (min-width: 768px) {
-            .grid-container {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 20px;
-            }
-        }
-    </style>
 </head>
-<body>
+<body class="manage-subteams-body">
 
     <!-- Contenedor principal -->
-    <div class="content">
+    <div class="manage-subteams-content">
         <!-- Sección de encabezado con logo centrado -->
-        <div class="header-section">
-            <div class="logo-container">
-                <img src="{% static '/css/images/Logo.png' %}" alt="Logo" class="img-fluid">
+        <div class="manage-subteams-header-section">
+            <div class="manage-subteams-logo">
+                <a href="{% url 'home' %}">
+                    <img src="{% static 'css/images/Logo.png' %}" alt="Logo" class="img-fluid">
+                </a>
             </div>
-            <h1>Gestionar Subequipos</h1>
+            <h1 class="manage-subteams-header-title">Gestionar Subequipos</h1>
         </div>
 
         <!-- Mostrar mensajes de alerta si los hay -->
         {% if messages %}
             <div>
                 {% for message in messages %}
-                    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                    <div class="manage-subteams-alert alert-{{ message.tags }}">{{ message }}</div>
                 {% endfor %}
             </div>
         {% endif %}
 
         <!-- Mis Subequipos -->
-        <h2>Mis Subequipos</h2>
-        <div class="grid-container">
+        <h2 class="manage-subteams-subteam-title">Mis Subequipos</h2>
+        <div class="manage-subteams-grid-container">
             {% for subteam in my_subteams %}
-                <div class="subteam-section">
-                    <span>{{ subteam.name }}</span>
+                <div class="manage-subteams-subteam-section">
+                    <span class="manage-subteams-subteam-name">{{ subteam.name }}</span>
                     <span>
-                        <a href="{% url 'edit_subteam' subteam.id %}" class="edit-link">Editar</a> |
-                        <a href="{% url 'delete_subteam' subteam.id %}" class="delete-link">Eliminar</a>
+                        <a href="{% url 'edit_subteam' subteam.id %}" class="manage-subteams-edit-link">Editar</a> |
+                        <a href="{% url 'delete_subteam' subteam.id %}" class="manage-subteams-delete-link">Eliminar</a>
                     </span>
                 </div>
             {% empty %}
-                <p class="section-message">No tienes subequipos aún.</p>
+                <p class="manage-subteams-section-message">No tienes subequipos aún.</p>
             {% endfor %}
         </div>
 
         <!-- Subequipos Disponibles -->
-        <h2>Subequipos Disponibles</h2>
-        <div class="grid-container">
+        <h2 class="manage-subteams-subteam-title">Subequipos Disponibles</h2>
+        <div class="manage-subteams-grid-container">
             {% for subteam in available_subteams %}
-                <div class="subteam-section">
-                    <span>{{ subteam.name }}</span>
+                <div class="manage-subteams-subteam-section">
+                    <span class="manage-subteams-subteam-name">{{ subteam.name }}</span>
                     <span>
                         <a href="{% url 'join_subteam' subteam.id %}">Unirse</a>
                     </span>
                 </div>
             {% empty %}
-                <p class="section-message">No hay subequipos disponibles para unirse.</p>
+                <p class="manage-subteams-section-message">No hay subequipos disponibles para unirse.</p>
             {% endfor %}
         </div>
 
         <!-- Botones -->
-        <div class="button-container">
+        <div class="manage-subteams-button-container">
             <a href="{% url 'create_subteam' %}">
-                <button class="button create-btn"><i class="bi bi-plus-circle"></i>Crear Subequipo</button>
+                <button class="manage-subteams-button manage-subteams-create-btn">
+                    <i class="bi bi-plus-circle"></i>Crear Subequipo
+                </button>
             </a>
             <a href="{% url 'coach_dashboard' %}">
-                <button class="button back-btn"><i class="bi bi-arrow-left-circle"></i>Regresar</button>
+                <button class="manage-subteams-button manage-subteams-back-btn">
+                    <i class="bi bi-arrow-left-circle"></i>Regresar
+                </button>
             </a>
         </div>
     </div>

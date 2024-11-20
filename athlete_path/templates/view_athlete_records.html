@@ -8,183 +8,41 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-
-    <style>
-        /* Full-width header with vector background */
-        .header {
-            width: 100%;
-            background-image: url("{% static '/css/images/Vector2.png' %}");
-            background-size: cover;
-            background-position: center;
-            padding: 40px 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        /* Logo styling */
-        .header .logo {
-            width: 100px;
-        }
-
-        /* Title styling below the header */
-        .title-container {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .title-container h1 {
-            font-size: 2.5em;
-            color: #FD3B07;
-            font-family: 'Olympics', sans-serif;
-            margin: 0;
-        }
-
-        /* Page background */
-        body {
-            font-family: 'Olympics', sans-serif;
-            background-color: #FFFFFF;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: #031147;
-        }
-
-        /* Main content container */
-        .history-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            max-width: 1200px;
-            width: 100%;
-            padding: 20px;
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        /* Card styling */
-        .evaluation-card {
-            background-color: #FFFFFF;
-            border-radius: 10px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
-
-        .evaluation-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
-        }
-
-        /* Icon in card */
-        .evaluation-card i {
-            font-size: 2em;
-            color: #0792C7;
-            margin-bottom: 10px;
-        }
-
-        /* Card headings and text */
-        .evaluation-card h4 {
-            font-size: 1.2em;
-            color: #031147;
-            margin-bottom: 10px;
-        }
-
-        .evaluation-card p {
-            font-size: 1em;
-            color: #555;
-            margin: 5px 0;
-        }
-
-        /* Button in card */
-        .evaluation-card a {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 10px 20px;
-            font-size: 1em;
-            color: #FFFFFF;
-            background-color: #0AB9E4;
-            border-radius: 5px;
-            text-decoration: none;
-            transition: background-color 0.3s ease;
-        }
-
-        .evaluation-card a:hover {
-            background-color: #0792C7;
-        }
-
-        /* Back button container */
-        .button-container {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
-
-        .gray-button {
-            padding: 10px 20px;
-            font-size: 1em;
-            color: #FFFFFF;
-            background-color: #FDA305;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-            transition: background-color 0.3s ease;
-        }
-
-        .gray-button:hover {
-            background-color: #FD3B07;
-        }
-
-        @media (max-width: 768px) {
-            .title-container h1 {
-                font-size: 2em;
-            }
-
-            .gray-button {
-                font-size: 0.9em;
-                padding: 8px 16px;
-            }
-        }
-    </style>
 </head>
-<body>
-    <!-- Full-width header with vector background and logo -->
-    <div class="header">
-        <img src="{% static '/css/images/WhiteLogo.png' %}" alt="Logo" class="logo">
-    </div>
+<body class="evaluation-history-body">
+    <div class="evaluation-history-wrapper">
+        <!-- Encabezado con logo y título -->
+        <div class="evaluation-header">
+            <a href="{% url 'home' %}">
+                <img src="{% static '/css/images/Logo.png' %}" alt="Logo Athlete Path">
+            </a>
+            <h1>Historial de Evaluaciones de {{ full_name }}</h1>
+        </div>
 
-    <!-- Title below the header -->
-    <div class="title-container">
-        <h1>Historial de Evaluaciones de {{ full_name }}</h1>
-    </div>
+        <!-- Contenedor de evaluaciones -->
+        <div class="evaluation-history-cards">
+            {% if records %}
+                {% for record in records %}
+                    <div class="evaluation-card">
+                        <i class="bi bi-clipboard-check"></i>
+                        <h4>Fecha de Evaluación</h4>
+                        <p>{{ record.evaluation_date }}</p>
+                        <h4>Puntuación Total</h4>
+                        <p>{{ record.total_score }}</p>
+                        <h4>Coach</h4>
+                        <p>{{ record.coach.user.first_name }} {{ record.coach.user.last_name }}</p>
+                        <a href="{% url 'athlete_view_evaluation_detail' record.id %}">Ver Detalle</a>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No tienes evaluaciones disponibles aún.</p>
+            {% endif %}
+        </div>
 
-    <!-- Main content area with evaluation cards -->
-    <div class="history-container">
-        {% if records %}
-            {% for record in records %}
-                <div class="evaluation-card">
-                    <i class="bi bi-clipboard-check"></i>
-                    <h4>Fecha de Evaluación</h4>
-                    <p>{{ record.evaluation_date }}</p>
-                    <h4>Puntuación Total</h4>
-                    <p>{{ record.total_score }}</p>
-                    <h4>Coach</h4>
-                    <p>{{ record.coach.user.first_name }} {{ record.coach.user.last_name }}</p>
-                    <a href="{% url 'athlete_view_evaluation_detail' record.id %}">Ver Detalle</a>
-                </div>
-            {% endfor %}
-        {% else %}
-            <p>No tienes evaluaciones disponibles aún.</p>
-        {% endif %}
-    </div>
-
-    <!-- Back button -->
-    <div class="button-container">
-        <a href="{% url 'athlete_profile' %}" class="gray-button">Volver al perfil</a>
+        <!-- Botón de volver -->
+        <div class="evaluation-back-button-container">
+            <a href="{% url 'athlete_profile' %}" class="evaluation-back-button">Volver al perfil</a>
+        </div>
     </div>
 </body>
 </html>

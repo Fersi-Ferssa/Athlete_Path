@@ -8,125 +8,14 @@
     <title>AthletePath | Inicio de Sesión</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-
-    <style>
-        /* Full-page background with vector image */
-        body {
-            font-family: 'Olympics', sans-serif;
-            background-image: url("{% static '/css/images/Vector_Completo.png' %}");
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        /* Main login container with white background */
-        .login-container {
-            background-color: #fff;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
-            width: 100%;
-            text-align: center;
-        }
-
-        /* Logo at the top of the login container */
-        .logo {
-            width: 120px; /* Adjust size as needed */
-            margin-bottom: 20px;
-        }
-
-        h1 {
-            font-size: 2em;
-            color: #007bff;
-            margin-bottom: 20px;
-        }
-
-        label {
-            font-size: 1em;
-            color: #555;
-        }
-
-        input[type="text"], input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        button {
-            width: 100%;
-            padding: 12px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 1.1em;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        .create-account, .forgot-password {
-            margin-top: 20px;
-            font-size: 0.9em;
-        }
-
-        .create-account a, .forgot-password a {
-            color: #007bff;
-            text-decoration: none;
-        }
-
-        .create-account a:hover, .forgot-password a:hover {
-            color: #0056b3;
-            text-decoration: underline;
-        }
-
-        /* Button to go back to the home page */
-        .back-to-home a {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 12px 25px;
-            background-color: #a0a0a0;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 1.1em;
-            transition: background-color 0.3s ease;
-        }
-
-        .back-to-home a:hover {
-            background-color: #808080;
-        }
-
-        /* Error message style */
-        .error {
-            color: red;
-            margin-top: 15px;
-            font-size: 0.9em;
-        }
-
-        /* Show/Hide password */
-        #show-password {
-            margin-top: 10px;
-        }
-
-    </style>
 </head>
-<body>
+
+<body class="login-body">
     <div class="login-container">
-        <!-- Logo inside the container -->
-        <img src="{% static 'css/images/Logo.png' %}" alt="Logo" class="logo">
+        <!-- Logo with link to home -->
+        <a href="{% url 'home' %}">
+            <img src="{% static 'css/images/Logo.png' %}" alt="Logo" class="logo">
+        </a>
 
         <h1>Inicia Sesión<br>Athlete Path</h1>
 
@@ -141,7 +30,7 @@
             <div>
                 <label for="password">Contraseña:</label>
                 <input type="password" name="password" id="password" aria-label="Contraseña" required>
-                <input type="checkbox" id="show-password" onclick="togglePassword()"> Mostrar contraseña
+                <input type="checkbox" id="show-password" class="show-password" onclick="togglePassword()"> Mostrar contraseña
             </div>
             <button type="submit">Entrar</button>
         </form>
@@ -153,11 +42,15 @@
             {% endfor %}
         {% endif %}
 
-        <!-- Link to create an account if the user doesn't have one -->
+        <!-- Links for create account and forgot password -->
         <div class="create-account">
-            <p>¿No tienes una cuenta? <a href="{% url 'register' %}">Regístrate aquí</a></p>
+            <p>¿No tienes una cuenta?</p>
+            <a href="{% url 'register' %}">Regístrate aquí</a>
         </div>
-        <p class="forgot-password">¿Olvidaste tu contraseña? <a href="{% url 'password_reset' %}">Haz clic aquí para restablecerla</a></p>
+        <div class="forgot-password">
+            <p>¿Olvidaste tu contraseña?</p>
+            <a href="{% url 'password_reset' %}">Haz clic aquí para restablecerla</a>
+        </div>
 
         <!-- Button to go back to the main home page -->
         <div class="back-to-home">
@@ -165,6 +58,7 @@
         </div>
     </div>
 
+    <!-- Script to toggle password visibility -->
     <script>
         function togglePassword() {
             var passwordField = document.getElementById("password");
