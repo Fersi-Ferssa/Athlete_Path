@@ -85,11 +85,22 @@ WSGI_APPLICATION = 'athlete_path.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',  
+        'NAME': 'athletepath',  
+        'USER': 'avnadmin',  
+        'PASSWORD': 'AVNS_hJzz9yH8tjPVMxeptjC',  
+        'HOST': 'mysql-1039aeec-lasallistas-b19a.e.aivencloud.com',  
+        'PORT': '16195',  
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+            'ssl': {
+                'ca': r"C:\Users\musar\Desktop\ca.pem",
+            }
+        }
     }
 }
 
+print((BASE_DIR / "certificates" / "ca.pem").resolve())
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators

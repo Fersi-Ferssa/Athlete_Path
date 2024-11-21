@@ -1,0 +1,2286 @@
+[
+    {
+        "country": "Afganistán",
+        "flag": "/static/css/images/flags/AF.png",
+        "gold": 0,
+        "silver": 0,
+        "bronze": 2,
+        "total": 2,
+        "medals_by_year": [
+            {"year": 2008, "gold": 0, "silver": 0, "bronze": 1},
+            {"year": 2012, "gold": 0, "silver": 0, "bronze": 1}
+        ]
+    },
+    {
+        "country": "Albania",
+        "flag": "/static/css/images/flags/AL.png",
+        "gold": 0,
+        "silver": 0,
+        "bronze": 2,
+        "total": 2,
+        "medals_by_year": [
+            {"year": 2024, "gold": 0, "silver": 0, "bronze": 2}
+        ]
+    },
+    {
+        "country": "Argelia",
+        "flag": "/static/css/images/flags/DZ.png",
+        "gold": 7,
+        "silver": 5,
+        "bronze": 9,
+        "total": 21,
+        "medals_by_year": [
+            {"year": 1992, "gold": 1, "silver": 0, "bronze": 0},
+            {"year": 1996, "gold": 0, "silver": 1, "bronze": 1},
+            {"year": 2000, "gold": 0, "silver": 0, "bronze": 1},
+            {"year": 2012, "gold": 1, "silver": 0, "bronze": 0},
+            {"year": 2024, "gold": 2, "silver": 0, "bronze": 1}
+        ]
+    },
+    {
+        "country": "Andorra",
+        "flag": "/static/css/images/flags/AD.png",
+        "gold": 0,
+        "silver": 0,
+        "bronze": 0,
+        "total": 0,
+        "medals_by_year": []
+    },
+    {
+        "country": "Angola",
+        "flag": "/static/css/images/flags/AO.png",
+        "gold": 0,
+        "silver": 0,
+        "bronze": 0,
+        "total": 0,
+        "medals_by_year": []
+    },
+    {
+        "country": "Antigua y Barbuda",
+        "flag": "/static/css/images/flags/AG.png",
+        "gold": 0,
+        "silver": 0,
+        "bronze": 0,
+        "total": 0,
+        "medals_by_year": []
+    },
+    {
+        "country": "Argentina",
+        "flag": "/static/css/images/flags/AR.png",
+        "gold": 22,
+        "silver": 25,
+        "bronze": 28,
+        "total": 75,
+        "medals_by_year": [
+            {"year": 1924, "gold": 1, "silver": 3, "bronze": 2},
+            {"year": 1928, "gold": 3, "silver": 3, "bronze": 1},
+            {"year": 1948, "gold": 1, "silver": 0, "bronze": 2},
+            {"year": 1952, "gold": 1, "silver": 2, "bronze": 2},
+            {"year": 2004, "gold": 2, "silver": 0, "bronze": 4},
+            {"year": 2008, "gold": 2, "silver": 0, "bronze": 2},
+            {"year": 2016, "gold": 3, "silver": 1, "bronze": 0},
+            {"year": 2020, "gold": 0, "silver": 1, "bronze": 2},
+            {"year": 2024, "gold": 1, "silver": 1, "bronze": 1}
+        ]
+    },
+    {
+        "country": "Armenia",
+        "flag": "/static/css/images/flags/AM.png",
+        "gold": 2,
+        "silver": 9,
+        "bronze": 12,
+        "total": 23,
+        "medals_by_year": [
+            {"year": 1996, "gold": 0, "silver": 1, "bronze": 1},
+            {"year": 2000, "gold": 0, "silver": 0, "bronze": 1},
+            {"year": 2004, "gold": 0, "silver": 0, "bronze": 1},
+            {"year": 2008, "gold": 0, "silver": 0, "bronze": 6},
+            {"year": 2012, "gold": 0, "silver": 1, "bronze": 2},
+            {"year": 2016, "gold": 1, "silver": 3, "bronze": 0},
+            {"year": 2020, "gold": 0, "silver": 2, "bronze": 2},
+            {"year": 2024, "gold": 1, "silver": 2, "bronze": 0}
+        ]
+    },
+    {
+        "country": "Australia",
+        "flag": "/static/css/images/flags/AU.png",
+        "gold": 174,
+        "silver": 178,
+        "bronze": 220,
+        "total": 572,
+        "medals_by_year": [
+            {"year": 1896, "gold": 2, "silver": 0, "bronze": 0},
+            {"year": 1900, "gold": 2, "silver": 0, "bronze": 3},
+            {"year": 1904, "gold": 0, "silver": 0, "bronze": 1},
+            {"year": 1908, "gold": 1, "silver": 2, "bronze": 2},
+            {"year": 1912, "gold": 2, "silver": 2, "bronze": 3},
+            {"year": 1920, "gold": 0, "silver": 2, "bronze": 1},
+            {"year": 1924, "gold": 3, "silver": 1, "bronze": 2}
+        ]
+    },
+        {
+            "country": "Austria",
+            "flag": "/static/css/images/flags/AT.png",
+            "gold": 19,
+            "silver": 33,
+            "bronze": 38,
+            "total": 90,
+            "medals_by_year": [
+                {"year": 1896, "gold": 2, "silver": 1, "bronze": 2},
+                {"year": 1900, "gold": 0, "silver": 3, "bronze": 1},
+                {"year": 1904, "gold": 1, "silver": 0, "bronze": 0},
+                {"year": 1912, "gold": 2, "silver": 1, "bronze": 2},
+                {"year": 1928, "gold": 1, "silver": 1, "bronze": 2},
+                {"year": 1948, "gold": 0, "silver": 1, "bronze": 1}
+            ]
+        },
+        {
+            "country": "Azerbaiyán",
+            "flag": "/static/css/images/flags/AZ.png",
+            "gold": 9,
+            "silver": 12,
+            "bronze": 27,
+            "total": 48,
+            "medals_by_year": [
+                {"year": 1996, "gold": 0, "silver": 1, "bronze": 1},
+                {"year": 2000, "gold": 0, "silver": 2, "bronze": 1},
+                {"year": 2004, "gold": 1, "silver": 0, "bronze": 3},
+                {"year": 2008, "gold": 1, "silver": 2, "bronze": 4},
+                {"year": 2012, "gold": 2, "silver": 2, "bronze": 5},
+                {"year": 2016, "gold": 1, "silver": 3, "bronze": 5}
+            ]
+        },
+        {
+            "country": "Bahamas",
+            "flag": "/static/css/images/flags/BS.png",
+            "gold": 8,
+            "silver": 2,
+            "bronze": 6,
+            "total": 16,
+            "medals_by_year": [
+                {"year": 1956, "gold": 0, "silver": 1, "bronze": 0},
+                {"year": 1964, "gold": 0, "silver": 1, "bronze": 0},
+                {"year": 1992, "gold": 0, "silver": 0, "bronze": 1},
+                {"year": 2000, "gold": 2, "silver": 0, "bronze": 0},
+                {"year": 2012, "gold": 1, "silver": 0, "bronze": 1},
+                {"year": 2016, "gold": 1, "silver": 0, "bronze": 1}
+            ]
+        },
+        {
+            "country": "Baréin",
+            "flag": "/static/css/images/flags/BH.png",
+            "gold": 2,
+            "silver": 2,
+            "bronze": 0,
+            "total": 4,
+            "medals_by_year": [
+                {"year": 2012, "gold": 1, "silver": 0, "bronze": 0},
+                {"year": 2016, "gold": 1, "silver": 1, "bronze": 0}
+            ]
+        },
+        {
+            "country": "Bangladés",
+            "flag": "/static/css/images/flags/BD.png",
+            "gold": 0,
+            "silver": 0,
+            "bronze": 0,
+            "total": 0,
+            "medals_by_year": []
+        },
+        {
+            "country": "Barbados",
+            "flag": "/static/css/images/flags/BB.png",
+            "gold": 0,
+            "silver": 0,
+            "bronze": 1,
+            "total": 1,
+            "medals_by_year": [
+                {"year": 2000, "gold": 0, "silver": 0, "bronze": 1}
+            ]
+        },
+        {
+            "country": "Bielorrusia",
+            "flag": "/static/css/images/flags/BY.png",
+            "gold": 21,
+            "silver": 36,
+            "bronze": 63,
+            "total": 120,
+            "medals_by_year": [
+                {"year": 1996, "gold": 1, "silver": 6, "bronze": 8},
+                {"year": 2000, "gold": 3, "silver": 3, "bronze": 11},
+                {"year": 2004, "gold": 2, "silver": 3, "bronze": 6},
+                {"year": 2008, "gold": 4, "silver": 5, "bronze": 10},
+                {"year": 2012, "gold": 3, "silver": 5, "bronze": 5},
+                {"year": 2016, "gold": 1, "silver": 4, "bronze": 4}
+            ]
+        },
+            {
+                "country": "Bélgica",
+                "flag": "/static/css/images/flags/BE.png",
+                "gold": 42,
+                "silver": 55,
+                "bronze": 58,
+                "total": 155,
+                "medals_by_year": [
+                    {"year": 1900, "gold": 6, "silver": 5, "bronze": 3},
+                    {"year": 1908, "gold": 1, "silver": 5, "bronze": 2},
+                    {"year": 1920, "gold": 14, "silver": 11, "bronze": 11},
+                    {"year": 1924, "gold": 3, "silver": 7, "bronze": 3},
+                    {"year": 1948, "gold": 2, "silver": 1, "bronze": 1},
+                    {"year": 1952, "gold": 0, "silver": 1, "bronze": 0},
+                    {"year": 2016, "gold": 2, "silver": 2, "bronze": 2}
+                ]
+            },
+            {
+                "country": "Belice",
+                "flag": "/static/css/images/flags/BZ.png",
+                "gold": 0,
+                "silver": 0,
+                "bronze": 0,
+                "total": 0,
+                "medals_by_year": []
+            },
+            {
+                "country": "Benín",
+                "flag": "/static/css/images/flags/BJ.png",
+                "gold": 0,
+                "silver": 0,
+                "bronze": 0,
+                "total": 0,
+                "medals_by_year": []
+            },
+            {
+                "country": "Bután",
+                "flag": "/static/css/images/flags/BT.png",
+                "gold": 0,
+                "silver": 0,
+                "bronze": 0,
+                "total": 0,
+                "medals_by_year": []
+            },
+            {
+                "country": "Bolivia",
+                "flag": "/static/css/images/flags/BO.png",
+                "gold": 0,
+                "silver": 0,
+                "bronze": 0,
+                "total": 0,
+                "medals_by_year": []
+            },
+            {
+                "country": "Bosnia y Herzegovina",
+                "flag": "/static/css/images/flags/BA.png",
+                "gold": 0,
+                "silver": 0,
+                "bronze": 1,
+                "total": 1,
+                "medals_by_year": [
+                    {"year": 2020, "gold": 0, "silver": 0, "bronze": 1}
+                ]
+            },
+            {
+                "country": "Botsuana",
+                "flag": "/static/css/images/flags/BW.png",
+                "gold": 0,
+                "silver": 1,
+                "bronze": 1,
+                "total": 2,
+                "medals_by_year": [
+                    {"year": 2012, "gold": 0, "silver": 1, "bronze": 0},
+                    {"year": 2020, "gold": 0, "silver": 0, "bronze": 1}
+                ]
+            },
+            {
+                "country": "Brasil",
+                "flag": "/static/css/images/flags/BR.png",
+                "gold": 37,
+                "silver": 42,
+                "bronze": 71,
+                "total": 150,
+                "medals_by_year": [
+                    {"year": 1920, "gold": 1, "silver": 1, "bronze": 1},
+                    {"year": 1952, "gold": 1, "silver": 0, "bronze": 2},
+                    {"year": 1996, "gold": 3, "silver": 3, "bronze": 9},
+                    {"year": 2004, "gold": 5, "silver": 2, "bronze": 3},
+                    {"year": 2016, "gold": 7, "silver": 6, "bronze": 6},
+                    {"year": 2020, "gold": 7, "silver": 6, "bronze": 8}
+                ]
+            },
+            {
+                "country": "Brunéi",
+                "flag": "/static/css/images/flags/BN.png",
+                "gold": 0,
+                "silver": 0,
+                "bronze": 0,
+                "total": 0,
+                "medals_by_year": []
+            },
+            {
+                "country": "Bulgaria",
+                "flag": "/static/css/images/flags/BG.png",
+                "gold": 55,
+                "silver": 90,
+                "bronze": 85,
+                "total": 230,
+                "medals_by_year": [
+                    {"year": 1952, "gold": 0, "silver": 1, "bronze": 0},
+                    {"year": 1956, "gold": 0, "silver": 1, "bronze": 2},
+                    {"year": 1980, "gold": 8, "silver": 16, "bronze": 10},
+                    {"year": 2000, "gold": 5, "silver": 6, "bronze": 2},
+                    {"year": 2012, "gold": 1, "silver": 0, "bronze": 2}
+                ]
+            },
+            {
+                "country": "Burkina Faso",
+                "flag": "/static/css/images/flags/BF.png",
+                "gold": 0,
+                "silver": 0,
+                "bronze": 1,
+                "total": 1,
+                "medals_by_year": [
+                    {"year": 2020, "gold": 0, "silver": 0, "bronze": 1}
+                ]
+            },
+            {
+                "country": "Burundi",
+                "flag": "/static/css/images/flags/BI.png",
+                "gold": 1,
+                "silver": 1,
+                "bronze": 0,
+                "total": 2,
+                "medals_by_year": [
+                    {"year": 1996, "gold": 1, "silver": 0, "bronze": 0},
+                    {"year": 2008, "gold": 0, "silver": 1, "bronze": 0}
+                ]
+            },
+                {
+                    "country": "Camboya",
+                    "flag": "/static/css/images/flags/KH.png",
+                    "gold": 0,
+                    "silver": 0,
+                    "bronze": 0,
+                    "total": 0,
+                    "medals_by_year": []
+                },
+                {
+                    "country": "Camerún",
+                    "flag": "/static/css/images/flags/CM.png",
+                    "gold": 3,
+                    "silver": 1,
+                    "bronze": 2,
+                    "total": 6,
+                    "medals_by_year": [
+                        {"year": 1968, "gold": 0, "silver": 0, "bronze": 1},
+                        {"year": 2000, "gold": 1, "silver": 0, "bronze": 0},
+                        {"year": 2012, "gold": 0, "silver": 1, "bronze": 0},
+                        {"year": 2020, "gold": 0, "silver": 0, "bronze": 1}
+                    ]
+                },
+                {
+                    "country": "Canadá",
+                    "flag": "/static/css/images/flags/CA.png",
+                    "gold": 71,
+                    "silver": 108,
+                    "bronze": 147,
+                    "total": 326,
+                    "medals_by_year": [
+                        {"year": 1904, "gold": 4, "silver": 1, "bronze": 1},
+                        {"year": 1928, "gold": 4, "silver": 4, "bronze": 4},
+                        {"year": 1932, "gold": 2, "silver": 5, "bronze": 8},
+                        {"year": 1984, "gold": 10, "silver": 18, "bronze": 16},
+                        {"year": 2016, "gold": 4, "silver": 3, "bronze": 15},
+                        {"year": 2020, "gold": 7, "silver": 6, "bronze": 11}
+                    ]
+                },
+                {
+                    "country": "Cabo Verde",
+                    "flag": "/static/css/images/flags/CV.png",
+                    "gold": 0,
+                    "silver": 0,
+                    "bronze": 0,
+                    "total": 0,
+                    "medals_by_year": []
+                },
+                {
+                    "country": "República Centroafricana",
+                    "flag": "/static/css/images/flags/CF.png",
+                    "gold": 0,
+                    "silver": 0,
+                    "bronze": 0,
+                    "total": 0,
+                    "medals_by_year": []
+                },
+                {
+                    "country": "Chad",
+                    "flag": "/static/css/images/flags/TD.png",
+                    "gold": 0,
+                    "silver": 0,
+                    "bronze": 0,
+                    "total": 0,
+                    "medals_by_year": []
+                },
+                {
+                    "country": "Chile",
+                    "flag": "/static/css/images/flags/CL.png",
+                    "gold": 2,
+                    "silver": 7,
+                    "bronze": 4,
+                    "total": 13,
+                    "medals_by_year": [
+                        {"year": 1928, "gold": 0, "silver": 1, "bronze": 0},
+                        {"year": 1952, "gold": 0, "silver": 1, "bronze": 1},
+                        {"year": 2000, "gold": 0, "silver": 1, "bronze": 0},
+                        {"year": 2004, "gold": 2, "silver": 0, "bronze": 1},
+                        {"year": 2020, "gold": 0, "silver": 0, "bronze": 1}
+                    ]
+                },
+                {
+                    "country": "China",
+                    "flag": "/static/css/images/flags/CN.png",
+                    "gold": 262,
+                    "silver": 199,
+                    "bronze": 173,
+                    "total": 634,
+                    "medals_by_year": [
+                        {"year": 1984, "gold": 15, "silver": 8, "bronze": 9},
+                        {"year": 2000, "gold": 28, "silver": 16, "bronze": 15},
+                        {"year": 2008, "gold": 48, "silver": 22, "bronze": 30},
+                        {"year": 2016, "gold": 26, "silver": 18, "bronze": 26},
+                        {"year": 2020, "gold": 38, "silver": 32, "bronze": 18}
+                    ]
+                },
+                {
+                    "country": "Colombia",
+                    "flag": "/static/css/images/flags/CO.png",
+                    "gold": 5,
+                    "silver": 13,
+                    "bronze": 16,
+                    "total": 34,
+                    "medals_by_year": [
+                        {"year": 1972, "gold": 0, "silver": 0, "bronze": 1},
+                        {"year": 2000, "gold": 0, "silver": 0, "bronze": 1},
+                        {"year": 2004, "gold": 0, "silver": 2, "bronze": 1},
+                        {"year": 2012, "gold": 1, "silver": 3, "bronze": 4},
+                        {"year": 2016, "gold": 3, "silver": 2, "bronze": 3},
+                        {"year": 2020, "gold": 0, "silver": 4, "bronze": 1}
+                    ]
+                },
+                {
+                    "country": "Comoras",
+                    "flag": "/static/css/images/flags/KM.png",
+                    "gold": 0,
+                    "silver": 0,
+                    "bronze": 0,
+                    "total": 0,
+                    "medals_by_year": []
+                },
+                {
+                    "country": "Congo",
+                    "flag": "/static/css/images/flags/CG.png",
+                    "gold": 0,
+                    "silver": 0,
+                    "bronze": 2,
+                    "total": 2,
+                    "medals_by_year": [
+                        {"year": 1964, "gold": 0, "silver": 0, "bronze": 1},
+                        {"year": 1980, "gold": 0, "silver": 0, "bronze": 1}
+                    ]
+                },
+                    {
+                        "country": "Costa Rica",
+                        "flag": "/static/css/images/flags/CR.png",
+                        "gold": 1,
+                        "silver": 1,
+                        "bronze": 2,
+                        "total": 4,
+                        "medals_by_year": [
+                            {"year": 1988, "gold": 1, "silver": 0, "bronze": 1},
+                            {"year": 2000, "gold": 0, "silver": 1, "bronze": 0},
+                            {"year": 2004, "gold": 0, "silver": 0, "bronze": 1}
+                        ]
+                    },
+                    {
+                        "country": "Croacia",
+                        "flag": "/static/css/images/flags/HR.png",
+                        "gold": 18,
+                        "silver": 19,
+                        "bronze": 15,
+                        "total": 52,
+                        "medals_by_year": [
+                            {"year": 1992, "gold": 0, "silver": 1, "bronze": 2},
+                            {"year": 1996, "gold": 1, "silver": 0, "bronze": 1},
+                            {"year": 2004, "gold": 1, "silver": 2, "bronze": 2},
+                            {"year": 2016, "gold": 5, "silver": 3, "bronze": 2},
+                            {"year": 2020, "gold": 3, "silver": 3, "bronze": 2}
+                        ]
+                    },
+                    {
+                        "country": "Cuba",
+                        "flag": "/static/css/images/flags/CU.png",
+                        "gold": 85,
+                        "silver": 71,
+                        "bronze": 88,
+                        "total": 244,
+                        "medals_by_year": [
+                            {"year": 1900, "gold": 0, "silver": 2, "bronze": 0},
+                            {"year": 1972, "gold": 3, "silver": 1, "bronze": 4},
+                            {"year": 1980, "gold": 8, "silver": 7, "bronze": 5},
+                            {"year": 1992, "gold": 14, "silver": 6, "bronze": 11},
+                            {"year": 2004, "gold": 9, "silver": 7, "bronze": 11},
+                            {"year": 2016, "gold": 5, "silver": 2, "bronze": 4}
+                        ]
+                    },
+                    {
+                        "country": "Chipre",
+                        "flag": "/static/css/images/flags/CY.png",
+                        "gold": 0,
+                        "silver": 1,
+                        "bronze": 0,
+                        "total": 1,
+                        "medals_by_year": [
+                            {"year": 2012, "gold": 0, "silver": 1, "bronze": 0}
+                        ]
+                    },
+                    {
+                        "country": "República Checa",
+                        "flag": "/static/css/images/flags/CZ.png",
+                        "gold": 24,
+                        "silver": 28,
+                        "bronze": 29,
+                        "total": 81,
+                        "medals_by_year": [
+                            {"year": 1996, "gold": 4, "silver": 3, "bronze": 4},
+                            {"year": 2000, "gold": 2, "silver": 3, "bronze": 3},
+                            {"year": 2008, "gold": 3, "silver": 3, "bronze": 0},
+                            {"year": 2016, "gold": 1, "silver": 2, "bronze": 7},
+                            {"year": 2020, "gold": 4, "silver": 4, "bronze": 3}
+                        ]
+                    },
+                    {
+                        "country": "Dinamarca",
+                        "flag": "/static/css/images/flags/DK.png",
+                        "gold": 48,
+                        "silver": 79,
+                        "bronze": 79,
+                        "total": 206,
+                        "medals_by_year": [
+                            {"year": 1896, "gold": 1, "silver": 2, "bronze": 3},
+                            {"year": 1920, "gold": 3, "silver": 9, "bronze": 1},
+                            {"year": 1936, "gold": 0, "silver": 3, "bronze": 3},
+                            {"year": 1948, "gold": 5, "silver": 7, "bronze": 8},
+                            {"year": 2000, "gold": 2, "silver": 3, "bronze": 1},
+                            {"year": 2016, "gold": 2, "silver": 6, "bronze": 7}
+                        ]
+                    },
+                    {
+                        "country": "Yibuti",
+                        "flag": "/static/css/images/flags/DJ.png",
+                        "gold": 0,
+                        "silver": 0,
+                        "bronze": 1,
+                        "total": 1,
+                        "medals_by_year": [
+                            {"year": 1988, "gold": 0, "silver": 0, "bronze": 1}
+                        ]
+                    },
+                    {
+                        "country": "Dominica",
+                        "flag": "/static/css/images/flags/DM.png",
+                        "gold": 0,
+                        "silver": 0,
+                        "bronze": 0,
+                        "total": 0,
+                        "medals_by_year": []
+                    },
+                    {
+                        "country": "República Dominicana",
+                        "flag": "/static/css/images/flags/DO.png",
+                        "gold": 3,
+                        "silver": 5,
+                        "bronze": 4,
+                        "total": 12,
+                        "medals_by_year": [
+                            {"year": 2004, "gold": 1, "silver": 0, "bronze": 0},
+                            {"year": 2008, "gold": 1, "silver": 1, "bronze": 1},
+                            {"year": 2012, "gold": 0, "silver": 1, "bronze": 1},
+                            {"year": 2020, "gold": 1, "silver": 2, "bronze": 1}
+                        ]
+                    },
+                    {
+                        "country": "Timor Oriental",
+                        "flag": "/static/css/images/flags/TL.png",
+                        "gold": 0,
+                        "silver": 0,
+                        "bronze": 0,
+                        "total": 0,
+                        "medals_by_year": []
+                    },
+                        {
+                            "country": "Ecuador",
+                            "flag": "/static/css/images/flags/EC.png",
+                            "gold": 3,
+                            "silver": 2,
+                            "bronze": 1,
+                            "total": 6,
+                            "medals_by_year": [
+                                {"year": 1996, "gold": 1, "silver": 0, "bronze": 0},
+                                {"year": 2008, "gold": 0, "silver": 1, "bronze": 0},
+                                {"year": 2016, "gold": 0, "silver": 0, "bronze": 1},
+                                {"year": 2020, "gold": 2, "silver": 1, "bronze": 0}
+                            ]
+                        },
+                        {
+                            "country": "Egipto",
+                            "flag": "/static/css/images/flags/EG.png",
+                            "gold": 8,
+                            "silver": 11,
+                            "bronze": 19,
+                            "total": 38,
+                            "medals_by_year": [
+                                {"year": 1928, "gold": 0, "silver": 2, "bronze": 1},
+                                {"year": 1936, "gold": 2, "silver": 1, "bronze": 2},
+                                {"year": 1948, "gold": 2, "silver": 2, "bronze": 1},
+                                {"year": 2004, "gold": 1, "silver": 1, "bronze": 3},
+                                {"year": 2012, "gold": 0, "silver": 0, "bronze": 2},
+                                {"year": 2020, "gold": 1, "silver": 1, "bronze": 4}
+                            ]
+                        },
+                        {
+                            "country": "El Salvador",
+                            "flag": "/static/css/images/flags/SV.png",
+                            "gold": 0,
+                            "silver": 0,
+                            "bronze": 0,
+                            "total": 0,
+                            "medals_by_year": []
+                        },
+                        {
+                            "country": "Guinea Ecuatorial",
+                            "flag": "/static/css/images/flags/GQ.png",
+                            "gold": 0,
+                            "silver": 0,
+                            "bronze": 0,
+                            "total": 0,
+                            "medals_by_year": []
+                        },
+                        {
+                            "country": "Eritrea",
+                            "flag": "/static/css/images/flags/ER.png",
+                            "gold": 0,
+                            "silver": 0,
+                            "bronze": 1,
+                            "total": 1,
+                            "medals_by_year": [
+                                {"year": 2004, "gold": 0, "silver": 0, "bronze": 1}
+                            ]
+                        },
+                        {
+                            "country": "Estonia",
+                            "flag": "/static/css/images/flags/EE.png",
+                            "gold": 34,
+                            "silver": 32,
+                            "bronze": 30,
+                            "total": 96,
+                            "medals_by_year": [
+                                {"year": 1920, "gold": 1, "silver": 2, "bronze": 0},
+                                {"year": 1936, "gold": 3, "silver": 1, "bronze": 3},
+                                {"year": 2008, "gold": 1, "silver": 1, "bronze": 0},
+                                {"year": 2012, "gold": 0, "silver": 1, "bronze": 1},
+                                {"year": 2020, "gold": 1, "silver": 0, "bronze": 1}
+                            ]
+                        },
+                        {
+                            "country": "Etiopía",
+                            "flag": "/static/css/images/flags/ET.png",
+                            "gold": 23,
+                            "silver": 12,
+                            "bronze": 23,
+                            "total": 58,
+                            "medals_by_year": [
+                                {"year": 1960, "gold": 1, "silver": 0, "bronze": 0},
+                                {"year": 1980, "gold": 2, "silver": 2, "bronze": 2},
+                                {"year": 2000, "gold": 4, "silver": 1, "bronze": 3},
+                                {"year": 2008, "gold": 4, "silver": 1, "bronze": 2},
+                                {"year": 2012, "gold": 3, "silver": 1, "bronze": 3},
+                                {"year": 2016, "gold": 1, "silver": 2, "bronze": 5}
+                            ]
+                        },
+                        {
+                            "country": "Fiyi",
+                            "flag": "/static/css/images/flags/FJ.png",
+                            "gold": 2,
+                            "silver": 0,
+                            "bronze": 0,
+                            "total": 2,
+                            "medals_by_year": [
+                                {"year": 2016, "gold": 1, "silver": 0, "bronze": 0},
+                                {"year": 2020, "gold": 1, "silver": 0, "bronze": 0}
+                            ]
+                        },
+                        {
+                            "country": "Finlandia",
+                            "flag": "/static/css/images/flags/FI.png",
+                            "gold": 144,
+                            "silver": 148,
+                            "bronze": 176,
+                            "total": 468,
+                            "medals_by_year": [
+                                {"year": 1908, "gold": 0, "silver": 2, "bronze": 1},
+                                {"year": 1920, "gold": 15, "silver": 10, "bronze": 9},
+                                {"year": 1932, "gold": 5, "silver": 8, "bronze": 12},
+                                {"year": 1948, "gold": 8, "silver": 7, "bronze": 5},
+                                {"year": 1980, "gold": 3, "silver": 1, "bronze": 4},
+                                {"year": 2008, "gold": 1, "silver": 1, "bronze": 2}
+                            ]
+                        },
+                        {
+                            "country": "Francia",
+                            "flag": "/static/css/images/flags/FR.png",
+                            "gold": 258,
+                            "silver": 289,
+                            "bronze": 327,
+                            "total": 874,
+                            "medals_by_year": [
+                                {"year": 1900, "gold": 26, "silver": 41, "bronze": 34},
+                                {"year": 1924, "gold": 13, "silver": 15, "bronze": 10},
+                                {"year": 1936, "gold": 7, "silver": 6, "bronze": 6},
+                                {"year": 1948, "gold": 10, "silver": 6, "bronze": 13},
+                                {"year": 2004, "gold": 11, "silver": 9, "bronze": 13},
+                                {"year": 2016, "gold": 10, "silver": 18, "bronze": 14}
+                            ]
+                        },
+                            {
+                                "country": "Gabón",
+                                "flag": "/static/css/images/flags/GA.png",
+                                "gold": 0,
+                                "silver": 1,
+                                "bronze": 0,
+                                "total": 1,
+                                "medals_by_year": [
+                                    {"year": 2012, "gold": 0, "silver": 1, "bronze": 0}
+                                ]
+                            },
+                            {
+                                "country": "Gambia",
+                                "flag": "/static/css/images/flags/GM.png",
+                                "gold": 0,
+                                "silver": 0,
+                                "bronze": 0,
+                                "total": 0,
+                                "medals_by_year": []
+                            },
+                            {
+                                "country": "Georgia",
+                                "flag": "/static/css/images/flags/GE.png",
+                                "gold": 10,
+                                "silver": 12,
+                                "bronze": 17,
+                                "total": 39,
+                                "medals_by_year": [
+                                    {"year": 1996, "gold": 0, "silver": 1, "bronze": 2},
+                                    {"year": 2004, "gold": 2, "silver": 2, "bronze": 0},
+                                    {"year": 2008, "gold": 3, "silver": 2, "bronze": 3},
+                                    {"year": 2012, "gold": 1, "silver": 3, "bronze": 3},
+                                    {"year": 2016, "gold": 2, "silver": 1, "bronze": 4},
+                                    {"year": 2020, "gold": 2, "silver": 3, "bronze": 5}
+                                ]
+                            },
+                            {
+                                "country": "Alemania",
+                                "flag": "/static/css/images/flags/DE.png",
+                                "gold": 293,
+                                "silver": 293,
+                                "bronze": 306,
+                                "total": 892,
+                                "medals_by_year": [
+                                    {"year": 1896, "gold": 6, "silver": 5, "bronze": 2},
+                                    {"year": 1936, "gold": 33, "silver": 26, "bronze": 30},
+                                    {"year": 1976, "gold": 40, "silver": 25, "bronze": 25},
+                                    {"year": 1988, "gold": 11, "silver": 21, "bronze": 14},
+                                    {"year": 2008, "gold": 16, "silver": 10, "bronze": 15},
+                                    {"year": 2020, "gold": 10, "silver": 11, "bronze": 16}
+                                ]
+                            },
+                            {
+                                "country": "Ghana",
+                                "flag": "/static/css/images/flags/GH.png",
+                                "gold": 0,
+                                "silver": 1,
+                                "bronze": 3,
+                                "total": 4,
+                                "medals_by_year": [
+                                    {"year": 1960, "gold": 0, "silver": 0, "bronze": 1},
+                                    {"year": 1964, "gold": 0, "silver": 0, "bronze": 1},
+                                    {"year": 1972, "gold": 0, "silver": 1, "bronze": 1},
+                                    {"year": 1992, "gold": 0, "silver": 0, "bronze": 1}
+                                ]
+                            },
+                            {
+                                "country": "Grecia",
+                                "flag": "/static/css/images/flags/GR.png",
+                                "gold": 35,
+                                "silver": 45,
+                                "bronze": 41,
+                                "total": 121,
+                                "medals_by_year": [
+                                    {"year": 1896, "gold": 10, "silver": 18, "bronze": 19},
+                                    {"year": 1968, "gold": 1, "silver": 1, "bronze": 1},
+                                    {"year": 2004, "gold": 6, "silver": 6, "bronze": 4},
+                                    {"year": 2008, "gold": 1, "silver": 1, "bronze": 2},
+                                    {"year": 2016, "gold": 3, "silver": 1, "bronze": 2},
+                                    {"year": 2020, "gold": 2, "silver": 1, "bronze": 1}
+                                ]
+                            },
+                            {
+                                "country": "Granada",
+                                "flag": "/static/css/images/flags/GD.png",
+                                "gold": 1,
+                                "silver": 1,
+                                "bronze": 1,
+                                "total": 3,
+                                "medals_by_year": [
+                                    {"year": 2012, "gold": 1, "silver": 0, "bronze": 0},
+                                    {"year": 2016, "gold": 0, "silver": 1, "bronze": 0},
+                                    {"year": 2020, "gold": 0, "silver": 0, "bronze": 1}
+                                ]
+                            },
+                            {
+                                "country": "Guatemala",
+                                "flag": "/static/css/images/flags/GT.png",
+                                "gold": 0,
+                                "silver": 1,
+                                "bronze": 0,
+                                "total": 1,
+                                "medals_by_year": [
+                                    {"year": 2012, "gold": 0, "silver": 1, "bronze": 0}
+                                ]
+                            },
+                            {
+                                "country": "Guinea",
+                                "flag": "/static/css/images/flags/GN.png",
+                                "gold": 0,
+                                "silver": 0,
+                                "bronze": 0,
+                                "total": 0,
+                                "medals_by_year": []
+                            },
+                            {
+                                "country": "Guinea-Bisáu",
+                                "flag": "/static/css/images/flags/GW.png",
+                                "gold": 0,
+                                "silver": 0,
+                                "bronze": 0,
+                                "total": 0,
+                                "medals_by_year": []
+                            },
+                            {
+                                "country": "Guyana",
+                                "flag": "/static/css/images/flags/GY.png",
+                                "gold": 0,
+                                "silver": 0,
+                                "bronze": 1,
+                                "total": 1,
+                                "medals_by_year": [
+                                    {"year": 1980, "gold": 0, "silver": 0, "bronze": 1}
+                                ]
+                            },
+                                {
+                                    "country": "Haití",
+                                    "flag": "/static/css/images/flags/HT.png",
+                                    "gold": 0,
+                                    "silver": 1,
+                                    "bronze": 1,
+                                    "total": 2,
+                                    "medals_by_year": [
+                                        {"year": 1924, "gold": 0, "silver": 1, "bronze": 0},
+                                        {"year": 1928, "gold": 0, "silver": 0, "bronze": 1}
+                                    ]
+                                },
+                                {
+                                    "country": "Honduras",
+                                    "flag": "/static/css/images/flags/HN.png",
+                                    "gold": 0,
+                                    "silver": 0,
+                                    "bronze": 0,
+                                    "total": 0,
+                                    "medals_by_year": []
+                                },
+                                {
+                                    "country": "Hungría",
+                                    "flag": "/static/css/images/flags/HU.png",
+                                    "gold": 183,
+                                    "silver": 156,
+                                    "bronze": 179,
+                                    "total": 518,
+                                    "medals_by_year": [
+                                        {"year": 1896, "gold": 2, "silver": 1, "bronze": 3},
+                                        {"year": 1952, "gold": 16, "silver": 10, "bronze": 16},
+                                        {"year": 1972, "gold": 6, "silver": 13, "bronze": 16},
+                                        {"year": 1988, "gold": 11, "silver": 6, "bronze": 6},
+                                        {"year": 2004, "gold": 8, "silver": 6, "bronze": 3},
+                                        {"year": 2016, "gold": 8, "silver": 3, "bronze": 4}
+                                    ]
+                                },
+                                {
+                                    "country": "Islandia",
+                                    "flag": "/static/css/images/flags/IS.png",
+                                    "gold": 0,
+                                    "silver": 2,
+                                    "bronze": 2,
+                                    "total": 4,
+                                    "medals_by_year": [
+                                        {"year": 1956, "gold": 0, "silver": 1, "bronze": 0},
+                                        {"year": 1984, "gold": 0, "silver": 0, "bronze": 1},
+                                        {"year": 2008, "gold": 0, "silver": 1, "bronze": 1}
+                                    ]
+                                },
+                                {
+                                    "country": "India",
+                                    "flag": "/static/css/images/flags/IN.png",
+                                    "gold": 10,
+                                    "silver": 9,
+                                    "bronze": 16,
+                                    "total": 35,
+                                    "medals_by_year": [
+                                        {"year": 1928, "gold": 1, "silver": 0, "bronze": 0},
+                                        {"year": 1952, "gold": 1, "silver": 0, "bronze": 1},
+                                        {"year": 2008, "gold": 1, "silver": 0, "bronze": 2},
+                                        {"year": 2012, "gold": 0, "silver": 2, "bronze": 4},
+                                        {"year": 2016, "gold": 0, "silver": 1, "bronze": 1},
+                                        {"year": 2020, "gold": 1, "silver": 2, "bronze": 4}
+                                    ]
+                                },
+                                {
+                                    "country": "Indonesia",
+                                    "flag": "/static/css/images/flags/ID.png",
+                                    "gold": 8,
+                                    "silver": 14,
+                                    "bronze": 15,
+                                    "total": 37,
+                                    "medals_by_year": [
+                                        {"year": 1988, "gold": 0, "silver": 0, "bronze": 1},
+                                        {"year": 1992, "gold": 2, "silver": 2, "bronze": 1},
+                                        {"year": 2000, "gold": 1, "silver": 3, "bronze": 2},
+                                        {"year": 2008, "gold": 1, "silver": 1, "bronze": 3},
+                                        {"year": 2016, "gold": 1, "silver": 2, "bronze": 0},
+                                        {"year": 2020, "gold": 1, "silver": 1, "bronze": 3}
+                                    ]
+                                },
+                                {
+                                    "country": "Irán",
+                                    "flag": "/static/css/images/flags/IR.png",
+                                    "gold": 24,
+                                    "silver": 23,
+                                    "bronze": 29,
+                                    "total": 76,
+                                    "medals_by_year": [
+                                        {"year": 1952, "gold": 0, "silver": 1, "bronze": 2},
+                                        {"year": 1972, "gold": 2, "silver": 1, "bronze": 2},
+                                        {"year": 2000, "gold": 3, "silver": 0, "bronze": 1},
+                                        {"year": 2012, "gold": 4, "silver": 5, "bronze": 3},
+                                        {"year": 2016, "gold": 3, "silver": 1, "bronze": 4},
+                                        {"year": 2020, "gold": 3, "silver": 2, "bronze": 2}
+                                    ]
+                                },
+                                {
+                                    "country": "Irak",
+                                    "flag": "/static/css/images/flags/IQ.png",
+                                    "gold": 0,
+                                    "silver": 0,
+                                    "bronze": 1,
+                                    "total": 1,
+                                    "medals_by_year": [
+                                        {"year": 1960, "gold": 0, "silver": 0, "bronze": 1}
+                                    ]
+                                },
+                                {
+                                    "country": "Irlanda",
+                                    "flag": "/static/css/images/flags/IE.png",
+                                    "gold": 11,
+                                    "silver": 10,
+                                    "bronze": 14,
+                                    "total": 35,
+                                    "medals_by_year": [
+                                        {"year": 1924, "gold": 0, "silver": 0, "bronze": 1},
+                                        {"year": 1956, "gold": 1, "silver": 1, "bronze": 3},
+                                        {"year": 1980, "gold": 0, "silver": 2, "bronze": 1},
+                                        {"year": 1996, "gold": 1, "silver": 0, "bronze": 1},
+                                        {"year": 2012, "gold": 1, "silver": 1, "bronze": 3},
+                                        {"year": 2020, "gold": 2, "silver": 0, "bronze": 2}
+                                    ]
+                                },
+                                {
+                                    "country": "Israel",
+                                    "flag": "/static/css/images/flags/IL.png",
+                                    "gold": 4,
+                                    "silver": 1,
+                                    "bronze": 9,
+                                    "total": 14,
+                                    "medals_by_year": [
+                                        {"year": 1992, "gold": 0, "silver": 0, "bronze": 1},
+                                        {"year": 2004, "gold": 1, "silver": 0, "bronze": 1},
+                                        {"year": 2008, "gold": 0, "silver": 0, "bronze": 1},
+                                        {"year": 2016, "gold": 0, "silver": 0, "bronze": 2},
+                                        {"year": 2020, "gold": 2, "silver": 0, "bronze": 2}
+                                    ]
+                                },
+                                    {
+                                        "country": "Kirguistán",
+                                        "flag": "/static/css/images/flags/KG.png",
+                                        "gold": 0,
+                                        "silver": 3,
+                                        "bronze": 4,
+                                        "total": 7,
+                                        "medals_by_year": [
+                                            {"year": 2000, "gold": 0, "silver": 1, "bronze": 2},
+                                            {"year": 2008, "gold": 0, "silver": 0, "bronze": 1},
+                                            {"year": 2012, "gold": 0, "silver": 0, "bronze": 1},
+                                            {"year": 2016, "gold": 0, "silver": 1, "bronze": 0},
+                                            {"year": 2020, "gold": 0, "silver": 1, "bronze": 0}
+                                        ]
+                                    },
+                                    {
+                                        "country": "Laos",
+                                        "flag": "/static/css/images/flags/LA.png",
+                                        "gold": 0,
+                                        "silver": 0,
+                                        "bronze": 0,
+                                        "total": 0,
+                                        "medals_by_year": []
+                                    },
+                                    {
+                                        "country": "Letonia",
+                                        "flag": "/static/css/images/flags/LV.png",
+                                        "gold": 3,
+                                        "silver": 11,
+                                        "bronze": 9,
+                                        "total": 23,
+                                        "medals_by_year": [
+                                            {"year": 1924, "gold": 0, "silver": 0, "bronze": 1},
+                                            {"year": 1932, "gold": 0, "silver": 1, "bronze": 0},
+                                            {"year": 2004, "gold": 1, "silver": 4, "bronze": 0},
+                                            {"year": 2012, "gold": 1, "silver": 1, "bronze": 2},
+                                            {"year": 2016, "gold": 0, "silver": 2, "bronze": 2},
+                                            {"year": 2020, "gold": 0, "silver": 0, "bronze": 1}
+                                        ]
+                                    },
+                                    {
+                                        "country": "Líbano",
+                                        "flag": "/static/css/images/flags/LB.png",
+                                        "gold": 0,
+                                        "silver": 2,
+                                        "bronze": 2,
+                                        "total": 4,
+                                        "medals_by_year": [
+                                            {"year": 1952, "gold": 0, "silver": 1, "bronze": 1},
+                                            {"year": 1972, "gold": 0, "silver": 1, "bronze": 1}
+                                        ]
+                                    },
+                                    {
+                                        "country": "Lesoto",
+                                        "flag": "/static/css/images/flags/LS.png",
+                                        "gold": 0,
+                                        "silver": 0,
+                                        "bronze": 0,
+                                        "total": 0,
+                                        "medals_by_year": []
+                                    },
+                                    {
+                                        "country": "Liberia",
+                                        "flag": "/static/css/images/flags/LR.png",
+                                        "gold": 0,
+                                        "silver": 0,
+                                        "bronze": 0,
+                                        "total": 0,
+                                        "medals_by_year": []
+                                    },
+                                    {
+                                        "country": "Libia",
+                                        "flag": "/static/css/images/flags/LY.png",
+                                        "gold": 0,
+                                        "silver": 1,
+                                        "bronze": 0,
+                                        "total": 1,
+                                        "medals_by_year": [
+                                            {"year": 1968, "gold": 0, "silver": 1, "bronze": 0}
+                                        ]
+                                    },
+                                    {
+                                        "country": "Liechtenstein",
+                                        "flag": "/static/css/images/flags/LI.png",
+                                        "gold": 0,
+                                        "silver": 2,
+                                        "bronze": 5,
+                                        "total": 7,
+                                        "medals_by_year": [
+                                            {"year": 1980, "gold": 0, "silver": 1, "bronze": 2},
+                                            {"year": 1984, "gold": 0, "silver": 0, "bronze": 1},
+                                            {"year": 1988, "gold": 0, "silver": 1, "bronze": 1}
+                                        ]
+                                    },
+                                    {
+                                        "country": "Lituania",
+                                        "flag": "/static/css/images/flags/LT.png",
+                                        "gold": 6,
+                                        "silver": 7,
+                                        "bronze": 13,
+                                        "total": 26,
+                                        "medals_by_year": [
+                                            {"year": 1992, "gold": 1, "silver": 2, "bronze": 1},
+                                            {"year": 2000, "gold": 2, "silver": 0, "bronze": 3},
+                                            {"year": 2004, "gold": 0, "silver": 1, "bronze": 3},
+                                            {"year": 2016, "gold": 1, "silver": 0, "bronze": 3},
+                                            {"year": 2020, "gold": 1, "silver": 0, "bronze": 1}
+                                        ]
+                                    },
+                                    {
+                                        "country": "Luxemburgo",
+                                        "flag": "/static/css/images/flags/LU.png",
+                                        "gold": 1,
+                                        "silver": 3,
+                                        "bronze": 5,
+                                        "total": 9,
+                                        "medals_by_year": [
+                                            {"year": 1900, "gold": 1, "silver": 1, "bronze": 1},
+                                            {"year": 1924, "gold": 0, "silver": 1, "bronze": 0},
+                                            {"year": 1952, "gold": 0, "silver": 1, "bronze": 1},
+                                            {"year": 1956, "gold": 0, "silver": 0, "bronze": 2}
+                                        ]
+                                    },
+                                    {
+                                        "country": "Madagascar",
+                                        "flag": "/static/css/images/flags/MG.png",
+                                        "gold": 0,
+                                        "silver": 0,
+                                        "bronze": 0,
+                                        "total": 0,
+                                        "medals_by_year": []
+                                    },
+                                        {
+                                            "country": "Malaui",
+                                            "flag": "/static/css/images/flags/MW.png",
+                                            "gold": 0,
+                                            "silver": 0,
+                                            "bronze": 0,
+                                            "total": 0,
+                                            "medals_by_year": []
+                                        },
+                                        {
+                                            "country": "Malasia",
+                                            "flag": "/static/css/images/flags/MY.png",
+                                            "gold": 0,
+                                            "silver": 8,
+                                            "bronze": 5,
+                                            "total": 13,
+                                            "medals_by_year": [
+                                                {"year": 1992, "gold": 0, "silver": 0, "bronze": 1},
+                                                {"year": 1996, "gold": 0, "silver": 0, "bronze": 1},
+                                                {"year": 2008, "gold": 0, "silver": 1, "bronze": 1},
+                                                {"year": 2012, "gold": 0, "silver": 1, "bronze": 1},
+                                                {"year": 2016, "gold": 0, "silver": 4, "bronze": 1}
+                                            ]
+                                        },
+                                        {
+                                            "country": "Maldivas",
+                                            "flag": "/static/css/images/flags/MV.png",
+                                            "gold": 0,
+                                            "silver": 0,
+                                            "bronze": 0,
+                                            "total": 0,
+                                            "medals_by_year": []
+                                        },
+                                        {
+                                            "country": "Malí",
+                                            "flag": "/static/css/images/flags/ML.png",
+                                            "gold": 0,
+                                            "silver": 0,
+                                            "bronze": 0,
+                                            "total": 0,
+                                            "medals_by_year": []
+                                        },
+                                        {
+                                            "country": "Malta",
+                                            "flag": "/static/css/images/flags/MT.png",
+                                            "gold": 0,
+                                            "silver": 0,
+                                            "bronze": 0,
+                                            "total": 0,
+                                            "medals_by_year": []
+                                        },
+                                        {
+                                            "country": "Islas Marshall",
+                                            "flag": "/static/css/images/flags/MH.png",
+                                            "gold": 0,
+                                            "silver": 0,
+                                            "bronze": 0,
+                                            "total": 0,
+                                            "medals_by_year": []
+                                        },
+                                        {
+                                            "country": "Mauritania",
+                                            "flag": "/static/css/images/flags/MR.png",
+                                            "gold": 0,
+                                            "silver": 0,
+                                            "bronze": 0,
+                                            "total": 0,
+                                            "medals_by_year": []
+                                        },
+                                        {
+                                            "country": "Mauricio",
+                                            "flag": "/static/css/images/flags/MU.png",
+                                            "gold": 0,
+                                            "silver": 0,
+                                            "bronze": 1,
+                                            "total": 1,
+                                            "medals_by_year": [
+                                                {"year": 2008, "gold": 0, "silver": 0, "bronze": 1}
+                                            ]
+                                        },
+                                        {
+                                            "country": "México",
+                                            "flag": "/static/css/images/flags/MX.png",
+                                            "gold": 13,
+                                            "silver": 24,
+                                            "bronze": 36,
+                                            "total": 73,
+                                            "medals_by_year": [
+                                                {"year": 1968, "gold": 3, "silver": 3, "bronze": 3},
+                                                {"year": 1984, "gold": 2, "silver": 3, "bronze": 1},
+                                                {"year": 2000, "gold": 1, "silver": 2, "bronze": 3},
+                                                {"year": 2012, "gold": 1, "silver": 3, "bronze": 4},
+                                                {"year": 2016, "gold": 0, "silver": 3, "bronze": 2},
+                                                {"year": 2020, "gold": 0, "silver": 0, "bronze": 4}
+                                            ]
+                                        },
+                                        {
+                                            "country": "Micronesia",
+                                            "flag": "/static/css/images/flags/FM.png",
+                                            "gold": 0,
+                                            "silver": 0,
+                                            "bronze": 0,
+                                            "total": 0,
+                                            "medals_by_year": []
+                                        },
+                                        {
+                                            "country": "Moldavia",
+                                            "flag": "/static/css/images/flags/MD.png",
+                                            "gold": 0,
+                                            "silver": 2,
+                                            "bronze": 4,
+                                            "total": 6,
+                                            "medals_by_year": [
+                                                {"year": 1996, "gold": 0, "silver": 0, "bronze": 1},
+                                                {"year": 2008, "gold": 0, "silver": 1, "bronze": 1},
+                                                {"year": 2012, "gold": 0, "silver": 1, "bronze": 1},
+                                                {"year": 2020, "gold": 0, "silver": 0, "bronze": 1}
+                                            ]
+                                        },
+                                            {
+                                                "country": "Mónaco",
+                                                "flag": "/static/css/images/flags/MC.png",
+                                                "gold": 0,
+                                                "silver": 0,
+                                                "bronze": 0,
+                                                "total": 0,
+                                                "medals_by_year": []
+                                            },
+                                            {
+                                                "country": "Mongolia",
+                                                "flag": "/static/css/images/flags/MN.png",
+                                                "gold": 2,
+                                                "silver": 11,
+                                                "bronze": 17,
+                                                "total": 30,
+                                                "medals_by_year": [
+                                                    {"year": 1968, "gold": 0, "silver": 1, "bronze": 3},
+                                                    {"year": 2008, "gold": 2, "silver": 2, "bronze": 3},
+                                                    {"year": 2012, "gold": 0, "silver": 2, "bronze": 3},
+                                                    {"year": 2016, "gold": 0, "silver": 1, "bronze": 2},
+                                                    {"year": 2020, "gold": 0, "silver": 1, "bronze": 2}
+                                                ]
+                                            },
+                                            {
+                                                "country": "Montenegro",
+                                                "flag": "/static/css/images/flags/ME.png",
+                                                "gold": 0,
+                                                "silver": 1,
+                                                "bronze": 0,
+                                                "total": 1,
+                                                "medals_by_year": [
+                                                    {"year": 2012, "gold": 0, "silver": 1, "bronze": 0}
+                                                ]
+                                            },
+                                            {
+                                                "country": "Marruecos",
+                                                "flag": "/static/css/images/flags/MA.png",
+                                                "gold": 7,
+                                                "silver": 5,
+                                                "bronze": 12,
+                                                "total": 24,
+                                                "medals_by_year": [
+                                                    {"year": 1960, "gold": 0, "silver": 0, "bronze": 1},
+                                                    {"year": 1984, "gold": 2, "silver": 0, "bronze": 0},
+                                                    {"year": 2004, "gold": 2, "silver": 1, "bronze": 2},
+                                                    {"year": 2008, "gold": 0, "silver": 1, "bronze": 1},
+                                                    {"year": 2012, "gold": 1, "silver": 0, "bronze": 0},
+                                                    {"year": 2020, "gold": 1, "silver": 0, "bronze": 1}
+                                                ]
+                                            },
+                                            {
+                                                "country": "Mozambique",
+                                                "flag": "/static/css/images/flags/MZ.png",
+                                                "gold": 1,
+                                                "silver": 0,
+                                                "bronze": 1,
+                                                "total": 2,
+                                                "medals_by_year": [
+                                                    {"year": 2000, "gold": 1, "silver": 0, "bronze": 0},
+                                                    {"year": 2012, "gold": 0, "silver": 0, "bronze": 1}
+                                                ]
+                                            },
+                                            {
+                                                "country": "Myanmar",
+                                                "flag": "/static/css/images/flags/MM.png",
+                                                "gold": 0,
+                                                "silver": 0,
+                                                "bronze": 2,
+                                                "total": 2,
+                                                "medals_by_year": [
+                                                    {"year": 1972, "gold": 0, "silver": 0, "bronze": 1},
+                                                    {"year": 2000, "gold": 0, "silver": 0, "bronze": 1}
+                                                ]
+                                            },
+                                            {
+                                                "country": "Namibia",
+                                                "flag": "/static/css/images/flags/NA.png",
+                                                "gold": 0,
+                                                "silver": 5,
+                                                "bronze": 0,
+                                                "total": 5,
+                                                "medals_by_year": [
+                                                    {"year": 1992, "gold": 0, "silver": 2, "bronze": 0},
+                                                    {"year": 1996, "gold": 0, "silver": 2, "bronze": 0},
+                                                    {"year": 2020, "gold": 0, "silver": 1, "bronze": 0}
+                                                ]
+                                            },
+                                            {
+                                                "country": "Nauru",
+                                                "flag": "/static/css/images/flags/NR.png",
+                                                "gold": 0,
+                                                "silver": 0,
+                                                "bronze": 0,
+                                                "total": 0,
+                                                "medals_by_year": []
+                                            },
+                                            {
+                                                "country": "Nepal",
+                                                "flag": "/static/css/images/flags/NP.png",
+                                                "gold": 0,
+                                                "silver": 0,
+                                                "bronze": 0,
+                                                "total": 0,
+                                                "medals_by_year": []
+                                            },
+                                            {
+                                                "country": "Países Bajos",
+                                                "flag": "/static/css/images/flags/NL.png",
+                                                "gold": 92,
+                                                "silver": 101,
+                                                "bronze": 114,
+                                                "total": 307,
+                                                "medals_by_year": [
+                                                    {"year": 1928, "gold": 6, "silver": 9, "bronze": 4},
+                                                    {"year": 1948, "gold": 5, "silver": 2, "bronze": 9},
+                                                    {"year": 1972, "gold": 8, "silver": 7, "bronze": 1},
+                                                    {"year": 2000, "gold": 12, "silver": 9, "bronze": 4},
+                                                    {"year": 2016, "gold": 8, "silver": 7, "bronze": 4},
+                                                    {"year": 2020, "gold": 10, "silver": 12, "bronze": 14}
+                                                ]
+                                            },
+                                                {
+                                                    "country": "Nueva Zelanda",
+                                                    "flag": "/static/css/images/flags/NZ.png",
+                                                    "gold": 53,
+                                                    "silver": 34,
+                                                    "bronze": 53,
+                                                    "total": 140,
+                                                    "medals_by_year": [
+                                                        {"year": 1920, "gold": 0, "silver": 1, "bronze": 0},
+                                                        {"year": 1972, "gold": 2, "silver": 1, "bronze": 1},
+                                                        {"year": 1984, "gold": 8, "silver": 1, "bronze": 2},
+                                                        {"year": 2000, "gold": 4, "silver": 1, "bronze": 3},
+                                                        {"year": 2016, "gold": 4, "silver": 9, "bronze": 5},
+                                                        {"year": 2020, "gold": 7, "silver": 6, "bronze": 7}
+                                                    ]
+                                                },
+                                                {
+                                                    "country": "Nicaragua",
+                                                    "flag": "/static/css/images/flags/NI.png",
+                                                    "gold": 0,
+                                                    "silver": 0,
+                                                    "bronze": 0,
+                                                    "total": 0,
+                                                    "medals_by_year": []
+                                                },
+                                                {
+                                                    "country": "Níger",
+                                                    "flag": "/static/css/images/flags/NE.png",
+                                                    "gold": 0,
+                                                    "silver": 1,
+                                                    "bronze": 1,
+                                                    "total": 2,
+                                                    "medals_by_year": [
+                                                        {"year": 1972, "gold": 0, "silver": 1, "bronze": 0},
+                                                        {"year": 2016, "gold": 0, "silver": 0, "bronze": 1}
+                                                    ]
+                                                },
+                                                {
+                                                    "country": "Nigeria",
+                                                    "flag": "/static/css/images/flags/NG.png",
+                                                    "gold": 3,
+                                                    "silver": 11,
+                                                    "bronze": 13,
+                                                    "total": 27,
+                                                    "medals_by_year": [
+                                                        {"year": 1992, "gold": 0, "silver": 3, "bronze": 1},
+                                                        {"year": 1996, "gold": 2, "silver": 1, "bronze": 3},
+                                                        {"year": 2008, "gold": 1, "silver": 0, "bronze": 2},
+                                                        {"year": 2016, "gold": 0, "silver": 1, "bronze": 0},
+                                                        {"year": 2020, "gold": 0, "silver": 0, "bronze": 2}
+                                                    ]
+                                                },
+                                                {
+                                                    "country": "Macedonia del Norte",
+                                                    "flag": "/static/css/images/flags/MK.png",
+                                                    "gold": 0,
+                                                    "silver": 1,
+                                                    "bronze": 1,
+                                                    "total": 2,
+                                                    "medals_by_year": [
+                                                        {"year": 2000, "gold": 0, "silver": 1, "bronze": 0},
+                                                        {"year": 2020, "gold": 0, "silver": 0, "bronze": 1}
+                                                    ]
+                                                },
+                                                {
+                                                    "country": "Noruega",
+                                                    "flag": "/static/css/images/flags/NO.png",
+                                                    "gold": 60,
+                                                    "silver": 53,
+                                                    "bronze": 49,
+                                                    "total": 162,
+                                                    "medals_by_year": [
+                                                        {"year": 1920, "gold": 4, "silver": 2, "bronze": 4},
+                                                        {"year": 1952, "gold": 3, "silver": 2, "bronze": 0},
+                                                        {"year": 2000, "gold": 4, "silver": 3, "bronze": 3},
+                                                        {"year": 2008, "gold": 3, "silver": 5, "bronze": 1},
+                                                        {"year": 2016, "gold": 4, "silver": 4, "bronze": 1},
+                                                        {"year": 2020, "gold": 4, "silver": 2, "bronze": 2}
+                                                    ]
+                                                },
+                                                {
+                                                    "country": "Omán",
+                                                    "flag": "/static/css/images/flags/OM.png",
+                                                    "gold": 0,
+                                                    "silver": 0,
+                                                    "bronze": 0,
+                                                    "total": 0,
+                                                    "medals_by_year": []
+                                                },
+                                                {
+                                                    "country": "Pakistán",
+                                                    "flag": "/static/css/images/flags/PK.png",
+                                                    "gold": 3,
+                                                    "silver": 3,
+                                                    "bronze": 4,
+                                                    "total": 10,
+                                                    "medals_by_year": [
+                                                        {"year": 1956, "gold": 0, "silver": 1, "bronze": 0},
+                                                        {"year": 1960, "gold": 0, "silver": 1, "bronze": 0},
+                                                        {"year": 1968, "gold": 1, "silver": 0, "bronze": 1},
+                                                        {"year": 1984, "gold": 0, "silver": 0, "bronze": 1},
+                                                        {"year": 1992, "gold": 0, "silver": 1, "bronze": 0}
+                                                    ]
+                                                },
+                                                {
+                                                    "country": "Palaos",
+                                                    "flag": "/static/css/images/flags/PW.png",
+                                                    "gold": 0,
+                                                    "silver": 0,
+                                                    "bronze": 0,
+                                                    "total": 0,
+                                                    "medals_by_year": []
+                                                },
+                                                {
+                                                    "country": "Panamá",
+                                                    "flag": "/static/css/images/flags/PA.png",
+                                                    "gold": 1,
+                                                    "silver": 0,
+                                                    "bronze": 2,
+                                                    "total": 3,
+                                                    "medals_by_year": [
+                                                        {"year": 1948, "gold": 0, "silver": 0, "bronze": 1},
+                                                        {"year": 2008, "gold": 0, "silver": 0, "bronze": 1},
+                                                        {"year": 2012, "gold": 1, "silver": 0, "bronze": 0}
+                                                    ]
+                                                },
+                                                    {
+                                                        "country": "Papúa Nueva Guinea",
+                                                        "flag": "/static/css/images/flags/PG.png",
+                                                        "gold": 0,
+                                                        "silver": 0,
+                                                        "bronze": 0,
+                                                        "total": 0,
+                                                        "medals_by_year": []
+                                                    },
+                                                    {
+                                                        "country": "Paraguay",
+                                                        "flag": "/static/css/images/flags/PY.png",
+                                                        "gold": 0,
+                                                        "silver": 1,
+                                                        "bronze": 0,
+                                                        "total": 1,
+                                                        "medals_by_year": [
+                                                            {"year": 2004, "gold": 0, "silver": 1, "bronze": 0}
+                                                        ]
+                                                    },
+                                                    {
+                                                        "country": "Perú",
+                                                        "flag": "/static/css/images/flags/PE.png",
+                                                        "gold": 1,
+                                                        "silver": 3,
+                                                        "bronze": 0,
+                                                        "total": 4,
+                                                        "medals_by_year": [
+                                                            {"year": 1948, "gold": 0, "silver": 1, "bronze": 0},
+                                                            {"year": 1992, "gold": 0, "silver": 1, "bronze": 0},
+                                                            {"year": 2016, "gold": 0, "silver": 1, "bronze": 0},
+                                                            {"year": 2020, "gold": 1, "silver": 0, "bronze": 0}
+                                                        ]
+                                                    },
+                                                    {
+                                                        "country": "Filipinas",
+                                                        "flag": "/static/css/images/flags/PH.png",
+                                                        "gold": 1,
+                                                        "silver": 5,
+                                                        "bronze": 8,
+                                                        "total": 14,
+                                                        "medals_by_year": [
+                                                            {"year": 1928, "gold": 0, "silver": 0, "bronze": 1},
+                                                            {"year": 1932, "gold": 0, "silver": 0, "bronze": 3},
+                                                            {"year": 1996, "gold": 0, "silver": 0, "bronze": 1},
+                                                            {"year": 2016, "gold": 0, "silver": 1, "bronze": 0},
+                                                            {"year": 2020, "gold": 1, "silver": 2, "bronze": 1}
+                                                        ]
+                                                    },
+                                                    {
+                                                        "country": "Polonia",
+                                                        "flag": "/static/css/images/flags/PL.png",
+                                                        "gold": 78,
+                                                        "silver": 95,
+                                                        "bronze": 146,
+                                                        "total": 319,
+                                                        "medals_by_year": [
+                                                            {"year": 1928, "gold": 1, "silver": 1, "bronze": 3},
+                                                            {"year": 1972, "gold": 7, "silver": 5, "bronze": 9},
+                                                            {"year": 1980, "gold": 3, "silver": 14, "bronze": 15},
+                                                            {"year": 2000, "gold": 6, "silver": 5, "bronze": 3},
+                                                            {"year": 2008, "gold": 3, "silver": 6, "bronze": 1},
+                                                            {"year": 2020, "gold": 4, "silver": 5, "bronze": 5}
+                                                        ]
+                                                    },
+                                                    {
+                                                        "country": "Portugal",
+                                                        "flag": "/static/css/images/flags/PT.png",
+                                                        "gold": 5,
+                                                        "silver": 10,
+                                                        "bronze": 14,
+                                                        "total": 29,
+                                                        "medals_by_year": [
+                                                            {"year": 1984, "gold": 1, "silver": 0, "bronze": 2},
+                                                            {"year": 1996, "gold": 0, "silver": 1, "bronze": 1},
+                                                            {"year": 2004, "gold": 0, "silver": 2, "bronze": 1},
+                                                            {"year": 2016, "gold": 1, "silver": 0, "bronze": 1},
+                                                            {"year": 2020, "gold": 1, "silver": 1, "bronze": 2}
+                                                        ]
+                                                    },
+                                                    {
+                                                        "country": "Catar",
+                                                        "flag": "/static/css/images/flags/QA.png",
+                                                        "gold": 2,
+                                                        "silver": 2,
+                                                        "bronze": 4,
+                                                        "total": 8,
+                                                        "medals_by_year": [
+                                                            {"year": 1992, "gold": 0, "silver": 0, "bronze": 1},
+                                                            {"year": 2012, "gold": 0, "silver": 0, "bronze": 2},
+                                                            {"year": 2016, "gold": 0, "silver": 0, "bronze": 1},
+                                                            {"year": 2020, "gold": 2, "silver": 2, "bronze": 0}
+                                                        ]
+                                                    },
+                                                    {
+                                                        "country": "Rumania",
+                                                        "flag": "/static/css/images/flags/RO.png",
+                                                        "gold": 89,
+                                                        "silver": 95,
+                                                        "bronze": 122,
+                                                        "total": 306,
+                                                        "medals_by_year": [
+                                                            {"year": 1952, "gold": 1, "silver": 1, "bronze": 2},
+                                                            {"year": 1976, "gold": 4, "silver": 9, "bronze": 14},
+                                                            {"year": 1984, "gold": 20, "silver": 16, "bronze": 17},
+                                                            {"year": 2000, "gold": 11, "silver": 6, "bronze": 9},
+                                                            {"year": 2012, "gold": 2, "silver": 5, "bronze": 2},
+                                                            {"year": 2016, "gold": 1, "silver": 1, "bronze": 2}
+                                                        ]
+                                                    },
+                                                    {
+                                                        "country": "Rusia",
+                                                        "flag": "/static/css/images/flags/RU.png",
+                                                        "gold": 196,
+                                                        "silver": 164,
+                                                        "bronze": 187,
+                                                        "total": 547,
+                                                        "medals_by_year": [
+                                                            {"year": 1996, "gold": 26, "silver": 21, "bronze": 16},
+                                                            {"year": 2000, "gold": 32, "silver": 28, "bronze": 29},
+                                                            {"year": 2008, "gold": 23, "silver": 21, "bronze": 28},
+                                                            {"year": 2012, "gold": 24, "silver": 26, "bronze": 32},
+                                                            {"year": 2016, "gold": 19, "silver": 17, "bronze": 20},
+                                                            {"year": 2020, "gold": 20, "silver": 28, "bronze": 23}
+                                                        ]
+                                                    },
+                                                    {
+                                                        "country": "Ruanda",
+                                                        "flag": "/static/css/images/flags/RW.png",
+                                                        "gold": 0,
+                                                        "silver": 1,
+                                                        "bronze": 0,
+                                                        "total": 1,
+                                                        "medals_by_year": [
+                                                            {"year": 1988, "gold": 0, "silver": 1, "bronze": 0}
+                                                        ]
+                                                    },
+                                                        {
+                                                            "country": "San Cristóbal y Nieves",
+                                                            "flag": "/static/css/images/flags/KN.png",
+                                                            "gold": 0,
+                                                            "silver": 0,
+                                                            "bronze": 1,
+                                                            "total": 1,
+                                                            "medals_by_year": [
+                                                                {"year": 2000, "gold": 0, "silver": 0, "bronze": 1}
+                                                            ]
+                                                        },
+                                                        {
+                                                            "country": "Santa Lucía",
+                                                            "flag": "/static/css/images/flags/LC.png",
+                                                            "gold": 0,
+                                                            "silver": 0,
+                                                            "bronze": 0,
+                                                            "total": 0,
+                                                            "medals_by_year": []
+                                                        },
+                                                        {
+                                                            "country": "San Vicente y las Granadinas",
+                                                            "flag": "/static/css/images/flags/VC.png",
+                                                            "gold": 0,
+                                                            "silver": 0,
+                                                            "bronze": 0,
+                                                            "total": 0,
+                                                            "medals_by_year": []
+                                                        },
+                                                        {
+                                                            "country": "Samoa",
+                                                            "flag": "/static/css/images/flags/WS.png",
+                                                            "gold": 0,
+                                                            "silver": 1,
+                                                            "bronze": 0,
+                                                            "total": 1,
+                                                            "medals_by_year": [
+                                                                {"year": 2008, "gold": 0, "silver": 1, "bronze": 0}
+                                                            ]
+                                                        },
+                                                        {
+                                                            "country": "San Marino",
+                                                            "flag": "/static/css/images/flags/SM.png",
+                                                            "gold": 0,
+                                                            "silver": 1,
+                                                            "bronze": 2,
+                                                            "total": 3,
+                                                            "medals_by_year": [
+                                                                {"year": 2020, "gold": 0, "silver": 1, "bronze": 2}
+                                                            ]
+                                                        },
+                                                        {
+                                                            "country": "Santo Tomé y Príncipe",
+                                                            "flag": "/static/css/images/flags/ST.png",
+                                                            "gold": 0,
+                                                            "silver": 0,
+                                                            "bronze": 0,
+                                                            "total": 0,
+                                                            "medals_by_year": []
+                                                        },
+                                                        {
+                                                            "country": "Arabia Saudita",
+                                                            "flag": "/static/css/images/flags/SA.png",
+                                                            "gold": 0,
+                                                            "silver": 2,
+                                                            "bronze": 1,
+                                                            "total": 3,
+                                                            "medals_by_year": [
+                                                                {"year": 2000, "gold": 0, "silver": 1, "bronze": 0},
+                                                                {"year": 2012, "gold": 0, "silver": 1, "bronze": 0},
+                                                                {"year": 2020, "gold": 0, "silver": 0, "bronze": 1}
+                                                            ]
+                                                        },
+                                                        {
+                                                            "country": "Senegal",
+                                                            "flag": "/static/css/images/flags/SN.png",
+                                                            "gold": 0,
+                                                            "silver": 1,
+                                                            "bronze": 1,
+                                                            "total": 2,
+                                                            "medals_by_year": [
+                                                                {"year": 1988, "gold": 0, "silver": 1, "bronze": 0},
+                                                                {"year": 2020, "gold": 0, "silver": 0, "bronze": 1}
+                                                            ]
+                                                        },
+                                                        {
+                                                            "country": "Serbia",
+                                                            "flag": "/static/css/images/flags/RS.png",
+                                                            "gold": 4,
+                                                            "silver": 7,
+                                                            "bronze": 8,
+                                                            "total": 19,
+                                                            "medals_by_year": [
+                                                                {"year": 2008, "gold": 1, "silver": 2, "bronze": 3},
+                                                                {"year": 2012, "gold": 1, "silver": 2, "bronze": 1},
+                                                                {"year": 2016, "gold": 2, "silver": 1, "bronze": 4},
+                                                                {"year": 2020, "gold": 0, "silver": 2, "bronze": 0}
+                                                            ]
+                                                        },
+                                                        {
+                                                            "country": "Seychelles",
+                                                            "flag": "/static/css/images/flags/SC.png",
+                                                            "gold": 0,
+                                                            "silver": 0,
+                                                            "bronze": 0,
+                                                            "total": 0,
+                                                            "medals_by_year": []
+                                                        },
+                                                            {
+                                                                "country": "Sierra Leona",
+                                                                "flag": "/static/css/images/flags/SL.png",
+                                                                "gold": 0,
+                                                                "silver": 0,
+                                                                "bronze": 0,
+                                                                "total": 0,
+                                                                "medals_by_year": []
+                                                            },
+                                                            {
+                                                                "country": "Singapur",
+                                                                "flag": "/static/css/images/flags/SG.png",
+                                                                "gold": 1,
+                                                                "silver": 2,
+                                                                "bronze": 2,
+                                                                "total": 5,
+                                                                "medals_by_year": [
+                                                                    {"year": 1960, "gold": 0, "silver": 0, "bronze": 1},
+                                                                    {"year": 2008, "gold": 0, "silver": 1, "bronze": 0},
+                                                                    {"year": 2012, "gold": 0, "silver": 1, "bronze": 1},
+                                                                    {"year": 2016, "gold": 1, "silver": 0, "bronze": 0}
+                                                                ]
+                                                            },
+                                                            {
+                                                                "country": "Eslovaquia",
+                                                                "flag": "/static/css/images/flags/SK.png",
+                                                                "gold": 11,
+                                                                "silver": 16,
+                                                                "bronze": 8,
+                                                                "total": 35,
+                                                                "medals_by_year": [
+                                                                    {"year": 1996, "gold": 1, "silver": 3, "bronze": 1},
+                                                                    {"year": 2004, "gold": 2, "silver": 2, "bronze": 2},
+                                                                    {"year": 2008, "gold": 3, "silver": 2, "bronze": 1},
+                                                                    {"year": 2012, "gold": 1, "silver": 1, "bronze": 3},
+                                                                    {"year": 2016, "gold": 2, "silver": 4, "bronze": 0},
+                                                                    {"year": 2020, "gold": 2, "silver": 3, "bronze": 1}
+                                                                ]
+                                                            },
+                                                            {
+                                                                "country": "Eslovenia",
+                                                                "flag": "/static/css/images/flags/SI.png",
+                                                                "gold": 7,
+                                                                "silver": 9,
+                                                                "bronze": 11,
+                                                                "total": 27,
+                                                                "medals_by_year": [
+                                                                    {"year": 1992, "gold": 0, "silver": 1, "bronze": 1},
+                                                                    {"year": 2000, "gold": 0, "silver": 1, "bronze": 2},
+                                                                    {"year": 2008, "gold": 0, "silver": 1, "bronze": 2},
+                                                                    {"year": 2016, "gold": 1, "silver": 2, "bronze": 1},
+                                                                    {"year": 2020, "gold": 3, "silver": 1, "bronze": 1}
+                                                                ]
+                                                            },
+                                                            {
+                                                                "country": "Islas Salomón",
+                                                                "flag": "/static/css/images/flags/SB.png",
+                                                                "gold": 0,
+                                                                "silver": 0,
+                                                                "bronze": 0,
+                                                                "total": 0,
+                                                                "medals_by_year": []
+                                                            },
+                                                            {
+                                                                "country": "Somalia",
+                                                                "flag": "/static/css/images/flags/SO.png",
+                                                                "gold": 0,
+                                                                "silver": 0,
+                                                                "bronze": 0,
+                                                                "total": 0,
+                                                                "medals_by_year": []
+                                                            },
+                                                            {
+                                                                "country": "Sudáfrica",
+                                                                "flag": "/static/css/images/flags/ZA.png",
+                                                                "gold": 27,
+                                                                "silver": 33,
+                                                                "bronze": 29,
+                                                                "total": 89,
+                                                                "medals_by_year": [
+                                                                    {"year": 1920, "gold": 3, "silver": 4, "bronze": 3},
+                                                                    {"year": 1952, "gold": 2, "silver": 4, "bronze": 4},
+                                                                    {"year": 1996, "gold": 3, "silver": 1, "bronze": 1},
+                                                                    {"year": 2008, "gold": 1, "silver": 0, "bronze": 3},
+                                                                    {"year": 2012, "gold": 3, "silver": 2, "bronze": 1},
+                                                                    {"year": 2016, "gold": 2, "silver": 6, "bronze": 2},
+                                                                    {"year": 2020, "gold": 1, "silver": 2, "bronze": 0}
+                                                                ]
+                                                            },
+                                                            {
+                                                                "country": "España",
+                                                                "flag": "/static/css/images/flags/ES.png",
+                                                                "gold": 48,
+                                                                "silver": 72,
+                                                                "bronze": 49,
+                                                                "total": 169,
+                                                                "medals_by_year": [
+                                                                    {"year": 1920, "gold": 0, "silver": 2, "bronze": 0},
+                                                                    {"year": 1984, "gold": 1, "silver": 2, "bronze": 2},
+                                                                    {"year": 1992, "gold": 13, "silver": 7, "bronze": 2},
+                                                                    {"year": 2008, "gold": 5, "silver": 10, "bronze": 3},
+                                                                    {"year": 2016, "gold": 7, "silver": 4, "bronze": 6},
+                                                                    {"year": 2020, "gold": 3, "silver": 8, "bronze": 6}
+                                                                ]
+                                                            },
+                                                            {
+                                                                "country": "Sri Lanka",
+                                                                "flag": "/static/css/images/flags/LK.png",
+                                                                "gold": 0,
+                                                                "silver": 2,
+                                                                "bronze": 0,
+                                                                "total": 2,
+                                                                "medals_by_year": [
+                                                                    {"year": 1948, "gold": 0, "silver": 1, "bronze": 0},
+                                                                    {"year": 2000, "gold": 0, "silver": 1, "bronze": 0}
+                                                                ]
+                                                            },
+                                                            {
+                                                                "country": "Sudán",
+                                                                "flag": "/static/css/images/flags/SD.png",
+                                                                "gold": 0,
+                                                                "silver": 1,
+                                                                "bronze": 0,
+                                                                "total": 1,
+                                                                "medals_by_year": [
+                                                                    {"year": 2008, "gold": 0, "silver": 1, "bronze": 0}
+                                                                ]
+                                                            },
+                                                                {
+                                                                    "country": "Surinam",
+                                                                    "flag": "/static/css/images/flags/SR.png",
+                                                                    "gold": 1,
+                                                                    "silver": 0,
+                                                                    "bronze": 1,
+                                                                    "total": 2,
+                                                                    "medals_by_year": [
+                                                                        {"year": 1988, "gold": 1, "silver": 0, "bronze": 0},
+                                                                        {"year": 2004, "gold": 0, "silver": 0, "bronze": 1}
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "country": "Suazilandia",
+                                                                    "flag": "/static/css/images/flags/SZ.png",
+                                                                    "gold": 0,
+                                                                    "silver": 0,
+                                                                    "bronze": 0,
+                                                                    "total": 0,
+                                                                    "medals_by_year": []
+                                                                },
+                                                                {
+                                                                    "country": "Suecia",
+                                                                    "flag": "/static/css/images/flags/SE.png",
+                                                                    "gold": 148,
+                                                                    "silver": 176,
+                                                                    "bronze": 179,
+                                                                    "total": 503,
+                                                                    "medals_by_year": [
+                                                                        {"year": 1908, "gold": 8, "silver": 6, "bronze": 11},
+                                                                        {"year": 1912, "gold": 24, "silver": 24, "bronze": 17},
+                                                                        {"year": 1948, "gold": 10, "silver": 6, "bronze": 12},
+                                                                        {"year": 1972, "gold": 4, "silver": 6, "bronze": 6},
+                                                                        {"year": 2004, "gold": 4, "silver": 2, "bronze": 1},
+                                                                        {"year": 2016, "gold": 2, "silver": 6, "bronze": 3}
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "country": "Suiza",
+                                                                    "flag": "/static/css/images/flags/CH.png",
+                                                                    "gold": 56,
+                                                                    "silver": 80,
+                                                                    "bronze": 87,
+                                                                    "total": 223,
+                                                                    "medals_by_year": [
+                                                                        {"year": 1924, "gold": 7, "silver": 6, "bronze": 4},
+                                                                        {"year": 1948, "gold": 5, "silver": 10, "bronze": 5},
+                                                                        {"year": 1972, "gold": 4, "silver": 0, "bronze": 0},
+                                                                        {"year": 2008, "gold": 2, "silver": 1, "bronze": 4},
+                                                                        {"year": 2016, "gold": 3, "silver": 2, "bronze": 2},
+                                                                        {"year": 2020, "gold": 3, "silver": 4, "bronze": 6}
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "country": "Siria",
+                                                                    "flag": "/static/css/images/flags/SY.png",
+                                                                    "gold": 1,
+                                                                    "silver": 1,
+                                                                    "bronze": 2,
+                                                                    "total": 4,
+                                                                    "medals_by_year": [
+                                                                        {"year": 1984, "gold": 0, "silver": 0, "bronze": 1},
+                                                                        {"year": 1996, "gold": 1, "silver": 0, "bronze": 0},
+                                                                        {"year": 2004, "gold": 0, "silver": 1, "bronze": 0},
+                                                                        {"year": 2020, "gold": 0, "silver": 0, "bronze": 1}
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "country": "Taiwán",
+                                                                    "flag": "/static/css/images/flags/TW.png",
+                                                                    "gold": 7,
+                                                                    "silver": 11,
+                                                                    "bronze": 18,
+                                                                    "total": 36,
+                                                                    "medals_by_year": [
+                                                                        {"year": 1960, "gold": 0, "silver": 0, "bronze": 1},
+                                                                        {"year": 2004, "gold": 2, "silver": 2, "bronze": 1},
+                                                                        {"year": 2012, "gold": 1, "silver": 1, "bronze": 1},
+                                                                        {"year": 2016, "gold": 1, "silver": 0, "bronze": 2},
+                                                                        {"year": 2020, "gold": 2, "silver": 4, "bronze": 6}
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "country": "Tayikistán",
+                                                                    "flag": "/static/css/images/flags/TJ.png",
+                                                                    "gold": 1,
+                                                                    "silver": 1,
+                                                                    "bronze": 2,
+                                                                    "total": 4,
+                                                                    "medals_by_year": [
+                                                                        {"year": 2008, "gold": 0, "silver": 1, "bronze": 1},
+                                                                        {"year": 2016, "gold": 1, "silver": 0, "bronze": 0},
+                                                                        {"year": 2020, "gold": 0, "silver": 0, "bronze": 1}
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "country": "Tanzania",
+                                                                    "flag": "/static/css/images/flags/TZ.png",
+                                                                    "gold": 0,
+                                                                    "silver": 2,
+                                                                    "bronze": 0,
+                                                                    "total": 2,
+                                                                    "medals_by_year": [
+                                                                        {"year": 1980, "gold": 0, "silver": 2, "bronze": 0}
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "country": "Tailandia",
+                                                                    "flag": "/static/css/images/flags/TH.png",
+                                                                    "gold": 10,
+                                                                    "silver": 8,
+                                                                    "bronze": 17,
+                                                                    "total": 35,
+                                                                    "medals_by_year": [
+                                                                        {"year": 1976, "gold": 0, "silver": 0, "bronze": 1},
+                                                                        {"year": 1996, "gold": 1, "silver": 0, "bronze": 0},
+                                                                        {"year": 2004, "gold": 3, "silver": 1, "bronze": 4},
+                                                                        {"year": 2016, "gold": 2, "silver": 2, "bronze": 2},
+                                                                        {"year": 2020, "gold": 1, "silver": 0, "bronze": 1}
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "country": "Togo",
+                                                                    "flag": "/static/css/images/flags/TG.png",
+                                                                    "gold": 0,
+                                                                    "silver": 0,
+                                                                    "bronze": 1,
+                                                                    "total": 1,
+                                                                    "medals_by_year": [
+                                                                        {"year": 2008, "gold": 0, "silver": 0, "bronze": 1}
+                                                                    ]
+                                                                },
+                                                                    {
+                                                                        "country": "Tonga",
+                                                                        "flag": "/static/css/images/flags/TO.png",
+                                                                        "gold": 0,
+                                                                        "silver": 1,
+                                                                        "bronze": 0,
+                                                                        "total": 1,
+                                                                        "medals_by_year": [
+                                                                            {"year": 1996, "gold": 0, "silver": 1, "bronze": 0}
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "country": "Trinidad y Tobago",
+                                                                        "flag": "/static/css/images/flags/TT.png",
+                                                                        "gold": 3,
+                                                                        "silver": 5,
+                                                                        "bronze": 11,
+                                                                        "total": 19,
+                                                                        "medals_by_year": [
+                                                                            {"year": 1948, "gold": 0, "silver": 0, "bronze": 1},
+                                                                            {"year": 1964, "gold": 0, "silver": 0, "bronze": 1},
+                                                                            {"year": 1976, "gold": 0, "silver": 0, "bronze": 2},
+                                                                            {"year": 2008, "gold": 1, "silver": 1, "bronze": 0},
+                                                                            {"year": 2012, "gold": 0, "silver": 0, "bronze": 3},
+                                                                            {"year": 2016, "gold": 1, "silver": 0, "bronze": 3}
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "country": "Túnez",
+                                                                        "flag": "/static/css/images/flags/TN.png",
+                                                                        "gold": 4,
+                                                                        "silver": 3,
+                                                                        "bronze": 8,
+                                                                        "total": 15,
+                                                                        "medals_by_year": [
+                                                                            {"year": 1968, "gold": 0, "silver": 0, "bronze": 1},
+                                                                            {"year": 2008, "gold": 1, "silver": 1, "bronze": 1},
+                                                                            {"year": 2012, "gold": 1, "silver": 1, "bronze": 1},
+                                                                            {"year": 2020, "gold": 1, "silver": 0, "bronze": 1}
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "country": "Turquía",
+                                                                        "flag": "/static/css/images/flags/TR.png",
+                                                                        "gold": 41,
+                                                                        "silver": 27,
+                                                                        "bronze": 37,
+                                                                        "total": 105,
+                                                                        "medals_by_year": [
+                                                                            {"year": 1936, "gold": 1, "silver": 0, "bronze": 1},
+                                                                            {"year": 1948, "gold": 6, "silver": 4, "bronze": 2},
+                                                                            {"year": 2000, "gold": 3, "silver": 0, "bronze": 2},
+                                                                            {"year": 2004, "gold": 3, "silver": 3, "bronze": 5},
+                                                                            {"year": 2012, "gold": 2, "silver": 2, "bronze": 1},
+                                                                            {"year": 2020, "gold": 2, "silver": 2, "bronze": 9}
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "country": "Turkmenistán",
+                                                                        "flag": "/static/css/images/flags/TM.png",
+                                                                        "gold": 0,
+                                                                        "silver": 0,
+                                                                        "bronze": 1,
+                                                                        "total": 1,
+                                                                        "medals_by_year": [
+                                                                            {"year": 2020, "gold": 0, "silver": 0, "bronze": 1}
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "country": "Tuvalu",
+                                                                        "flag": "/static/css/images/flags/TV.png",
+                                                                        "gold": 0,
+                                                                        "silver": 0,
+                                                                        "bronze": 0,
+                                                                        "total": 0,
+                                                                        "medals_by_year": []
+                                                                    },
+                                                                    {
+                                                                        "country": "Uganda",
+                                                                        "flag": "/static/css/images/flags/UG.png",
+                                                                        "gold": 4,
+                                                                        "silver": 4,
+                                                                        "bronze": 3,
+                                                                        "total": 11,
+                                                                        "medals_by_year": [
+                                                                            {"year": 1972, "gold": 1, "silver": 0, "bronze": 1},
+                                                                            {"year": 2004, "gold": 1, "silver": 0, "bronze": 0},
+                                                                            {"year": 2012, "gold": 0, "silver": 0, "bronze": 1},
+                                                                            {"year": 2020, "gold": 2, "silver": 1, "bronze": 0}
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "country": "Ucrania",
+                                                                        "flag": "/static/css/images/flags/UA.png",
+                                                                        "gold": 38,
+                                                                        "silver": 36,
+                                                                        "bronze": 72,
+                                                                        "total": 146,
+                                                                        "medals_by_year": [
+                                                                            {"year": 1996, "gold": 9, "silver": 2, "bronze": 12},
+                                                                            {"year": 2000, "gold": 3, "silver": 10, "bronze": 10},
+                                                                            {"year": 2004, "gold": 9, "silver": 5, "bronze": 9},
+                                                                            {"year": 2008, "gold": 7, "silver": 5, "bronze": 15},
+                                                                            {"year": 2016, "gold": 2, "silver": 5, "bronze": 4},
+                                                                            {"year": 2020, "gold": 1, "silver": 6, "bronze": 12}
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "country": "Emiratos Árabes Unidos",
+                                                                        "flag": "/static/css/images/flags/AE.png",
+                                                                        "gold": 1,
+                                                                        "silver": 1,
+                                                                        "bronze": 1,
+                                                                        "total": 3,
+                                                                        "medals_by_year": [
+                                                                            {"year": 2004, "gold": 1, "silver": 0, "bronze": 0},
+                                                                            {"year": 2016, "gold": 0, "silver": 0, "bronze": 1},
+                                                                            {"year": 2020, "gold": 0, "silver": 1, "bronze": 0}
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "country": "Reino Unido",
+                                                                        "flag": "/static/css/images/flags/GB.png",
+                                                                        "gold": 296,
+                                                                        "silver": 320,
+                                                                        "bronze": 332,
+                                                                        "total": 948,
+                                                                        "medals_by_year": [
+                                                                            {"year": 1908, "gold": 56, "silver": 51, "bronze": 39},
+                                                                            {"year": 1920, "gold": 15, "silver": 15, "bronze": 13},
+                                                                            {"year": 1984, "gold": 5, "silver": 11, "bronze": 21},
+                                                                            {"year": 2012, "gold": 29, "silver": 17, "bronze": 19},
+                                                                            {"year": 2016, "gold": 27, "silver": 23, "bronze": 17},
+                                                                            {"year": 2020, "gold": 22, "silver": 21, "bronze": 22}
+                                                                        ]
+                                                                    },
+                                                                        {
+                                                                            "country": "Estados Unidos",
+                                                                            "flag": "/static/css/images/flags/US.png",
+                                                                            "gold": 1180,
+                                                                            "silver": 959,
+                                                                            "bronze": 841,
+                                                                            "total": 2980,
+                                                                            "medals_by_year": [
+                                                                                {"year": 1896, "gold": 11, "silver": 7, "bronze": 2},
+                                                                                {"year": 1904, "gold": 78, "silver": 82, "bronze": 79},
+                                                                                {"year": 1932, "gold": 41, "silver": 32, "bronze": 30},
+                                                                                {"year": 1984, "gold": 83, "silver": 61, "bronze": 30},
+                                                                                {"year": 2012, "gold": 46, "silver": 28, "bronze": 30},
+                                                                                {"year": 2016, "gold": 46, "silver": 37, "bronze": 38},
+                                                                                {"year": 2020, "gold": 39, "silver": 41, "bronze": 33}
+                                                                            ]
+                                                                        },
+                                                                        {
+                                                                            "country": "Uruguay",
+                                                                            "flag": "/static/css/images/flags/UY.png",
+                                                                            "gold": 2,
+                                                                            "silver": 2,
+                                                                            "bronze": 6,
+                                                                            "total": 10,
+                                                                            "medals_by_year": [
+                                                                                {"year": 1924, "gold": 1, "silver": 0, "bronze": 0},
+                                                                                {"year": 1928, "gold": 1, "silver": 0, "bronze": 0},
+                                                                                {"year": 1952, "gold": 0, "silver": 1, "bronze": 1},
+                                                                                {"year": 2016, "gold": 0, "silver": 0, "bronze": 1}
+                                                                            ]
+                                                                        },
+                                                                        {
+                                                                            "country": "Uzbekistán",
+                                                                            "flag": "/static/css/images/flags/UZ.png",
+                                                                            "gold": 11,
+                                                                            "silver": 6,
+                                                                            "bronze": 18,
+                                                                            "total": 35,
+                                                                            "medals_by_year": [
+                                                                                {"year": 1996, "gold": 1, "silver": 1, "bronze": 2},
+                                                                                {"year": 2000, "gold": 0, "silver": 1, "bronze": 3},
+                                                                                {"year": 2008, "gold": 1, "silver": 2, "bronze": 3},
+                                                                                {"year": 2016, "gold": 4, "silver": 2, "bronze": 7},
+                                                                                {"year": 2020, "gold": 3, "silver": 0, "bronze": 1}
+                                                                            ]
+                                                                        },
+                                                                        {
+                                                                            "country": "Vanuatu",
+                                                                            "flag": "/static/css/images/flags/VU.png",
+                                                                            "gold": 0,
+                                                                            "silver": 0,
+                                                                            "bronze": 0,
+                                                                            "total": 0,
+                                                                            "medals_by_year": []
+                                                                        },
+                                                                        {
+                                                                            "country": "Venezuela",
+                                                                            "flag": "/static/css/images/flags/VE.png",
+                                                                            "gold": 3,
+                                                                            "silver": 7,
+                                                                            "bronze": 10,
+                                                                            "total": 20,
+                                                                            "medals_by_year": [
+                                                                                {"year": 1952, "gold": 0, "silver": 0, "bronze": 1},
+                                                                                {"year": 1968, "gold": 0, "silver": 0, "bronze": 1},
+                                                                                {"year": 1984, "gold": 0, "silver": 0, "bronze": 1},
+                                                                                {"year": 2004, "gold": 0, "silver": 0, "bronze": 2},
+                                                                                {"year": 2016, "gold": 0, "silver": 2, "bronze": 1},
+                                                                                {"year": 2020, "gold": 1, "silver": 3, "bronze": 0}
+                                                                            ]
+                                                                        },
+                                                                        {
+                                                                            "country": "Vietnam",
+                                                                            "flag": "/static/css/images/flags/VN.png",
+                                                                            "gold": 1,
+                                                                            "silver": 3,
+                                                                            "bronze": 1,
+                                                                            "total": 5,
+                                                                            "medals_by_year": [
+                                                                                {"year": 2000, "gold": 0, "silver": 0, "bronze": 1},
+                                                                                {"year": 2008, "gold": 0, "silver": 1, "bronze": 0},
+                                                                                {"year": 2016, "gold": 1, "silver": 1, "bronze": 0},
+                                                                                {"year": 2020, "gold": 0, "silver": 1, "bronze": 0}
+                                                                            ]
+                                                                        },
+                                                                        {
+                                                                            "country": "Yemen",
+                                                                            "flag": "/static/css/images/flags/YE.png",
+                                                                            "gold": 0,
+                                                                            "silver": 0,
+                                                                            "bronze": 0,
+                                                                            "total": 0,
+                                                                            "medals_by_year": []
+                                                                        },
+                                                                        {
+                                                                            "country": "Zambia",
+                                                                            "flag": "/static/css/images/flags/ZM.png",
+                                                                            "gold": 0,
+                                                                            "silver": 1,
+                                                                            "bronze": 1,
+                                                                            "total": 2,
+                                                                            "medals_by_year": [
+                                                                                {"year": 1984, "gold": 0, "silver": 0, "bronze": 1},
+                                                                                {"year": 1996, "gold": 0, "silver": 1, "bronze": 0}
+                                                                            ]
+                                                                        },
+                                                                        {
+                                                                            "country": "Zimbabue",
+                                                                            "flag": "/static/css/images/flags/ZW.png",
+                                                                            "gold": 3,
+                                                                            "silver": 4,
+                                                                            "bronze": 1,
+                                                                            "total": 8,
+                                                                            "medals_by_year": [
+                                                                                {"year": 1980, "gold": 1, "silver": 0, "bronze": 0},
+                                                                                {"year": 2004, "gold": 2, "silver": 1, "bronze": 1},
+                                                                                {"year": 2008, "gold": 0, "silver": 4, "bronze": 0}
+                                                                            ]
+                                                                        }
+]

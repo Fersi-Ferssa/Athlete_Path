@@ -11,6 +11,8 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'athlete_path.settings')
+settings_module = 'athlete_path.production' if 'WEBSITE_HOSTNAME' in os.environ else 'athlete_path.settings'
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', settings_module)
 
 application = get_wsgi_application()
