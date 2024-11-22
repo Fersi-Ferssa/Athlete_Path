@@ -1,0 +1,36 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enviar Video para Análisis</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'css/images/WhiteLogo.png' %}">
+</head>
+<body class="analyze-video-body">
+    <!-- Contenedor principal -->
+    <div class="analyze-video-form-container">
+        <!-- Logo y título dentro del contenedor -->
+        <div class="analyze-video-header">
+            <img src="{% static '/css/images/Logo.png' %}" alt="Logo Athlete Path">
+        </div>
+        <h1 class="analyze-video-title">Enviar Video para Análisis</h1>
+        
+        <!-- Formulario para enviar URL -->
+        <form method="POST" action="">
+            {% csrf_token %}
+            <label for="video_url">URL del Video:</label>
+            <input type="text" name="video_url" id="video_url" placeholder="Ingresa la URL del video" required>
+            <button type="submit" class="analyze-video-button-primary">Enviar Video para Análisis</button>
+        </form>     
+        
+        <!-- Botón para regresar al perfil del atleta -->
+        <form action="{% url 'athlete_profile' %}" method="get">
+            <button type="submit" class="analyze-video-button-secondary">Volver al Perfil del Atleta</button>
+        </form> 
+    </div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Evaluación de {{ record.athlete.user.first_name }} {{ record.athlete.user.last_name }}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'css/images/WhiteLogo.png' %}">
+</head>
+<body class="edit-evaluation-body">
+    <div class="edit-evaluation-container">
+        <!-- Logo centrado -->
+        <div class="logo-container">
+            <a href="{% url 'home' %}">
+                <img src="{% static 'css/images/Logo.png' %}" alt="Logo" class="logo-img">
+            </a>
+        </div>
+
+        <h2 class="edit-evaluation-title">Editar Evaluación de {{ record.athlete.user.first_name }} {{ record.athlete.user.last_name }}</h2>
+        
+        <form method="POST" action="{% url 'edit_evaluation' record.id %}">
+            {% csrf_token %}
+            <div class="form-section">
+                <ul class="criteria-list">
+                    {% for criterion in evaluation_criteria %}
+                        <li class="criterion-item">
+                            <label for="criterion_{{ criterion.id }}" class="criterion-label">{{ criterion.criterion_name }}</label>
+                            <input type="number" id="criterion_{{ criterion.id }}" name="criterion_{{ criterion.id }}" value="{{ criterion.score }}" min="1" max="10" required class="criterion-input">
+                            <textarea name="note_{{ criterion.id }}" rows="2" placeholder="Escribe tus notas" class="criterion-textarea">{{ criterion.notes }}</textarea>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="button-container">
+                <button type="submit" class="button save-btn" onclick="return confirm('¿Estás seguro de guardar los cambios?');">Guardar Cambios</button>
+                <button type="button" class="button cancel-btn" onclick="window.history.back();">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

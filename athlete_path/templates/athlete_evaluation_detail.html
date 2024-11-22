@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles de la Evaluación de {{ record.athlete.user.first_name }} {{ record.athlete.user.last_name }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'css/images/WhiteLogo.png' %}">
+</head>
+<body class="athlete-eval-body">
+    <div class="athlete-eval-outer-container">
+        <div class="athlete-eval-container">
+            <!-- Logo encima del título -->
+            <a href="{% url 'home' %}">
+                <img src="{% static 'css/images/Logo.png' %}" alt="Logo Athlete Path" class="athlete-eval-logo">
+            </a>
+
+            <!-- Título de la evaluación -->
+            <h1 class="athlete-eval-header">Detalles de la Evaluación de {{ record.athlete.user.first_name }} {{ record.athlete.user.last_name }}</h1>
+            
+            <p class="athlete-eval-text"><strong>Fecha de Evaluación:</strong> {{ record.evaluation_date }}</p>
+            <p class="athlete-eval-text"><strong>Evaluado por:</strong> {{ record.coach.user.first_name }} {{ record.coach.user.last_name }}</p>
+
+            <!-- Subtítulo de criterios -->
+            <h3 class="athlete-eval-subheader">Criterios de Evaluación:</h3>
+            <ul class="athlete-eval-list">
+                {% for criterion in evaluation_criteria %}
+                <li class="athlete-eval-list-item">
+                    <strong>{{ criterion.criterion_name }}:</strong> {{ criterion.score }}<br>
+                    <strong>Notas:</strong> {{ criterion.notes }}
+                </li>
+                {% endfor %}
+            </ul>
+
+            <p class="athlete-eval-text"><strong>Suma de Calificaciones:</strong> {{ total_score }}</p>
+            <p class="athlete-eval-text"><strong>Última Modificación:</strong> {{ last_updated|date:"d de F de Y a las H:i" }}</p>
+
+            <!-- Botón para regresar -->
+            <div class="athlete-eval-button-container">
+                <button class="athlete-eval-back-button" onclick="window.history.back();">Regresar</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

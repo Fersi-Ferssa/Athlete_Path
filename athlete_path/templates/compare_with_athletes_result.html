@@ -1,128 +1,109 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comparar Atletas</title>
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .comparison-result-container {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 600px;
-            text-align: left;
-        }
-
-        h1, h2, h3 {
-            color: #4066d5;
-        }
-
-        h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-
-        h2, h3 {
-            font-size: 20px;
-            margin-bottom: 10px;
-        }
-
-        p {
-            font-size: 16px;
-            color: #333;
-            margin-bottom: 10px;
-        }
-
-        .highlight {
-            font-weight: bold;
-            color: #4066d5;
-        }
-
-        .comparison-block {
-            margin-bottom: 20px;
-            padding: 20px;
-            background-color: #f9f9f9;
-            border-radius: 8px;
-        }
-
-        button {
-            background-color: #4066d5;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin-top: 20px;
-        }
-
-        button:hover {
-            background-color: #3053b0;
-        }
-
-        @media (max-width: 600px) {
-            .comparison-result-container {
-                padding: 20px;
-            }
-
-            h1 {
-                font-size: 20px;
-            }
-
-            h2 {
-                font-size: 18px;
-            }
-
-            p {
-                font-size: 14px;
-            }
-        }
-    </style>
+    <title>Resultado de la Comparación</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'css/images/WhiteLogo.png' %}">
 </head>
-<body>
-    <div class="comparison-result-container">
-        <h1>Comparación con {{ compare_athlete.user.first_name }} {{ compare_athlete.user.last_name }}</h1>
-
-        <div class="comparison-block">
-            <h2>Tu Récord:</h2>
-            <p><strong>Fecha:</strong> <span class="highlight">{{ athlete_record.evaluation_date }}</span></p>
-            <p><strong>Dificultad:</strong> <span class="highlight">{{ athlete_record.difficulty }}</span></p>
-            <p><strong>Ejecución:</strong> <span class="highlight">{{ athlete_record.execution }}</span></p>
-            <p><strong>Puntuación Total:</strong> <span class="highlight">{{ athlete_record.total_score }}</span></p>
+<body class="compare-result-body">
+    <div class="compare-result-container">
+        <!-- Logo -->
+        <div class="compare-result-logo-container">
+            <a href="{% url 'home' %}">
+                <img src="{% static 'css/images/Logo.png' %}" alt="Logo Athlete Path" class="compare-result-logo">
+            </a>
         </div>
 
-        <div class="comparison-block">
-            <h2>Récord de {{ compare_athlete.user.first_name }} {{ compare_athlete.user.last_name }}:</h2>
-            <p><strong>Fecha:</strong> <span class="highlight">{{ compare_record.evaluation_date }}</span></p>
-            <p><strong>Dificultad:</strong> <span class="highlight">{{ compare_record.difficulty }}</span></p>
-            <p><strong>Ejecución:</strong> <span class="highlight">{{ compare_record.execution }}</span></p>
-            <p><strong>Puntuación Total:</strong> <span class="highlight">{{ compare_record.total_score }}</span></p>
+        <!-- Título -->
+        <h1 class="compare-result-title">Resultado de la Comparación</h1>
+
+        <!-- Bloque 1: Tu récord -->
+        <div class="compare-result-block">
+            <h3 class="compare-result-block-title">Tu Récord:</h3>
+            <p><strong>Fecha:</strong> <span class="compare-result-highlight">{{ athlete_record.evaluation_date }}</span></p>
+            <h4>Criterios de Evaluación:</h4>
+            <ul class="compare-result-list">
+                {% for criterion in current_criteria %}
+                <li class="compare-result-list-item">
+                    <strong>{{ criterion.criterion_name }}:</strong> {{ criterion.score }}<br>
+                    <strong>Notas:</strong> {{ criterion.notes }}
+                </li>
+                {% endfor %}
+            </ul>
+            <p><strong>Puntuación Total:</strong> <span class="compare-result-highlight">{{ athlete_record.total_score }}</span></p>
         </div>
 
-        <!-- Mostrar la diferencia de puntos -->
-        <h3>Diferencia de Puntuación:</h3>
-        {% if score_difference == 0 %}
+        <!-- Bloque 2: Récord del otro atleta -->
+        <div class="compare-result-block">
+            <h3 class="compare-result-block-title">Récord de {{ compare_athlete.user.first_name }} {{ compare_athlete.user.last_name }}:</h3>
+            <p><strong>Fecha:</strong> <span class="compare-result-highlight">{{ compare_record.evaluation_date }}</span></p>
+            <h4>Criterios de Evaluación:</h4>
+            <ul class="compare-result-list">
+                {% for criterion in selected_criteria %}
+                <li class="compare-result-list-item">
+                    <strong>{{ criterion.criterion_name }}:</strong> {{ criterion.score }}<br>
+                    <strong>Notas:</strong> {{ criterion.notes }}
+                </li>
+                {% endfor %}
+            </ul>
+            <p><strong>Puntuación Total:</strong> <span class="compare-result-highlight">{{ compare_record.total_score }}</span></p>
+        </div>
+
+        <!-- Bloque 3: Diferencia de puntuación -->
+        <div class="compare-result-block">
+            <h3 class="compare-result-block-title">Diferencia de Puntuación:</h3>
+            {% if score_difference == 0 %}
             <p>¡Es un empate!</p>
-        {% elif score_difference > 0 %}
-            <p>Tienes una ventaja de <span class="highlight">{{ score_difference }}</span> puntos sobre <span class="highlight">{{ compare_athlete.user.first_name }}</span>.</p>
-        {% else %}
-            <p><span class="highlight">{{ compare_athlete.user.first_name }}</span> tiene una ventaja de <span class="highlight">{{ abs_difference }}</span> puntos sobre ti.</p>
-        {% endif %}
-        
-        <button onclick="window.history.back();">Regresar</button>
+            {% elif score_difference > 0 %}
+            <p>Tienes una ventaja de <span class="compare-result-highlight">{{ score_difference }}</span> puntos sobre <span class="compare-result-highlight">{{ compare_athlete.user.first_name }}</span>.</p>
+            {% else %}
+            <p><span class="compare-result-highlight">{{ compare_athlete.user.first_name }}</span> tiene una ventaja de <span class="compare-result-highlight">{{ abs_difference }}</span> puntos sobre ti.</p>
+            {% endif %}
+        </div>
+
+        <!-- Bloque 4: Gráfica -->
+        <div class="compare-result-block compare-result-chart-container">
+            <canvas id="comparisonChart"></canvas>
+        </div>
+
+        <!-- Botón de regresar -->
+        <button class="compare-result-back-button" onclick="window.history.back();">Regresar</button>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Generar la gráfica
+        const ctx = document.getElementById('comparisonChart').getContext('2d');
+        const comparisonChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Tu Puntuación', 'Puntuación de {{ compare_athlete.user.first_name }}'],
+                datasets: [{
+                    label: 'Puntos',
+                    data: [{{ athlete_record.total_score }}, {{ compare_record.total_score }}],
+                    backgroundColor: ['#007bff', '#ff6347'],
+                    borderColor: ['#0056b3', '#c12f2f'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
 </body>
 </html>

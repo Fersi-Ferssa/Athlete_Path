@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import google.generativeai as genai
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -84,11 +85,22 @@ WSGI_APPLICATION = 'athlete_path.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',  
+        'NAME': 'athletepath',  
+        'USER': 'avnadmin',  
+        'PASSWORD': 'AVNS_hJzz9yH8tjPVMxeptjC',  
+        'HOST': 'mysql-1039aeec-lasallistas-b19a.e.aivencloud.com',  
+        'PORT': '16195',  
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+            'ssl': {
+                'ca': r"C:\Users\musar\Desktop\ca.pem",
+            }
+        }
     }
 }
 
+print((BASE_DIR / "certificates" / "ca.pem").resolve())
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -124,7 +136,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / "staticfiles"]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -132,4 +145,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Directorio donde se guardarán los archivos estáticos compilados
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') 
+STATIC_ROOT = BASE_DIR / "static_root"
+
+# Claves API
+GEMINI_API_KEY = 'AIzaSyCDy1JgkjlY-RXN_CJgM1fTfOVKTsuvh9I'  # Clave API de Google Gemini (Generative AI)

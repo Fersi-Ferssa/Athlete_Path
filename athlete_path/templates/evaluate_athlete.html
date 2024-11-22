@@ -1,105 +1,70 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Evaluar Atleta</title>
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            height: 100vh;
-            margin: 0;
-            padding: 20px;
-        }
-
-        .evaluation-container {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 600px;
-            text-align: left;
-        }
-
-        h2 {
-            color: #4066d5;
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-
-        label {
-            font-size: 16px;
-            color: #333;
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        input[type="text"],
-        input[type="number"],
-        select,
-        textarea {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 20px;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            font-size: 16px;
-            box-sizing: border-box;
-        }
-
-        button[type="submit"] {
-            background-color: #4066d5;
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            width: 100%;
-        }
-
-        button[type="submit"]:hover {
-            background-color: #3053b0;
-        }
-
-        button {
-            margin-top: 10px;
-        }
-
-        @media (max-width: 600px) {
-            .evaluation-container {
-                padding: 20px;
-            }
-
-            h2 {
-                font-size: 20px;
-            }
-
-            button[type="submit"] {
-                font-size: 14px;
-            }
-        }
-    </style>
+    <title>Evaluar a {{ athlete.user.first_name }} {{ athlete.user.last_name }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'css/images/WhiteLogo.png' %}">
 </head>
-<body>
-    <div class="evaluation-container">
-        <!-- Aquí está el encabezado con el nombre del atleta -->
-        <h2>Evaluar a {{ athlete.user.first_name }} {{ athlete.user.last_name }}</h2>
+<body class="evaluate-athlete-body">
+    <div class="evaluate-athlete-container">
+        <!-- Logo -->
+        <div class="logo-container">
+            <a href="{% url 'home' %}">
+                <img src="{% static 'css/images/Logo.png' %}" alt="Logo" class="logo-img">
+            </a>
+        </div>
 
-        <!-- Inicia el formulario, asegurándonos de que el encabezado esté completamente separado -->
+        <!-- Título -->
+        <h2 class="evaluate-athlete-title">Evaluar a {{ athlete.user.first_name }} {{ athlete.user.last_name }}</h2>
+        
         <form method="POST">
             {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Guardar Evaluación</button>
+
+            <!-- Campo de Fecha -->
+            <div class="form-section">
+                <label for="evaluation_date" class="date-label">Fecha de Evaluación:</label>
+                <input type="date" id="evaluation_date" name="evaluation_date" value="{{ form.evaluation_date.value }}" class="date-input" required>
+            </div>
+
+            <!-- Tabla de Criterios -->
+            <div class="criteria-section">
+                <h3 class="criteria-title">Criterios de Evaluación:</h3>
+                <div class="criteria-table-container">
+                    <table class="criteria-table">
+                        <tbody>
+                            {% for criterion in evaluation_criteria %}
+                            <tr class="criterion-row">
+                                <td>
+                                    <label for="criterion_{{ criterion }}" class="criterion-label">{{ criterion }}:</label>
+                                    <select name="criterion_{{ criterion }}" id="criterion_{{ criterion }}" class="criterion-select">
+                                        {% for score in evaluation_range %}
+                                        <option value="{{ score }}">{{ score }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr class="note-row">
+                                <td>
+                                    <label for="note_{{ criterion }}" class="note-label">Notas para {{ criterion }}:</label>
+                                    <textarea name="note_{{ criterion }}" id="note_{{ criterion }}" rows="3" class="note-textarea"></textarea>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Botones -->
+            <div class="button-container">
+                <button type="submit" class="button save-btn" onclick="return confirm('¿Estás seguro de guardar esta evaluación?');">Guardar Evaluación</button>
+                <button type="button" class="button back-btn" onclick="window.history.back();">Regresar</button>
+            </div>
         </form>
-        <br>
-        <button onclick="window.history.back();">Regresar</button>
     </div>
 </body>
 </html>

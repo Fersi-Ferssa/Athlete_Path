@@ -1,0 +1,3783 @@
+/* Variables de color */
+:root {
+    --primary-color: #f4f4f4;
+    --secondary-color: #ffd700;
+    --background-color: #f4f4f4;
+    --text-color: #333;
+    --highlight-color: #e6e6e6;
+    --border-color: #ccc;
+
+    /* Nuevas variables de color para diferentes elementos */
+    --button-login-bg: #FFD700; /* Color de fondo para botón "Iniciar sesión" */
+    --button-login-text: #002f6c; /* Color de texto para botón "Iniciar sesión" */
+    --button-register-bg: #00A1E0; /* Color de fondo para botón "Registrarse" */
+    --button-register-text: #ffffff; /* Color de texto para botón "Registrarse" */
+    --table-header-bg: #FFD700; /* Color de fondo para encabezado de la tabla */
+    --table-header-text: #002f6c; /* Color de texto para encabezado de la tabla */
+    --title-color: #0f4d9b; /* Color para los títulos */
+    --button-view-bg: #FFBF04; /* Color de fondo para el botón "Ver equipo" */
+    --button-view-text: #ffffff; /* Color de texto para el botón "Ver equipo" */
+}
+
+/* Estilos globales */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: 'Olympics';
+    src: url('../fonts/Olympics.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'Olympics', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+/* Encabezado */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--title-color);
+}
+
+.welcome-title {
+    font-size: 2.5rem; /* Ajusta el tamaño según tus necesidades */
+    font-weight: bold;
+    color: var(--title-color);
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+
+p, a, li {
+    font-weight: 400;
+    color: var(--text-color);
+    font-size: 1.1rem;
+}
+
+/* Contenedor principal */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 2rem auto;
+}
+
+/* Botones */
+.btn-primary {
+    background-color: var(--button-view-bg);
+    color: var(--button-view-text);
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #e6be00;
+}
+
+#mainNav .btn-outline-primary {
+    background-color: var(--button-login-bg);
+    color: var(--button-login-text);
+    border: 1px solid var(--button-login-bg);
+}
+
+#mainNav .btn-primary {
+    background-color: var(--button-register-bg);
+    color: var(--button-register-text);
+    border: none;
+}
+
+/* Carrusel */
+.carousel-inner img {
+    height: 500px;
+    object-fit: cover;
+}
+
+/* Tablas */
+.table th {
+    background-color: var(--table-header-bg);
+    color: var(--table-header-text);
+}
+
+.table td {
+    color: var(--text-color);
+}
+
+.table tr:hover {
+    background-color: var(--highlight-color);
+}
+
+/* Center form elements */
+.form-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+label {
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-right: 0.5rem;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .container {
+        width: 100%;
+    }
+
+    .medal-card {
+        width: 100%;
+    }
+}
+
+/* Barra de navegación inicial transparente */
+#mainNav {
+    background-color: transparent;
+    transition: background 0.3s ease;
+    color: white;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+/* Aplicar la imagen de fondo al hacer scroll */
+#mainNav.navbar-scrolled {
+    background: url("../css/images/Vector.png") no-repeat center center;
+    background-size: cover;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#mainNav .navbar-brand img {
+    height: 100px; /* Ajusta la altura según tus necesidades */
+    width: auto;
+    object-fit: contain;
+    padding: 0;
+    margin-left: -5px;
+    background: none;
+}
+
+#mainNav.navbar-scrolled .navbar-brand img {
+    height: 80px; /* Ajusta el tamaño cuando haces scroll */
+    transition: height 0.3s ease;
+}
+
+#headerCarousel {
+    height: 100vh;
+    overflow: hidden;
+}
+
+#headerCarousel .carousel-inner img {
+    height: 100vh;
+    object-fit: cover;
+}
+
+/* --------------------------------------------------------------------------------------------------*/
+/* Contenedor principal para el equipo */
+.team-container {
+    background: linear-gradient(to bottom, #0ab9e4, #121364); /* Degradado con colores específicos */
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Contenedor del título con vector de fondo */
+.team-header {
+    position: relative;
+    background-image: url('../css/images/vector2.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    padding: 20px;
+    text-align: center;
+    color: white;
+    border-radius: 8px 8px 0 0;
+}
+
+/* Capa semi-transparente sobre el vector */
+.team-header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.18); /* Ajusta el nivel de transparencia */
+    z-index: 1;
+    border-radius: 8px 8px 0 0;
+}
+
+/* Estilo para el título */
+.team-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #ffffff;
+    position: relative;
+    z-index: 2;
+}
+
+/* Fondo de la tabla y estilo */
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 0; /* Alineado con el contenedor */
+    font-size: 1em;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco con opacidad */
+    border-radius: 0 0 8px 8px; /* Bordes redondeados para el fondo de la tabla */
+    overflow: hidden;
+}
+
+.styled-table th {
+    background-color: #FFD700;
+    color: #002f6c;
+    padding: 12px 15px;
+}
+
+.styled-table td {
+    padding: 12px 15px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e6e6e6;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f2f2f2;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #FFD700;
+}
+
+/* ------------------------------------------------------------------------------------------------ */
+
+.medal-icon {
+    width: 30px; /* Ajusta el tamaño según lo que necesites */
+    height: auto;
+    vertical-align: middle; /* Alinea la imagen verticalmente con el texto */
+    margin-right: 5px; /* Añade un pequeño margen si deseas separación */
+}
+
+/* ----------------------------------------------------------------------------------------------- */
+
+/* Iconos de medallas en el encabezado de la tabla */
+.medal-icon {
+    width: 20px; /* Tamaño reducido para las medallas en el encabezado */
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+/* Estilos para la tabla */
+.styled-table th, .styled-table td {
+    padding: 10px;
+    text-align: center;
+    font-size: 16px;
+}
+
+/* ------------------------------------------------------------------------------------------- */
+
+/* Estilo para el enlace del país */
+.country-link {
+    text-decoration: none; /* Elimina el subrayado */
+    color: inherit; /* Usa el color de texto normal */
+    padding: 5px 10px; /* Espaciado alrededor del texto */
+    border-radius: 5px; /* Bordes redondeados para el efecto de hover */
+}
+
+/* Efecto al pasar el mouse */
+.country-link:hover {
+    color: #007bff; /* Cambia el color del texto al pasar el mouse */
+    cursor: pointer; /* Muestra el cursor de enlace */
+}
+
+/* ------------------------------------------------------------------------------ */
+
+/* Estilo para el enlace del país */
+.country-link {
+    text-decoration: none; /* Elimina el subrayado */
+    color: inherit; /* Usa el color de texto normal */
+    padding: 5px 10px; /* Espaciado alrededor del texto */
+    border-radius: 5px; /* Bordes redondeados para el efecto de hover */
+}
+
+/* Efecto al pasar el mouse */
+.country-link:hover {
+    color: #007bff; /* Cambia el color del texto al pasar el mouse */
+    cursor: pointer; /* Muestra el cursor de enlace */
+}
+
+/* ----------------------------------------------------------------------------------------------------- */
+/* Banner específico para all medals */
+/* Estilo para el banner específico de all medals con el vector */
+.vector-banner {
+    background: url("../css/images/Vector3.png");
+    background-size: 100%; /* Tamaño inicial del vector */
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    color: white;
+    transition: background-size 0.3s ease, padding 0.3s ease;
+    padding: 10px 0;
+}
+
+.vector-banner .navbar-brand img {
+    height: 100px; /* Tamaño inicial del logo */
+    transition: height 0.3s ease;
+}
+
+.vector-banner.navbar-scrolled {
+    background-size: 80%; /* Reducir el tamaño del vector al hacer scroll */
+    padding: 5px 0; /* Reducir el padding para compactar el banner */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.vector-banner.navbar-scrolled .navbar-brand img {
+    height: 80px; /* Tamaño reducido del logo al hacer scroll */
+}
+
+/* Estilos para los botones en el banner */
+.vector-banner .btn-outline-primary {
+    background-color: #FFD700;
+    color: #002f6c;
+    border: 1px solid #FFD700;
+}
+
+.vector-banner .btn-primary {
+    background-color: #00A1E0;
+    color: white;
+    border: none;
+}
+
+.vector-banner .btn-outline-primary:hover,
+.vector-banner .btn-primary:hover {
+    opacity: 0.9;
+}
+
+/***********************************************************************************************
+*                                          LOGIN                                               *
+***********************************************************************************************/
+.login-body {
+    font-family: 'Olympics', sans-serif;
+    background-image: url("../css/images/Vector_Completo.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-container {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+}
+
+.logo {
+    width: 120px;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 2em;
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+.login-container label {
+    font-size: 1em;
+    color: #555;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.login-container input[type="text"],
+.login-container input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    color: #333;
+}
+
+.login-container button {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-container button:hover {
+    background-color: #0056b3;
+}
+
+/* Updated styles for account and password sections */
+.create-account,
+.forgot-password {
+    margin-top: 20px;
+    font-size: 0.9em;
+    line-height: 1.5; /* Ensures consistent spacing */
+    text-align: center;
+}
+
+.create-account p,
+.forgot-password p {
+    margin-bottom: 10px; /* Spacing between paragraphs */
+}
+
+.create-account a,
+.forgot-password a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.create-account a:hover,
+.forgot-password a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+/* Back to home button */
+.back-to-home a {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 25px;
+    background-color: #a0a0a0;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease;
+}
+
+.back-to-home a:hover {
+    background-color: #808080;
+}
+
+.error {
+    color: red;
+    margin-top: 15px;
+    font-size: 0.9em;
+}
+
+.show-password {
+    margin-top: 10px;
+}
+
+/***********************************************************************************************
+*                                       REGISTER                                               *
+***********************************************************************************************/
+/* Fondo y contenedor principal */
+.register-page {
+    font-family: 'Olympics', sans-serif;
+    background-image: url("{% static 'css/images/Vector_Completo.jpg' %}");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    overflow-y: auto; /* Habilitar scroll si el contenido supera la pantalla */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Logo en la página de registro */
+.register-logo {
+    width: 100px; /* Ajusta el tamaño del logo */
+    margin: 0 auto 20px auto; /* Centra el logo y añade espacio inferior */
+    display: block;
+}
+
+
+.register-container {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    width: 90%;
+    overflow-y: auto; /* Scroll interno si es necesario */
+}
+
+
+/* Título principal */
+.register-title {
+    font-size: 2.5em;
+    color: #007bff;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* Fieldsets y leyendas */
+.register-fieldset-basic, .register-fieldset-profile {
+    border: 1px solid #cccccc;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+}
+
+.register-legend-basic, .register-legend-profile {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #007bff;
+    padding: 0 10px;
+}
+
+/* Campos del formulario */
+input[type="text"], input[type="password"], input[type="email"], select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+/* Botones */
+.register-btn-primary {
+    background-color: #007bff;
+    color: white;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.register-btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.register-btn-secondary {
+    background-color: #a0a0a0;
+    color: white;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
+}
+
+.register-btn-secondary:hover {
+    background-color: #808080;
+}
+
+/* Asegurar que todos los campos sean visibles */
+.register-container {
+    max-height: 90vh; /* Limitar la altura máxima del formulario */
+    overflow-y: auto; /* Scroll interno si es necesario */
+}
+
+.register-container label {
+    color: #000; /* Asegura que los títulos de los campos sean negros */
+    font-size: 1rem; /* Ajusta el tamaño del texto según tu preferencia */
+    font-weight: bold; /* Opcional: hace el texto más prominente */
+}
+
+/***********************************************************************************************
+*                                       RESET PASSWORD                                        *
+***********************************************************************************************/
+/* Estilos específicos para la página de restablecimiento de contraseña */
+.reset-body {
+    font-family: 'Olympics', sans-serif;
+    background-image: url("/static/css/images/Vector_Completo.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.reset-container {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+}
+
+/* Logo */
+.reset-logo {
+    width: 100px;
+    margin-bottom: 20px;
+}
+
+/* Títulos */
+.reset-container h2 {
+    font-size: 2em;
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+/* Etiquetas */
+.reset-container label {
+    color: #000; /* Negro */
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* Campos de entrada */
+.reset-container input[type="text"],
+.reset-container input[type="password"],
+.reset-container select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+/* Botones */
+.reset-btn-primary {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff; /* Azul */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+.reset-btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.reset-btn-secondary {
+    width: 100%;
+    padding: 12px;
+    background-color: #a0a0a0; /* Gris */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.reset-btn-secondary:hover {
+    background-color: #808080;
+}
+
+/* Validaciones de contraseña */
+.password-requirements {
+    font-size: 0.9rem;
+    margin-top: 10px;
+    text-align: left;
+    padding-left: 10px;
+}
+
+.password-requirements li {
+    color: #000;
+    margin-bottom: 5px;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .reset-container {
+        padding: 20px;
+    }
+    .reset-btn-primary,
+    .reset-btn-secondary {
+        font-size: 1em;
+    }
+}
+
+/***********************************************************************************************
+*                                 PASSWORD CHANGE DONE                                        *
+***********************************************************************************************/
+/* Estilo para el body */
+.password-success-body {
+    font-family: 'Olympics', sans-serif;
+    background-image: url("/static/css/images/Vector_Completo.jpg");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding: 20px;
+    color: #031147;
+}
+
+/* Contenedor principal */
+.password-success-container {
+    background-color: rgba(255, 255, 255, 0.97); /* Fondo blanco con opacidad */
+    padding: 60px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 600px;
+    width: 100%;
+}
+
+/* Título */
+.password-success-title {
+    color: #28a745; /* Verde éxito */
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    font-family: 'Olympics', sans-serif;
+}
+
+/* Mensaje */
+.password-success-message {
+    font-size: 1.2em;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+/* Botón */
+.password-success-button {
+    background-color: #0AB9E4; /* Azul botón */
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Hover botón */
+.password-success-button:hover {
+    background-color: #0792C7; /* Azul más oscuro */
+    transform: scale(1.05); /* Animación al pasar el cursor */
+}
+
+/* Enlace */
+.password-success-link {
+    text-decoration: none;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .password-success-container {
+        padding: 40px;
+    }
+
+    .password-success-title {
+        font-size: 2em;
+    }
+
+    .password-success-message {
+        font-size: 1em;
+    }
+
+    .password-success-button {
+        font-size: 1em;
+    }
+}
+
+
+/***********************************************************************************************
+*                                       COACH DASHBOARD                                        *
+***********************************************************************************************/
+/* Fondo y diseño general */
+.coach-dashboard-body {
+    font-family: 'Olympics', sans-serif;
+    background-image: url("/static/css/images/Vector_Completo.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Contenedor principal */
+.coach-dashboard-container {
+    background-color: rgba(255, 255, 255, 0.97); /* Fondo blanco semitransparente */
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    padding: 40px;
+    max-width: 900px;
+    width: 90%;
+    text-align: center;
+    overflow: hidden; /* Para evitar desbordamiento */
+}
+
+/* Título */
+.coach-dashboard-title {
+    font-size: 2.5rem;
+    color: #007bff;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+/* Contenedor de opciones */
+.coach-options-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* Tarjetas de opciones */
+.coach-option-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 250px;
+    text-align: center;
+    padding: 20px;
+    transition: transform 0.3s ease;
+}
+
+.coach-option-card:hover {
+    transform: translateY(-10px);
+}
+
+.coach-option-card i {
+    font-size: 2.5rem;
+    color: #007bff;
+    margin-bottom: 15px;
+}
+
+.coach-option-card-title {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.coach-option-card-link {
+    font-size: 1.1rem;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.coach-option-card-link:hover {
+    text-decoration: underline;
+}
+
+/* Logo en la esquina superior izquierda */
+.coach-logo-container {
+    position: absolute;
+    top: 30px; /* Ajusta la separación vertical */
+    left: 70px; /* Ajusta la separación horizontal */
+    z-index: 10;
+}
+
+.coach-logo-container img {
+    max-width: 80px;
+    cursor: pointer;
+}
+
+/* Menú del usuario */
+.coach-menu-container {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 10;
+}
+
+.coach-profile-icon {
+    font-size: 2.5rem;
+    color: #fff;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .coach-option-card {
+        width: 100%;
+    }
+
+    .coach-dashboard-container {
+        padding: 20px;
+    }
+
+    .coach-dashboard-title {
+        font-size: 2rem;
+    }
+}
+
+/***********************************************************************************************
+*                                          PROFILE                                             *
+***********************************************************************************************/
+/* Fondo y diseño general */
+.profile-body {
+    font-family: 'Olympics', sans-serif;
+    background-image: url("/static/css/images/Vector_Completo.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Contenedor principal */
+.profile-container {
+    background-color: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    max-width: 900px;
+    width: 100%;
+    text-align: center;
+}
+
+/* Encabezado */
+.profile-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.profile-logo {
+    max-width: 100px;
+    margin-bottom: 20px;
+    cursor: pointer; /* Hacer el logo interactivo */
+}
+
+.profile-divider {
+    width: 80%;
+    height: 3px;
+    background-color: #0AB9E4;
+    margin: 25px auto;
+}
+
+/* Información del perfil */
+.profile-info {
+    font-size: 1.5em;
+    color: #333;
+    line-height: 1.8;
+    text-align: left;
+}
+
+.profile-info p {
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+}
+
+.profile-info p i {
+    font-size: 1.4em;
+    margin-right: 15px;
+    color: #FD3B07;
+}
+
+/* Botones */
+.profile-button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.profile-button {
+    padding: 15px 30px;
+    font-size: 1.3em;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.profile-button:hover {
+    transform: scale(1.05);
+}
+
+.profile-change-password-btn {
+    background-color: #0AB9E4;
+}
+
+.profile-back-btn {
+    background-color: #6c757d;
+}
+
+.profile-change-password-btn:hover {
+    background-color: #0792C7;
+}
+
+.profile-back-btn:hover {
+    background-color: #5a6268;
+}
+
+/* Adaptaciones para pantallas pequeñas */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.5em;
+    }
+
+    .profile-info {
+        font-size: 1.2em;
+    }
+
+    .profile-button {
+        font-size: 1.1em;
+        padding: 12px 20px;
+    }
+}
+
+/***********************************************************************************************
+*                                  PASSWORD CHANGE FORM                                       *
+***********************************************************************************************/
+/* Fondo y diseño general */
+.password-change-body {
+    font-family: 'Olympics', sans-serif;
+    background-image: url("/static/css/images/Vector_Completo.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Contenedor principal del formulario */
+.password-change-container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 90%;
+    height: 80vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Asegurar que las etiquetas (label) sean negras */
+.password-change-container label {
+    color: #000; /* Negro */
+    font-size: 1rem; /* Tamaño de letra ajustado */
+    font-weight: bold; /* Opcional: hace que el texto sea más prominente */
+    margin-bottom: 5px; /* Espaciado adecuado */
+}
+
+/* Logo dentro del formulario */
+.password-change-logo {
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.password-change-logo img {
+    width: 80px;
+    cursor: pointer; /* Hacer el logo interactivo */
+}
+
+/* Título */
+.password-change-title {
+    font-size: 1.8em;
+    color: #007bff;
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* Formulario con scroll interno */
+.password-change-form-wrapper {
+    width: 100%;
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 10px 0;
+    margin-bottom: 10px;
+}
+
+/* Campos de entrada */
+.password-change-container input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+/* Botones */
+.password-change-btn-primary {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+.password-change-btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.password-change-btn-secondary {
+    width: 100%;
+    padding: 12px;
+    background-color: #a0a0a0;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.password-change-btn-secondary:hover {
+    background-color: #808080;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .password-change-container {
+        padding: 15px;
+    }
+
+    .password-change-title {
+        font-size: 1.5em;
+    }
+
+    .password-change-btn-primary, .password-change-btn-secondary {
+        font-size: 1em;
+    }
+}
+
+/***********************************************************************************************
+*                                   GESTIONAR SUBEQUIPOS                                      *
+***********************************************************************************************/
+
+/* Fondo y diseño general */
+.manage-subteams-body {
+    font-family: 'Olympics', sans-serif;
+    background-image: url("../css/images/Vector_Completo.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #333;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* Contenedor principal */
+.manage-subteams-content {
+    background-color: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    max-width: 900px;
+    width: 100%;
+    text-align: center;
+}
+
+/* Encabezado */
+.manage-subteams-header-section {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.manage-subteams-logo img {
+    max-width: 100px;
+    margin: 0 auto 20px;
+}
+
+.manage-subteams-header-title {
+    font-size: 2.5em;
+    color: #d35400;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Secciones de subequipos */
+.manage-subteams-subteam-title {
+    font-size: 1.8em;
+    color: #d35400;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+.manage-subteams-subteam-section {
+    background-color: #fdf2e9;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.2s;
+}
+
+.manage-subteams-subteam-section:hover {
+    transform: translateY(-3px);
+}
+
+.manage-subteams-subteam-name {
+    font-size: 1em;
+}
+
+.manage-subteams-subteam-link {
+    font-weight: bold;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+.manage-subteams-edit-link {
+    color: #0ab9e4;
+}
+
+.manage-subteams-delete-link {
+    color: #d9534f;
+}
+
+/* Botones */
+.manage-subteams-button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.manage-subteams-button {
+    width: 220px;
+    padding: 12px;
+    font-size: 1.1em;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.manage-subteams-button i {
+    margin-right: 8px;
+}
+
+.manage-subteams-create-btn {
+    background-color: #ffcf02;
+}
+
+.manage-subteams-create-btn:hover {
+    background-color: #fda305;
+}
+
+.manage-subteams-back-btn {
+    background-color: #6c757d;
+}
+
+.manage-subteams-back-btn:hover {
+    background-color: #5a6268;
+}
+
+/* Mensajes y alertas */
+.manage-subteams-alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    color: white;
+    background-color: #dc3545;
+    text-align: center;
+}
+
+.manage-subteams-section-message {
+    font-size: 1.2em;
+    color: #555;
+    text-align: center;
+    margin: 15px 0;
+}
+
+/* Diseño responsivo */
+@media (min-width: 768px) {
+    .manage-subteams-grid-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+}
+
+/***********************************************************************************************
+*                                   ELIMINAR SUBEQUIPO                                       *
+***********************************************************************************************/
+
+/* Fondo y diseño general */
+.delete-subteam-body {
+    font-family: 'Olympics', sans-serif;
+    background-image: url("../css/images/Vector_Completo.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Contenedor principal */
+.delete-subteam-container {
+    background-color: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 600px;
+    width: 100%;
+}
+
+/* Títulos */
+.delete-subteam-title {
+    font-size: 2.2em;
+    color: #007bff; /* Azul para el título */
+    margin-bottom: 20px;
+}
+
+/* Texto del mensaje */
+.delete-subteam-message {
+    font-size: 1.2em;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+/* Botón de eliminar */
+.delete-subteam-button {
+    background-color: #dc3545; /* Rojo */
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1.1em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.delete-subteam-button:hover {
+    background-color: #c82333; /* Rojo más oscuro */
+}
+
+/* Botón de cancelar */
+.delete-subteam-cancel-link {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background-color: #6c757d; /* Gris */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    text-align: center;
+}
+
+.delete-subteam-cancel-link:hover {
+    background-color: #5a6268; /* Gris más oscuro */
+}
+
+/***********************************************************************************************
+*                                    EDITAR SUBEQUIPO                                        *
+***********************************************************************************************/
+
+/* Fondo y diseño general */
+.edit-subteam-body {
+    font-family: 'Olympics', sans-serif;
+    background-image: url("../css/images/Vector_Completo.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+/* Contenedor principal */
+.edit-subteam-container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    max-width: 800px;
+    width: 100%;
+    text-align: center;
+}
+
+.edit-subteam-label {
+    font-size: 1em;
+    color: #333; /* Negro */
+    margin-bottom: 10px;
+    text-align: center;
+    display: block;
+}
+
+/* Logo */
+.edit-subteam-logo {
+    width: 80px;
+    margin-bottom: 20px;
+}
+
+/* Título */
+.edit-subteam-title {
+    font-size: 2.5em;
+    color: #d35400;
+    font-weight: bold;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.edit-subteam-edit-icon {
+    font-size: 0.8em;
+    color: #3498db;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: color 0.3s;
+}
+
+.edit-subteam-edit-icon:hover {
+    color: #2980b9;
+}
+
+/* Input para editar nombre */
+.edit-subteam-input-name {
+    font-size: 1.2em;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 80%;
+    display: none;
+    margin: 10px auto;
+}
+
+/* Botones */
+.edit-subteam-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    font-size: 1em;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 10px 5px;
+}
+
+.edit-subteam-update-name-btn {
+    background-color: #3498db;
+    display: none;
+}
+
+.edit-subteam-update-name-btn:hover {
+    background-color: #2980b9;
+}
+
+.edit-subteam-update-athletes-btn {
+    background-color: #3498db;
+}
+
+.edit-subteam-update-athletes-btn:hover {
+    background-color: #2980b9;
+}
+
+.edit-subteam-remove-btn {
+    background-color: #e74c3c;
+    font-size: 0.9em;
+    padding: 8px 12px;
+    border-radius: 8px;
+    margin-left: 10px;
+}
+
+.edit-subteam-remove-btn:hover {
+    background-color: #c0392b;
+}
+
+.edit-subteam-back-btn {
+    background-color: #95a5a6;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1em;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    display: inline-block;
+    margin-top: 20px;
+}
+
+.edit-subteam-back-btn:hover {
+    background-color: #7f8c8d;
+}
+
+/* Atleta */
+.edit-subteam-athlete-link {
+    color: #031147;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1em;
+}
+
+.edit-subteam-athlete-link:hover {
+    text-decoration: underline;
+}
+
+.edit-subteam-athlete-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f7f1e3;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 1em;
+    width: 80%;
+    margin: 0 auto 15px auto;
+}
+
+/* Selección de atletas */
+.edit-subteam-label,
+.edit-subteam-select {
+    font-size: 1em;
+}
+
+.edit-subteam-select {
+    padding: 10px;
+    border-radius: 8px;
+    width: 80%;
+    margin: 0 auto;
+}
+
+/* Subtítulos */
+.edit-subteam-subtitle {
+    font-size: 1.8em;
+    color: #d35400;
+    margin-top: 30px;
+}
+
+
+/***********************************************************************************************
+*                             COACH VIEW ATHLETE PROFILE                                       *
+***********************************************************************************************/
+.athlete-profile-body {
+    font-family: 'Olympics', sans-serif;
+    background-image: url("../css/images/Vector_Completo.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    color: #333;
+}
+
+.athlete-profile-container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    max-width: 800px;
+    width: 100%;
+    text-align: left;
+}
+
+/* Logo centrado */
+.athlete-logo-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.athlete-logo {
+    width: 80px;
+    height: auto;
+}
+
+.athlete-profile-title {
+    font-size: 2.5em;
+    color: #d35400;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.athlete-section-title {
+    font-size: 1.5em;
+    color: #333;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.athlete-profile-detail {
+    font-size: 1.2em;
+    color: #555;
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+}
+
+.athlete-profile-detail i {
+    color: #d35400;
+    margin-right: 8px;
+}
+
+.athlete-line-divider {
+    width: 100%;
+    margin: 20px 0;
+    border-top: 2px solid #ddd;
+}
+
+.athlete-evaluation-title {
+    font-size: 1.8em;
+    color: #d35400;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.athlete-evaluation-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.athlete-evaluation-item {
+    margin-bottom: 15px;
+}
+
+.athlete-evaluation-link {
+    color: #007bff;
+    font-size: 1.2em;
+    text-decoration: none;
+}
+
+.athlete-evaluation-link:hover {
+    text-decoration: underline;
+}
+
+.athlete-no-evaluation {
+    font-size: 1.2em;
+    color: #555;
+}
+
+.athlete-button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.athlete-button {
+    padding: 10px 20px;
+    font-size: 1.2em;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    margin: 15px 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.athlete-button:hover {
+    transform: scale(1.05);
+}
+
+.athlete-evaluate-btn {
+    background-color: #007bff;
+}
+
+.athlete-evaluate-btn:hover {
+    background-color: #0056b3;
+}
+
+.athlete-back-btn {
+    background-color: #6c757d;
+}
+
+.athlete-back-btn:hover {
+    background-color: #5a6268;
+}
+
+@media (max-width: 768px) {
+    .athlete-profile-title {
+        font-size: 2em;
+    }
+    .athlete-evaluation-title {
+        font-size: 1.6em;
+    }
+    .athlete-profile-detail, .athlete-evaluation-link, .athlete-no-evaluation {
+        font-size: 1em;
+    }
+    .athlete-button {
+        font-size: 1em;
+        padding: 8px 15px;
+    }
+    .athlete-line-divider {
+        width: 100%;
+    }
+}
+
+/***********************************************************************************************
+*                            COACH VIEW ATHLETE EVALUATIONS                                    *
+***********************************************************************************************/
+.evaluation-detail-body {
+    font-family: 'Olympics', sans-serif;
+    background-image: url("../css/images/Vector_Completo.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.evaluation-container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    max-width: 900px;
+    width: 100%;
+    text-align: center;
+}
+
+.logo-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.logo-img {
+    width: 100px;
+}
+
+.evaluation-title {
+    font-size: 2.5em;
+    color: #d35400;
+    margin-bottom: 20px;
+}
+
+.evaluation-info p {
+    font-size: 1.3em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.evaluation-total-score {
+    font-size: 1.5em;
+    color: #d35400;
+    margin: 20px 0;
+    font-weight: bold;
+}
+
+.evaluation-content-container {
+    margin-bottom: 30px;
+}
+
+.evaluation-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto 20px;
+    text-align: center;
+}
+
+.evaluation-table th,
+.evaluation-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    font-size: 1.1em;
+}
+
+.evaluation-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+    color: #333;
+}
+
+.evaluation-chart-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+.evaluation-button-container {
+    display: flex;
+    flex-direction: column; /* Cambia a columna */
+    align-items: center;    /* Centra los elementos */
+    gap: 15px;              /* Añade espacio entre los botones */
+    margin-top: 20px;
+}
+
+.button {
+    padding: 12px 24px;
+    font-size: 1.1em;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    width: 200px;
+}
+
+.evaluation-edit-button {
+    background-color: #28a745;
+}
+
+.evaluation-edit-button:hover {
+    background-color: #218838;
+}
+
+.evaluation-delete-button {
+    background-color: #dc3545;
+}
+
+.evaluation-delete-button:hover {
+    background-color: #c82333;
+}
+
+.evaluation-back-button {
+    background-color: #6c757d;
+}
+
+.evaluation-back-button:hover {
+    background-color: #5a6268;
+}
+
+.evaluation-button-container-coach-view-only {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.evaluation-back-button-view-only {
+    padding: 12px 24px;
+    font-size: 1.1em;
+    color: white;
+    background-color: #007bff; /* Azul específico */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.evaluation-back-button-view-only:hover {
+    background-color: #0056b3; /* Azul más oscuro */
+}
+
+/***********************************************************************************************
+*                            COACH EDIT ATHLETE EVALUATIONS                                   *
+***********************************************************************************************/
+.edit-evaluation-body {
+    font-family: 'Olympics', sans-serif;
+    background-image: url("../css/images/Vector_Completo.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    margin: 0;
+    padding-top: 50px;
+}
+
+.edit-evaluation-container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    width: 100%;
+    text-align: left;
+}
+
+.logo-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.logo-img {
+    width: 100px;
+}
+
+.edit-evaluation-title {
+    font-size: 2.2em;
+    color: #d35400;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.form-section {
+    margin-top: 20px;
+}
+
+.date-label {
+    font-size: 1.2em;
+    color: #333;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.date-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 1.2em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.criteria-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.criterion-item {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.criterion-label {
+    font-size: 1.2em;
+    color: #333;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.criterion-input,
+.criterion-textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.criterion-input {
+    max-width: 150px;
+}
+
+.criterion-textarea {
+    resize: none;
+}
+
+.button-container {
+    text-align: center;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.button {
+    padding: 12px 24px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: white;
+    text-align: center;
+}
+
+.save-btn {
+    background-color: #28a745;
+}
+
+.save-btn:hover {
+    background-color: #218838;
+}
+
+.cancel-btn {
+    background-color: #6c757d;
+}
+
+.cancel-btn:hover {
+    background-color: #5a6268;
+}
+
+@media (max-width: 768px) {
+    .edit-evaluation-container {
+        padding: 20px;
+    }
+
+    .edit-evaluation-title {
+        font-size: 1.8em;
+    }
+
+    .button {
+        font-size: 1em;
+        padding: 10px 20px;
+    }
+}
+
+/***********************************************************************************************
+*                                  COACH EVALUATE ATHLETE                                      *
+***********************************************************************************************/
+
+/* Fondo general */
+.evaluate-athlete-body {
+    font-family: 'Olympics', sans-serif;
+    background-image: url("../css/images/Vector_Completo.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Contenedor principal */
+.evaluate-athlete-container {
+    background-color: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    width: 100%;
+    text-align: center;
+}
+
+/* Logo */
+.logo-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.logo-img {
+    width: 120px;
+}
+
+/* Título */
+.evaluate-athlete-title {
+    font-size: 2.5em;
+    color: #d35400;
+    margin-bottom: 30px;
+}
+
+/* Campo de fecha */
+.date-label {
+    font-size: 1.2em;
+    color: #333;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.date-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 1.1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+/* Criterios */
+.criteria-section {
+    margin-top: 20px;
+}
+
+.criteria-title {
+    font-size: 1.8em;
+    color: #d35400;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.criteria-table-container {
+    margin-top: 20px;
+}
+
+.criteria-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 15px;
+}
+
+.criterion-row {
+    margin-bottom: 10px;
+}
+
+.criterion-label {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+    display: block;
+    text-align: left;
+}
+
+.criterion-select {
+    width: 100%;
+    padding: 10px;
+    font-size: 1.1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Notas */
+.note-label {
+    font-size: 1em;
+    color: #333;
+    margin-top: 10px;
+    display: block;
+    text-align: left;
+}
+
+.note-textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 1.1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Botones */
+.button-container {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.button {
+    padding: 12px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.save-btn {
+    background-color: #007bff;
+    color: white;
+}
+
+.save-btn:hover {
+    background-color: #0056b3;
+}
+
+.back-btn {
+    background-color: #6c757d;
+    color: white;
+}
+
+.back-btn:hover {
+    background-color: #5a6268;
+}
+
+/***********************************************************************************************
+*                                     CREATE SUBTEAM                                          *
+***********************************************************************************************/
+/* Fondo general */
+.create-subteam-body {
+    font-family: 'Olympics', sans-serif;
+    background-image: url("../css/images/Vector_Completo.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Contenedor principal */
+.create-subteam-container {
+    background-color: white;
+    max-width: 800px;
+    width: 100%;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Logo */
+.logo-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.logo-img {
+    width: 100px;
+    height: auto;
+}
+
+/* Título */
+.create-subteam-title {
+    font-size: 2.8em;
+    color: #d35400;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+/* Información del equipo */
+.team-info {
+    font-size: 1.4em;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+/* Etiquetas */
+.subteam-label {
+    font-size: 1.3em;
+    color: #555;
+    display: block;
+    text-align: left;
+    margin-bottom: 8px;
+    margin-left: 10px;
+}
+
+/* Inputs y selectores */
+.subteam-input,
+.subteam-select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 2px solid #ccc;
+    border-radius: 12px;
+    font-size: 1.1em;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.subteam-input:focus,
+.subteam-select:focus {
+    border-color: #d35400;
+    outline: none;
+    box-shadow: 0px 4px 20px rgba(211, 84, 0, 0.2);
+}
+
+.subteam-select {
+    height: 180px;
+}
+
+/* Botones */
+.subteam-btn {
+    width: 100%;
+    padding: 14px;
+    font-size: 1.3em;
+    font-weight: bold;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    margin-top: 10px;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Botón de crear */
+.create-btn {
+    background-color: #007bff;
+}
+
+.create-btn:hover {
+    background-color: #0056b3;
+    transform: scale(1.02);
+}
+
+/* Botón de regresar */
+.back-btn {
+    background-color: #6c757d;
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+.back-btn:hover {
+    background-color: #5a6268;
+    transform: scale(1.02);
+}
+
+/* Grupo de botones */
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .create-subteam-title {
+        font-size: 2.2em;
+    }
+
+    .subteam-input,
+    .subteam-select,
+    .subteam-btn {
+        font-size: 1em;
+    }
+}
+
+
+/***********************************************************************************************
+*                                     ATHLETE PROFILE                                          *
+***********************************************************************************************/
+/* Fondo de la página */
+.athlete-profile-body {
+    font-family: 'Olympics', sans-serif;
+    background-image: url("../css/images/Vector_Completo.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+}
+
+/* Logo en la esquina superior izquierda */
+.athlete-profile-header-logo {
+    position: absolute;
+    top: 20px;
+    left: 40px; /* Ajuste de margen izquierdo */
+    z-index: 10;
+}
+
+.athlete-profile-header-logo img {
+    width: 85px;
+    cursor: pointer;
+}
+
+/* Menú desplegable en la esquina superior derecha */
+.athlete-menu {
+    position: absolute;
+    top: 20px;
+    right: 40px; /* Ajuste de margen derecho */
+    z-index: 10;
+}
+
+.menu-container {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 9999;
+}
+
+.profile-icon {
+    font-size: 2.5em;
+    color: #ffffff;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.profile-icon:hover {
+    color: #0056b3;
+}
+
+.dropdown-menu {
+    min-width: 180px;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-size: 1.1em;
+    color: #333;
+}
+
+.dropdown-item {
+    padding: 8px 12px;
+    color: #333;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.dropdown-item:hover {
+    background-color: #f8f9fa;
+    color: #007bff;
+}
+
+/* Contenedor principal */
+.athlete-profile-container {
+    background-color: rgba(255, 255, 255, 0.97); /* Fondo con opacidad del 80% */
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Título del perfil */
+.athlete-title {
+    font-size: 2.8rem;
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 30px;
+}
+
+/* Opciones del perfil */
+.athlete-profile-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+/* Tarjetas de opciones */
+.athlete-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.athlete-card:hover {
+    transform: translateY(-10px);
+}
+
+.athlete-icon {
+    font-size: 3rem;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.athlete-card-title {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.athlete-card-description {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.athlete-card-button {
+    display: inline-block;
+    padding: 10px 15px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #007bff;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.athlete-card-button:hover {
+    background-color: #0056b3;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .athlete-profile-container {
+        padding: 20px;
+    }
+
+    .athlete-title {
+        font-size: 2rem;
+    }
+
+    .athlete-profile-options {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+
+/***********************************************************************************************
+*                                ATHLETE VIEW OWN EVALUATIONS                                  *
+***********************************************************************************************/
+.view-athlete-header {
+    width: 100%;
+    background-image: url("../css/images/Vector_Completo.jpg");
+    background-size: cover;
+    background-position: center;
+    padding: 40px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Logo styling */
+.view-athlete-logo {
+    width: 100px;
+}
+
+/* Title styling below the header */
+.view-athlete-title-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.view-athlete-title-container h1 {
+    font-size: 2.5em;
+    color: #FD3B07;
+    font-family: 'Olympics', sans-serif;
+    margin: 0;
+}
+
+/* Page background */
+.view-athlete-body {
+    font-family: 'Olympics', sans-serif;
+    background-color: #FFFFFF;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #031147;
+}
+
+/* Main content container */
+.view-athlete-history-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Card styling */
+.view-athlete-evaluation-card {
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.view-athlete-evaluation-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Icon in card */
+.view-athlete-evaluation-card i {
+    font-size: 2em;
+    color: #0792C7;
+    margin-bottom: 10px;
+}
+
+/* Card headings and text */
+.view-athlete-evaluation-card h4 {
+    font-size: 1.2em;
+    color: #031147;
+    margin-bottom: 10px;
+}
+
+.view-athlete-evaluation-card p {
+    font-size: 1em;
+    color: #555;
+    margin: 5px 0;
+}
+
+/* Button in card */
+.view-athlete-evaluation-card a {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 1em;
+    color: #FFFFFF;
+    background-color: #0AB9E4;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.view-athlete-evaluation-card a:hover {
+    background-color: #0792C7;
+}
+
+/* Back button container */
+.view-athlete-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.view-athlete-gray-button {
+    padding: 10px 20px;
+    font-size: 1em;
+    color: #FFFFFF;
+    background-color: #FDA305;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.view-athlete-gray-button:hover {
+    background-color: #FD3B07;
+}
+
+/* Media queries */
+@media (max-width: 768px) {
+    .view-athlete-title-container h1 {
+        font-size: 2em;
+    }
+
+    .view-athlete-gray-button {
+        font-size: 0.9em;
+        padding: 8px 16px;
+    }
+}
+
+/***********************************************************************************************
+*                              ATHLETE EVALUATION HISTORY                                      *
+***********************************************************************************************/
+/* Fondo y diseño general */
+.evaluation-history-body {
+    font-family: 'Olympics', sans-serif;
+    background-image: url("../css/images/Vector_Completo.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #031147;
+}
+
+/* Contenedor transparente */
+.evaluation-history-wrapper {
+    background-color: rgba(255, 255, 255, 0.97); 
+    border-radius: 15px;
+    padding: 40px;
+    max-width: 1200px;
+    width: 90%;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Encabezado con logo */
+.evaluation-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.evaluation-header img {
+    width: 120px;
+    margin-bottom: 20px;
+}
+
+.evaluation-header h1 {
+    font-size: 2.5em;
+    color: #FD3B07;
+    margin: 0;
+    text-align: center;
+}
+
+/* Contenedor de evaluaciones */
+.evaluation-history-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+/* Tarjetas de evaluación */
+.evaluation-card {
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.evaluation-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.evaluation-card i {
+    font-size: 2em;
+    color: #0792C7;
+    margin-bottom: 10px;
+}
+
+.evaluation-card h4 {
+    font-size: 1.2em;
+    color: #031147;
+    margin-bottom: 10px;
+}
+
+.evaluation-card p {
+    font-size: 1em;
+    color: #555;
+    margin: 5px 0;
+}
+
+.evaluation-card a {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 1em;
+    color: #FFFFFF;
+    background-color: #0AB9E4;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.evaluation-card a:hover {
+    background-color: #0792C7;
+}
+
+/* Botón de volver */
+.evaluation-back-button-container {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.evaluation-back-button {
+    padding: 10px 20px;
+    font-size: 1em;
+    color: #FFFFFF;
+    background-color: #FDA305;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.evaluation-back-button:hover {
+    background-color: #FD3B07;
+}
+
+@media (max-width: 768px) {
+    .evaluation-header h1 {
+        font-size: 2em;
+    }
+
+    .evaluation-card a {
+        font-size: 0.9em;
+    }
+
+    .evaluation-back-button {
+        font-size: 0.9em;
+        padding: 8px 16px;
+    }
+}
+
+/***********************************************************************************************
+*                            ATHLETE VIEW OWN EVALUATION DETAIL                               *
+***********************************************************************************************/
+/* Fondo y diseño general */
+.athlete-eval-body {
+    font-family: 'Olympics', sans-serif;
+    background-image: url("../css/images/Vector_Completo.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    overflow-y: auto;
+}
+
+/* Contenedor de contenido interno */
+.athlete-eval-container {
+    background-color: #f9f9f9;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Estilo del logo */
+.athlete-eval-logo {
+    max-width: 100px;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+/* Título */
+.athlete-eval-header {
+    font-size: 2.5em;
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+/* Subtítulos */
+.athlete-eval-subheader {
+    font-size: 1.8em;
+    color: #333;
+    margin-top: 30px;
+}
+
+/* Texto general */
+.athlete-eval-text,
+.athlete-eval-list {
+    font-size: 1.2em;
+    color: #333;
+}
+
+/* Lista de criterios */
+.athlete-eval-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.athlete-eval-list-item {
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Botón de regresar */
+.athlete-eval-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.athlete-eval-back-button {
+    padding: 10px 20px;
+    font-size: 1em;
+    color: white;
+    background-color: #6c757d;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.athlete-eval-back-button:hover {
+    background-color: #5a6268;
+}
+
+/* Adaptaciones para pantallas pequeñas */
+@media (max-width: 768px) {
+    .athlete-eval-container {
+        padding: 30px;
+    }
+
+    .athlete-eval-header {
+        font-size: 2em;
+    }
+
+    .athlete-eval-back-button {
+        font-size: 0.9em;
+        padding: 8px 16px;
+    }
+}
+
+/***********************************************************************************************
+*                                 ATHLETE COMPARISON OPTIONS                                  *
+***********************************************************************************************/
+/* Fondo y diseño general */
+.comparison-options-body {
+    font-family: 'Olympics', sans-serif;
+    background-image: url("../css/images/Vector_Completo.jpg");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    color: #031147;
+}
+
+/* Contenedor principal centrado */
+.comparison-options-container {
+    background-color: #FFFFFF;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+}
+
+/* Sección del encabezado con el logo */
+.comparison-options-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.comparison-options-header-logo {
+    max-width: 80px;
+    margin-bottom: 10px;
+}
+
+/* Estilo del título */
+.comparison-options-title {
+    font-size: 2em;
+    color: #FD3B07;
+    margin-bottom: 20px;
+    font-family: 'Olympics', sans-serif;
+}
+
+/* Etiquetas de las opciones */
+.comparison-options-label {
+    font-size: 1.2em;
+    color: #333;
+    display: block;
+    margin: 20px 0;
+    text-align: left;
+}
+
+.comparison-options-radio {
+    margin-right: 10px;
+}
+
+/* Botones principales y secundarios */
+.comparison-options-btn-primary {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.1em;
+    color: #FFFFFF;
+    background-color: #0AB9E4;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.comparison-options-btn-primary:hover {
+    background-color: #0792C7;
+}
+
+.comparison-options-btn-secondary {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.1em;
+    color: #FFFFFF;
+    background-color: #6c757d;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.comparison-options-btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+/* Diseño del grupo de botones */
+.comparison-options-button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* Ajustes responsivos */
+@media (max-width: 768px) {
+    .comparison-options-container {
+        padding: 20px;
+    }
+
+    .comparison-options-title {
+        font-size: 1.8em;
+    }
+
+    .comparison-options-label {
+        font-size: 1em;
+    }
+
+    .comparison-options-btn-primary,
+    .comparison-options-btn-secondary {
+        font-size: 1em;
+    }
+}
+
+/***********************************************************************************************
+*                             ATHLETE COMPARISON WITH ATHLETES                                 *
+***********************************************************************************************/
+/* Fondo y diseño general */
+.compare-athletes-body {
+    font-family: 'Olympics', sans-serif;
+    background-image: url("../css/images/Vector_Completo.jpg");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding-top: 30px;
+}
+
+/* Contenedor principal de comparación */
+.compare-athletes-container {
+    background-color: white;
+    padding: 80px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    max-width: 900px;
+    width: 100%;
+    text-align: center;
+}
+
+/* Contenedor del logo */
+.compare-athletes-logo-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.compare-athletes-logo {
+    max-width: 80px;
+    cursor: pointer;
+}
+
+/* Título principal */
+.compare-athletes-title {
+    font-size: 2.5em;
+    color: #007bff;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Etiquetas */
+.compare-athletes-label {
+    font-size: 1.2em;
+    color: #333;
+    margin-bottom: 10px;
+    display: block;
+}
+
+/* Dropdown de selección */
+.compare-athletes-select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    font-size: 1.1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Botón principal */
+.compare-athletes-button-primary {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.2em;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.compare-athletes-button-primary:hover {
+    background-color: #0056b3;
+}
+
+/* Botón secundario (gris) */
+.compare-athletes-button-secondary {
+    background-color: #6c757d;
+    color: white;
+    padding: 12px;
+    width: 100%;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.compare-athletes-button-secondary:hover {
+    background-color: #5a6268;
+}
+
+/* Ajustes para dispositivos móviles */
+@media (max-width: 768px) {
+    .compare-athletes-container {
+        padding: 40px;
+    }
+
+    .compare-athletes-title {
+        font-size: 2em;
+    }
+
+    .compare-athletes-label, 
+    .compare-athletes-select, 
+    .compare-athletes-button-primary, 
+    .compare-athletes-button-secondary {
+        font-size: 1em;
+    }
+
+    .compare-athletes-logo {
+        max-width: 60px;
+    }
+}
+
+/***********************************************************************************************
+*                             COMPARE WITH ATHLETES RESULT                                     *
+***********************************************************************************************/
+/* Fondo y diseño general */
+.compare-result-body {
+    font-family: 'Olympics', sans-serif;
+    background-color: #f9f9f9;
+    background-image: url("../css/images/Vector_Completo.jpg");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100vh;
+    margin: 0;
+    padding: 30px 15px;
+}
+
+/* Contenedor principal con opacidad */
+.compare-result-container {
+    background-color: rgba(255, 255, 255, 0.97); /* Fondo blanco con opacidad */
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    max-width: 1200px;
+    width: 100%;
+    text-align: center;
+}
+
+/* Logo */
+.compare-result-logo-container {
+    margin-bottom: 20px;
+}
+
+.compare-result-logo {
+    max-width: 100px;
+    cursor: pointer;
+}
+
+/* Título principal */
+.compare-result-title {
+    font-size: 2.5em;
+    color: #007bff;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* Bloques de información */
+.compare-result-block {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+/* Títulos dentro de los bloques */
+.compare-result-block-title {
+    font-size: 1.8em;
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+/* Listas de criterios */
+.compare-result-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.compare-result-list-item {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.compare-result-list-item strong {
+    font-weight: bold;
+}
+
+/* Texto resaltado */
+.compare-result-highlight {
+    color: #ffbe07; /* Resaltado en rojo */
+}
+
+/* Gráfica */
+.compare-result-chart-container {
+    margin: 30px 0;
+    height: 300px; /* Espacio reservado para la gráfica */
+}
+
+/* Botón de regresar */
+.compare-result-back-button {
+    background-color: #6c757d;
+    color: white;
+    padding: 12px 20px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+.compare-result-back-button:hover {
+    background-color: #5a6268;
+}
+
+/* Ajustes para dispositivos móviles */
+@media (max-width: 768px) {
+    .compare-result-title {
+        font-size: 2em;
+    }
+
+    .compare-result-block {
+        padding: 20px;
+    }
+
+    .compare-result-block-title {
+        font-size: 1.5em;
+    }
+
+    .compare-result-list-item {
+        font-size: 1em;
+    }
+
+    .compare-result-logo {
+        max-width: 80px;
+    }
+}
+
+/***********************************************************************************************
+*                              COMPARE OWN RECORDS SELECTION                                   *
+***********************************************************************************************/
+/* Body Styles */
+.body-compare-records {
+    font-family: 'Olympics', sans-serif;
+    background-image: url("../css/images/Vector_Completo.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    color: #031147;
+}
+
+/* Main Container */
+.comparison-container-records {
+    background-color: rgba(255, 255, 255, 0.97); /* Fondo blanco con opacidad */
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 100%;
+}
+
+/* Header Section */
+.header-section-records {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.header-section-records img {
+    max-width: 80px;
+    margin-bottom: 10px;
+}
+
+/* Title */
+.title-compare-records {
+    font-size: 2em;
+    color: #FD3B07;
+    text-align: center;
+    margin-bottom: 20px;
+    font-family: 'Olympics', sans-serif;
+}
+
+/* Paragraphs */
+.text-compare-records {
+    font-size: 1.2em;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Labels */
+.label-compare-records {
+    font-size: 1.1em;
+    color: #555;
+    margin-top: 10px;
+    display: block;
+}
+
+/* Select Boxes */
+.select-compare-records {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+/* Buttons (Shared Styles) */
+.btn-compare-records {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Primary Button */
+.btn-primary-records {
+    background-color: #0AB9E4;
+    color: white;
+}
+
+.btn-primary-records:hover {
+    background-color: #0792C7;
+}
+
+/* Secondary Button */
+.btn-secondary-records {
+    background-color: #6c757d;
+    color: white;
+    margin-top: 15px; /* Espaciado entre botones */
+}
+
+.btn-secondary-records:hover {
+    background-color: #5a6268;
+}
+
+/* Alert Messages */
+.alert-compare-records {
+    font-size: 1em;
+    margin-bottom: 20px;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .comparison-container-records {
+        padding: 20px;
+    }
+
+    .title-compare-records {
+        font-size: 1.8em;
+    }
+
+    .btn-primary-records,
+    .btn-secondary-records {
+        font-size: 1em;
+    }
+}
+
+/***********************************************************************************************
+*                              COMPARE OWN RECORDS RESULT                                     *
+***********************************************************************************************/
+/* General */
+.body-compare-result {
+    font-family: 'Olympics', sans-serif;
+    background-image: url("../css/images/Vector_Completo.jpg");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    margin: 0;
+    padding-top: 30px;
+    color: #031147;
+}
+
+/* Contenedor principal */
+.comparison-container-result {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    max-width: 1200px;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.97); /* Fondo blanco con opacidad */
+    padding: 20px;
+    border-radius: 15px;
+}
+
+/* Bloques de comparación */
+.comparison-block-result,
+.chart-container-result {
+    background-color: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+/* Encabezado */
+.header-section-result {
+    text-align: center;
+    grid-column: span 2;
+    margin-bottom: 20px;
+}
+
+.header-section-result img {
+    max-width: 100px;
+    margin-bottom: 10px;
+}
+
+/* Títulos y textos */
+.title-compare-result {
+    font-size: 1.8em;
+    color: #007bff;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.subtitle-compare-result {
+    font-size: 1.4em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.text-compare-result,
+.text-compare-result ul li {
+    font-size: 1.1em;
+    color: #333;
+}
+
+.text-compare-result ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+/* Botón de regresar */
+.button-container-result {
+    grid-column: span 2;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.button-compare-result {
+    padding: 12px 20px;
+    font-size: 1.1em;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button-compare-result:hover {
+    background-color: #0056b3;
+}
+
+/* Botón de regresar actualizado */
+.button-gray-result {
+    background-color: #6c757d; /* Gris oscuro */
+    color: #fff; /* Texto blanco */
+    padding: 12px 20px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra */
+    cursor: pointer;
+    text-align: center;
+    width: 100%; /* Ocupa todo el ancho disponible */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.button-gray-result:hover {
+    background-color: #5a6268; /* Gris más oscuro */
+}
+
+.button-gray-result:active {
+    background-color: #495057; /* Gris más intenso */
+}
+
+/***********************************************************************************************
+*                                ATHLETE EVALUATION VIDEO                                     *
+***********************************************************************************************/
+/* Estilo para el body */
+.analyze-video-body {
+    font-family: 'Olympics', sans-serif;
+    background-image: url("../css/images/Vector_Completo.jpg");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    color: #031147;
+}
+
+/* Encabezado principal */
+.analyze-video-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.analyze-video-header img {
+    max-width: 80px;
+    margin-bottom: 10px;
+}
+
+.analyze-video-title {
+    font-size: 2.5em;
+    color: #FD3B07;
+    margin-bottom: 20px;
+    text-align: center;
+    font-family: 'Olympics', sans-serif;
+}
+
+/* Contenedor del formulario */
+.analyze-video-form-container {
+    background-color: rgba(255, 255, 255, 0.97); /* Fondo blanco con opacidad ajustada */
+    padding: 60px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    width: 100%;
+    text-align: left;
+    margin-top: 20px;
+}
+
+.analyze-video-form-container label {
+    font-size: 1.2em;
+    color: #333;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.analyze-video-form-container input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+/* Botones */
+.analyze-video-button-primary {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 1.2em;
+    color: white;
+    background-color: #0AB9E4;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 10px; /* Añadido margen entre botones */
+}
+
+.analyze-video-button-primary:hover {
+    background-color: #0792C7;
+}
+
+.analyze-video-button-secondary {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 1.2em;
+    color: white;
+    background-color: #6c757d;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px; /* Espaciado más limpio */
+    transition: background-color 0.3s ease;
+}
+
+.analyze-video-button-secondary:hover {
+    background-color: #5a6268;
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 768px) {
+    .analyze-video-form-container {
+        padding: 40px;
+    }
+
+    .analyze-video-title {
+        font-size: 2em;
+    }
+
+    .analyze-video-button-primary,
+    .analyze-video-button-secondary {
+        font-size: 1em;
+    }
+}
+
+/***********************************************************************************************
+*                            ATHLETE EVALUATION VIDEO RESULT                                  *
+***********************************************************************************************/
+/* Estilo para el body */
+.analysis-result-body {
+    font-family: 'Olympics', sans-serif;
+    background-image: url("../css/images/Vector_Completo.jpg");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    color: #031147;
+}
+
+/* Contenedor principal */
+.analysis-result-container {
+    background-color: rgba(255, 255, 255, 0.97); /* Fondo blanco con opacidad */
+    padding: 80px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    max-width: 900px;
+    width: 100%;
+    text-align: left;
+}
+
+/* Encabezado */
+.analysis-result-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.analysis-result-logo {
+    max-width: 80px;
+    margin-bottom: 10px;
+}
+
+.analysis-result-title {
+    font-size: 2.5em;
+    color: #FD3B07;
+    margin-bottom: 20px;
+    font-family: 'Olympics', sans-serif;
+}
+
+/* Contenido del análisis */
+.analysis-result-content {
+    font-size: 1.2em;
+    color: #333;
+    margin-bottom: 40px;
+}
+
+/* Botón de regresar */
+.analysis-result-button {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 1.2em;
+    color: white;
+    background-color: #6c757d;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.analysis-result-button:hover {
+    background-color: #5a6268;
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 768px) {
+    .analysis-result-container {
+        padding: 40px;
+    }
+
+    .analysis-result-title {
+        font-size: 2em;
+    }
+
+    .analysis-result-button {
+        font-size: 1em;
+    }
+}

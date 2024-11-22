@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles de la Evaluación de {{ record.athlete.user.first_name }} {{ record.athlete.user.last_name }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'css/images/WhiteLogo.png' %}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="evaluation-detail-body">
+
+    <div class="evaluation-container">
+        <!-- Logo centrado arriba del título -->
+        <div class="logo-container">
+            <a href="{% url 'home' %}">
+                <img src="{% static 'css/images/Logo.png' %}" alt="Logo" class="logo-img">
+            </a>
+        </div>
+
+        <h2 class="evaluation-title">Detalles de la Evaluación de {{ record.athlete.user.first_name }} {{ record.athlete.user.last_name }}</h2>
+
+        <div class="evaluation-info">
+            <p><i class="fas fa-calendar-alt"></i> <strong>Fecha de Evaluación:</strong> {{ record.evaluation_date }}</p>
+            <p><i class="fas fa-user"></i> <strong>Evaluado por:</strong> {{ record.coach.user.first_name }} {{ record.coach.user.last_name }}</p>
+        </div>
+
+        <h3 class="evaluation-total-score">Suma de Calificaciones: {{ record.total_score }}</h3>
+
+        <div class="evaluation-content-container">
+            <!-- Tabla de criterios de evaluación -->
+            <table class="evaluation-table">
+                <thead>
+                    <tr>
+                        <th>Criterio</th>
+                        <th>Calificación</th>
+                        <th>Notas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for criterion in evaluation_criteria %}
+                        <tr>
+                            <td>{{ criterion.criterion_name }}</td>
+                            <td>{{ criterion.score }}</td>
+                            <td>{{ criterion.notes }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="3">No hay criterios de evaluación para mostrar.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Gráfico de barras -->
+        <div class="evaluation-chart-container">
+            <canvas id="evaluationChart"></canvas>
+        </div>
+
+        <!-- Botón de regresar exclusivo para coaches sin permisos -->
+        {% if not can_edit %}
+        <div class="evaluation-button-container-coach-view-only">
+            <a href="{% url 'coach_view_athlete_profile' record.athlete.id %}" class="button evaluation-back-button-view-only">Regresar al perfil</a>
+        </div>
+        {% endif %}
+
+        <!-- Botones de editar/eliminar solo si se tiene permiso -->
+        {% if can_edit %}
+        <div class="evaluation-button-container">
+            <a href="{% url 'edit_evaluation' record.id %}" class="button evaluation-edit-button" onclick="return confirm('¿Estás seguro de que deseas editar esta evaluación?');">Editar Evaluación</a>
+            <form action="{% url 'delete_evaluation' record.id %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="button evaluation-delete-button" onclick="return confirm('¿Estás seguro de que deseas eliminar esta evaluación?');">Eliminar Evaluación</button>
+            </form>
+            <a href="{% url 'coach_view_athlete_profile' record.athlete.id %}" class="button evaluation-back-button">Regresar al perfil</a>
+        </div>        
+        {% endif %}
+    </div>
+
+    <script>
+        const ctx = document.getElementById('evaluationChart').getContext('2d');
+        const evaluationChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: [{% for criterion in evaluation_criteria %} '{{ criterion.criterion_name }}',{% endfor %}],
+                datasets: [{
+                    label: 'Calificaciones',
+                    data: [{% for criterion in evaluation_criteria %} {{ criterion.score }},{% endfor %}],
+                    backgroundColor: [
+                        '#fd3b07', '#121364', '#0ab9e4', '#fda305', '#ffcf02'
+                    ],
+                    borderColor: '#444',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 10
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

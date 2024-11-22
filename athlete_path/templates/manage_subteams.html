@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestionar Subequipos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'css/images/WhiteLogo.png' %}">
+</head>
+<body class="manage-subteams-body">
+
+    <!-- Contenedor principal -->
+    <div class="manage-subteams-content">
+        <!-- Sección de encabezado con logo centrado -->
+        <div class="manage-subteams-header-section">
+            <div class="manage-subteams-logo">
+                <a href="{% url 'home' %}">
+                    <img src="{% static 'css/images/Logo.png' %}" alt="Logo" class="img-fluid">
+                </a>
+            </div>
+            <h1 class="manage-subteams-header-title">Gestionar Subequipos</h1>
+        </div>
+
+        <!-- Mostrar mensajes de alerta si los hay -->
+        {% if messages %}
+            <div>
+                {% for message in messages %}
+                    <div class="manage-subteams-alert alert-{{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <!-- Mis Subequipos -->
+        <h2 class="manage-subteams-subteam-title">Mis Subequipos</h2>
+        <div class="manage-subteams-grid-container">
+            {% for subteam in my_subteams %}
+                <div class="manage-subteams-subteam-section">
+                    <span class="manage-subteams-subteam-name">{{ subteam.name }}</span>
+                    <span>
+                        <a href="{% url 'edit_subteam' subteam.id %}" class="manage-subteams-edit-link">Editar</a> |
+                        <a href="{% url 'delete_subteam' subteam.id %}" class="manage-subteams-delete-link">Eliminar</a>
+                    </span>
+                </div>
+            {% empty %}
+                <p class="manage-subteams-section-message">No tienes subequipos aún.</p>
+            {% endfor %}
+        </div>
+
+        <!-- Subequipos Disponibles -->
+        <h2 class="manage-subteams-subteam-title">Subequipos Disponibles</h2>
+        <div class="manage-subteams-grid-container">
+            {% for subteam in available_subteams %}
+                <div class="manage-subteams-subteam-section">
+                    <span class="manage-subteams-subteam-name">{{ subteam.name }}</span>
+                    <span>
+                        <a href="{% url 'join_subteam' subteam.id %}">Unirse</a>
+                    </span>
+                </div>
+            {% empty %}
+                <p class="manage-subteams-section-message">No hay subequipos disponibles para unirse.</p>
+            {% endfor %}
+        </div>
+
+        <!-- Botones -->
+        <div class="manage-subteams-button-container">
+            <a href="{% url 'create_subteam' %}">
+                <button class="manage-subteams-button manage-subteams-create-btn">
+                    <i class="bi bi-plus-circle"></i>Crear Subequipo
+                </button>
+            </a>
+            <a href="{% url 'coach_dashboard' %}">
+                <button class="manage-subteams-button manage-subteams-back-btn">
+                    <i class="bi bi-arrow-left-circle"></i>Regresar
+                </button>
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>

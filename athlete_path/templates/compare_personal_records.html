@@ -1,134 +1,57 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Comparación de Récords Personales</title>
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .comparison-container {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 500px;
-            text-align: center;
-        }
-
-        h2 {
-            color: #4066d5;
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-
-        label {
-            font-size: 16px;
-            color: #333;
-            display: block;
-            margin-bottom: 10px;
-            text-align: left;
-        }
-
-        select {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 20px;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            font-size: 16px;
-            box-sizing: border-box;
-        }
-
-        button[type="submit"] {
-            background-color: #4066d5;
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            width: 100%;
-        }
-
-        button[type="submit"]:hover {
-            background-color: #3053b0;
-        }
-
-        /* Estilos para los mensajes de error */
-        .alert {
-            color: #721c24;
-            background-color: #f8d7da;
-            border-radius: 5px;
-            padding: 10px;
-            margin-bottom: 15px;
-        }
-
-        @media (max-width: 600px) {
-            .comparison-container {
-                padding: 20px;
-            }
-
-            h2 {
-                font-size: 20px;
-            }
-
-            label {
-                font-size: 14px;
-            }
-
-            button[type="submit"] {
-                font-size: 14px;
-            }
-        }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'css/images/WhiteLogo.png' %}">
 </head>
-<body>
-    <div class="comparison-container">
-        <h2>Comparación de Récords Personales</h2>
-        
-        <!-- Mostrar mensajes de error dentro del contenedor blanco -->
+<body class="body-compare-records">
+    <div class="comparison-container-records">
+        <!-- Header Section with Logo -->
+        <div class="header-section-records">
+            <a href="{% url 'home' %}">
+                <img src="{% static '/css/images/Logo.png' %}" alt="Logo">
+            </a>
+        </div>
+
+        <h2 class="title-compare-records">Comparación de Récords Personales</h2>
+
+        <!-- Display error messages inside the white container -->
         {% if messages %}
         <div>
             {% for message in messages %}
-                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                <div class="alert-compare-records alert-{{ message.tags }}">{{ message }}</div>
             {% endfor %}
         </div>
         {% endif %}
 
-        <p>Selecciona dos récords diferentes para comparar</p>
+        <p class="text-compare-records">Selecciona dos récords diferentes para comparar</p>
         <form method="POST">
             {% csrf_token %}
-            <label for="record_1">Primer Récord:</label>
-            <select name="record_1" required>
+            <label class="label-compare-records" for="record_1">Primer Récord:</label>
+            <select class="select-compare-records" name="record_1" required>
                 <option value="">Seleccionar</option>
                 {% for record in records %}
                 <option value="{{ record.id }}">{{ record.evaluation_date }} - Dificultad: {{ record.difficulty }}, Ejecución: {{ record.execution }}</option>
                 {% endfor %}
             </select>
-            
-            <label for="record_2">Segundo Récord:</label>
-            <select name="record_2" required>
+
+            <label class="label-compare-records" for="record_2">Segundo Récord:</label>
+            <select class="select-compare-records" name="record_2" required>
                 <option value="">Seleccionar</option>
                 {% for record in records %}
                 <option value="{{ record.id }}">{{ record.evaluation_date }} - Dificultad: {{ record.difficulty }}, Ejecución: {{ record.execution }}</option>
                 {% endfor %}
             </select>
-            
-            <button type="submit">Comparar</button>
+
+            <button type="submit" class="btn-compare-records btn-primary-records">Comparar</button>
         </form>
-        <br>
-        <button onclick="window.history.back();">Regresar</button>
+
+        <button type="button" class="btn-compare-records btn-secondary-records" onclick="window.history.back();">Regresar</button>
     </div>
 </body>
 </html>

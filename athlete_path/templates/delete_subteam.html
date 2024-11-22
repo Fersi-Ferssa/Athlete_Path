@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eliminar Subequipo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'css/images/WhiteLogo.png' %}">
+</head>
+<body class="delete-subteam-body">
+    <div class="delete-subteam-container">
+        <!-- Título -->
+        <h2 class="delete-subteam-title">Eliminar Subequipo: {{ subteam.name }}</h2>
+        
+        <!-- Mensaje -->
+        <p class="delete-subteam-message">
+            ¿Estás seguro de que deseas eliminar este subequipo? Esta acción no se puede deshacer.
+        </p>
+
+        <!-- Formulario de confirmación -->
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit" class="delete-subteam-button">Eliminar</button>
+        </form>
+
+        <!-- Botón de cancelar -->
+        <a href="{% url 'manage_subteams' %}" class="delete-subteam-cancel-link">Cancelar</a>
+    </div>
+</body>
+</html>
